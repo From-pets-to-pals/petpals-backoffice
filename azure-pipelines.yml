@@ -15,7 +15,7 @@ steps:
     versionSpec: '18.14'
   displayName: 'Install Node.js'
 - script: |
-    cd petpals-backoffice/front
+    cd front
     npm install -g @angular/cli
     npm install
     ng build
