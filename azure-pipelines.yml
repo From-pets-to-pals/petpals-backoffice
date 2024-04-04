@@ -14,9 +14,6 @@ steps:
   inputs:
     versionSpec: '18.14'
   displayName: 'Install Node.js'
-- script: dir
-  workingDirectory: petpals-backoffice
-  displayName: List contents of a folder
 - script: |
     cd petpals-backoffice/front
     npm install -g @angular/cli
