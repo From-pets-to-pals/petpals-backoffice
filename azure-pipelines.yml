@@ -15,10 +15,10 @@ steps:
     versionSpec: '18.14'
   displayName: 'Install Node.js'
 - script: dir
-  workingDirectory: $(Agent.BuildDirectory)
+  workingDirectory: petpals-backoffice
   displayName: List contents of a folder
-- script: cd
-  workingDirectory: $(Agent.BuildDirectory)/petpals-backoffice/front
+- script: |
+    cd petpals-backoffice/front
     npm install -g @angular/cli
     npm install
     ng build
