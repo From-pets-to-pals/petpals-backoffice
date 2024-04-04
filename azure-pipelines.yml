@@ -16,10 +16,9 @@ steps:
   displayName: 'Install Node.js'
 
 - script: 
-    echo "Moving to front directory"
     cd front
     ls
-  displayName: 'npm install and build'
+  displayName: 'Moving to front directory'
 - script: |
     npm install -g @angular/cli
     npm install
