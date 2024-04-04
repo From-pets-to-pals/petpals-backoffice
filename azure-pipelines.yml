@@ -15,7 +15,7 @@ steps:
     versionSpec: '18.14'
   displayName: 'Install Node.js'
 - script: dir
-  workingDirectory: $(Agent.BuildDirectory)/petpals-backoffice
+  workingDirectory: $(Agent.BuildDirectory)
   displayName: List contents of a folder
 - script: cd
   workingDirectory: $(Agent.BuildDirectory)/petpals-backoffice/front
