@@ -14,12 +14,11 @@ steps:
   inputs:
     versionSpec: '18.14'
   displayName: 'Install Node.js'
-
-- script: 
-    cd front
-    ls
-  displayName: 'Moving to front directory'
-- script: |
+- script: dir
+  workingDirectory: $(Agent.BuildDirectory)/front
+  displayName: List contents of a folder
+- script: cd
+  workingDirectory: $(Agent.BuildDirectory)/front
     npm install -g @angular/cli
     npm install
     ng build
