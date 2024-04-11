@@ -34,15 +34,15 @@ steps:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)/petpals-backoffice-$(Build.BuildId).zip'
     ArtifactName: 'petpals-backoffice'
     publishLocation: 'Container'
+
 - task: AzureStaticWebApp@0
   displayName: Deploy to Azure Static Web App
   inputs:
     workingDirectory: '$(Build.SourcesDirectory)'
-    output_location: '$(Build.SourcesDirectory)/front/dist/front'
-    app_location: '$(Build.SourcesDirectory)/front/dist/front/browser'
+    output_location: '/front/dist/front/browser'
     skip_app_build: true
     skip_api_build: true
     verbose: true
-    azure_static_web_apps_api_token: 'a910747c0549fc94efe753d0bec81d6378caa4b9cfb8e52eec5c07b9d1f0191d5-62476482-e844-4bf4-ab09-ac0effabaf9e003420128'
+    azure_static_web_apps_api_token: '$(API_TOKEN)'
 
 
