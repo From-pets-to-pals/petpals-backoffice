@@ -18,13 +18,14 @@ steps:
     cd front
     npm install -g @angular/cli
     npm install
-    ng build
+    ng build --prod
   displayName: 'npm install and build'
-- task: ArchiveFiles@2
+- task: AzureStaticWebApp@0
   inputs:
-    rootFolderOrFile: '$(Build.SourcesDirectory)/front/dist/front'
-    includeRootFolder: true
-    archiveType: 'zip'
-    archiveFile: '$(Build.ArtifactStagingDirectory)/petpals-backoffice-$(Build.BuildId).zip'
-    replaceExistingArchive: false
+    output_location: '$(Build.SourcesDirectory)/front/dist/front'
+    skip_app_build: true
+    skip_api_build: true
+    verbose: true
+    azure_static_web_apps_api_token: 'a910747c0549fc94efe753d0bec81d6378caa4b9cfb8e52eec5c07b9d1f0191d5-62476482-e844-4bf4-ab09-ac0effabaf9e003420128'
+
 
