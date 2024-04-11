@@ -37,7 +37,7 @@ steps:
 - task: AzureStaticWebApp@0
   displayName: Deploy to Azure Static Web App
   inputs:
-    app_location: '$(Build.SourcesDirectory)/front/dist/front/browser'
+    app_location: '/working_dir/home/vsts/work/1/s/front/dist/front/browser'
     skip_app_build: true
     skip_api_build: true
     verbose: true
