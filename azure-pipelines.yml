@@ -21,16 +21,23 @@ steps:
     ng build
   displayName: 'npm install and build'
 - task: ArchiveFiles@2
+  displayName: Archive build artifact
   inputs:
     rootFolderOrFile: '$(Build.SourcesDirectory)/front/dist/front'
     includeRootFolder: true
     archiveType: 'zip'
     archiveFile: '$(Build.ArtifactStagingDirectory)/petpals-backoffice-$(Build.BuildId).zip'
     replaceExistingArchive: false
-
-- task: AzureStaticWebApp@0
+- task: PublishBuildArtifacts@1
+  displayName: Publish build artifact
   inputs:
-    output_location: '$(Build.SourcesDirectory)/front/dist/front'
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)/petpals-backoffice-$(Build.BuildId).zip'
+    ArtifactName: 'petpals-backoffice'
+    publishLocation: 'Container'
+- task: AzureStaticWebApp@0
+  displayName: Deploy to Azure Static Web App
+  inputs:
+    output_location: '$(Build.SourcesDirectory)/front/dist/front/browser'
     skip_app_build: true
     skip_api_build: true
     verbose: true
