@@ -22,7 +22,7 @@ steps:
   displayName: 'npm install and build'
 - task: ArchiveFiles@2
   inputs:
-    rootFolderOrFile: '$(Build.BinariesDirectory)/dist/front'
+    rootFolderOrFile: '$(Build.BinariesDirectory)/front/dist/front'
     includeRootFolder: true
     archiveType: 'zip'
     archiveFile: '$(Build.ArtifactStagingDirectory)/petpals-backoffice-$(Build.BuildId).zip'
