@@ -33,21 +33,10 @@ stages:
               destinationFolder: '$(System.ArtifactsDirectory)/app'
               cleanDestinationFolder: false
               overwriteExistingFiles: true
-          - task: CmdLine@2
-            inputs:
-              script: 'ls'
-              workingDirectory: '$(System.ArtifactsDirectory)'
-          - task: CopyFiles@2
-            displayName: 'Copy Files from artifact staging directory'
-            inputs:
-              SourceFolder: '$(System.ArtifactsDirectory)/app'
-              Contents: 'front/browser'
-              TargetFolder: '$(System.DefaultWorkingDirectory)/app'
-              OverWrite: true
           - task: AzureStaticWebApp@0
             displayName: Deploy to Azure Static Web App
             inputs:
-              workingDirectory: '$(System.DefaultWorkingDirectory)/app'
+              workingDirectory: '$(System.ArtifactsDirectory)/app'
               output_location: '/front'
               app_location: 'front/browser'
               skip_app_build: true
