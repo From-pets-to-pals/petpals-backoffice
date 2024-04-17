@@ -35,7 +35,7 @@ stages:
               overwriteExistingFiles: true
           - task: CmdLine@2
             inputs:
-              script: 'ls -l'
+              script: 'ls'
               workingDirectory: '$(System.ArtifactsDirectory)'
           - task: CopyFiles@2
             displayName: 'Copy Files from artifact staging directory'
