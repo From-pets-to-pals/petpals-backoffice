@@ -30,7 +30,7 @@ stages:
           - task: ExtractFiles@1
             inputs:
               archiveFilePatterns: '$(System.ArtifactsDirectory)/$(APP_NAME)/$(APP_NAME)-*'
-              destinationFolder: '$(System.ArtifactsDirectory)/front'
+              destinationFolder: '$(System.ArtifactsDirectory)'
               cleanDestinationFolder: true
               overwriteExistingFiles: false
           - task: CopyFiles@2
@@ -40,3 +40,13 @@ stages:
               Contents: 'front/browser'
               TargetFolder: '$(System.DefaultWorkingDirectory)'
               OverWrite: true
+          - task: AzureStaticWebApp@0
+            displayName: Deploy to Azure Static Web App
+            inputs:
+              workingDirectory: '$(System.DefaultWorkingDirectory)'
+              output_location: '/front'
+              app_location: 'front/browser'
+              skip_app_build: true
+              skip_api_build: true
+              verbose: true
+              azure_static_web_apps_api_token: '$(API_TOKEN)'
