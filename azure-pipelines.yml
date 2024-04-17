@@ -73,7 +73,7 @@ stages:
               buildVersionToDownload: 'latest'
               downloadType: 'single'
               artifactName: 'petpals-backoffice'
-              itemPattern: '**/browser'
+              itemPattern: '$(APP_NAME)/$(APP_NAME)-*.zip'
               downloadPath: '$(System.ArtifactsDirectory)'
               checkDownloadedFiles: true
           - task: CopyFiles@2
