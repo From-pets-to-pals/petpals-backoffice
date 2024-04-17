@@ -76,6 +76,12 @@ stages:
               itemPattern: '$(APP_NAME)/$(APP_NAME)-*'
               downloadPath: '$(System.ArtifactsDirectory)'
               checkDownloadedFiles: true
+          - task: ExtractFiles@1
+            inputs:
+              archiveFilePatterns: '$(APP_NAME)/$(APP_NAME)-*'
+              destinationFolder: '$(System.ArtifactsDirectory)/front'
+              cleanDestinationFolder: true
+              overwriteExistingFiles: false
           - task: CopyFiles@2
             displayName: 'Copy Files from artifact staging directory'
             inputs:
