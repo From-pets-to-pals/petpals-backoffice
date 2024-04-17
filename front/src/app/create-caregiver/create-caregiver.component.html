@@ -1,53 +1,51 @@
 <p>create-caregiver works!</p>{{title}}
 <div class="content">
 
-  <form [formGroup]="form" (ngSubmit)="getFromBack()">
+  <form [formGroup]="form" (ngSubmit)="createCaregiver()">
   <mat-form-field>
     <mat-label>Je suis un...</mat-label>
-    <mat-select>
-      <mat-option value="GROOMERS">Toiletteur/salon de toilettage</mat-option>
-      <mat-option value="VETS">Vétérinaire</mat-option>
-      <mat-option value="TRAINERS">Éducateur canin</mat-option>
+    <mat-select formControlName="caregiverType" >
+      <mat-option *ngFor="let caregiverType of caregiverOptions;" [value]="caregiverType.value">{{caregiverType.label}}</mat-option>
     </mat-select>
     <mat-hint align="end">Here's the dropdown arrow ^</mat-hint>
   </mat-form-field>
     <mat-form-field >
       <mat-label>Prénom</mat-label>
-      <input matInput #input maxlength="35" placeholder="Ex. Nougat">
+      <input formControlName="firstName" matInput  maxlength="35" placeholder="Ex. Nougat">
     </mat-form-field>
     <mat-form-field >
       <mat-label>Nom</mat-label>
-      <input matInput #input maxlength="35" placeholder="Ex. Nougat">
+      <input formControlName="lastName" matInput  maxlength="35" placeholder="Ex. Nougat">
     </mat-form-field>
     <mat-form-field>
       <mat-label>Adresse</mat-label>
-      <input matInput #input maxlength="250" placeholder="Ex. Nougat">
-      <mat-hint align="end">{{input.value.length}}/250</mat-hint>
+      <input formControlName="address" matInput  maxlength="250" placeholder="Ex. Nougat">
+      <mat-hint align="end">{{form.get("address")!.value.length}}/250</mat-hint>
     </mat-form-field>
     <mat-form-field>
       <mat-label>Ville</mat-label>
-      <input matInput #input maxlength="25" placeholder="Ex. Nougat">
-      <mat-hint align="end">{{input.value.length}}/25</mat-hint>
+      <input formControlName="city" matInput  maxlength="25" placeholder="Ex. Nougat">
+      <mat-hint align="end">{{form.get("city")!.value.length}}/25</mat-hint>
     </mat-form-field>
     <mat-form-field hintLabel="Max 10 characters">
       <mat-label>Code postal</mat-label>
-      <input matInput #input maxlength="5" placeholder="92150">
-      <mat-hint align="end">{{input.value.length}}/5</mat-hint>
+      <input formControlName="zipCode" matInput  maxlength="5" placeholder="92150">
+      <mat-hint align="end">{{form.get("zipCode")!.value.length}}/5</mat-hint>
     </mat-form-field>
     <mat-form-field hintLabel="Max 10 characters">
       <mat-label>Pays</mat-label>
-      <input matInput #input maxlength="10" placeholder="Ex. Nougat" value="France">
-      <mat-hint align="end">{{input.value.length}}/10</mat-hint>
+      <input formControlName="country" matInput  maxlength="10" placeholder="Ex. Nougat" value="France">
+      <mat-hint align="end">{{form.get("country")!.value.length}}/10</mat-hint>
     </mat-form-field>
     <mat-form-field hintLabel="Max 10 characters">
       <mat-label>Email</mat-label>
-      <input type="email" matInput #input maxlength="100" placeholder="Ex. Nougat">
-      <mat-hint align="end">{{input.value.length}}/100</mat-hint>
+      <input type="email" formControlName="email" matInput  maxlength="100" placeholder="Ex. Nougat">
+      <mat-hint align="end">{{form.get("email")!.value.length}}/100</mat-hint>
     </mat-form-field>
     <mat-form-field hintLabel="Max 10 characters">
       <mat-label>Téléphone</mat-label>
-      <input type="tel" matInput #input maxlength="10" placeholder="Ex. Nougat">
-      <mat-hint align="end">{{input.value.length}}/10</mat-hint>
+      <input formControlName="phoneNumber" type="tel" matInput  maxlength="10" placeholder="Ex. Nougat">
+      <mat-hint align="end">{{form.get("phoneNumber")!.value.length}}/10</mat-hint>
     </mat-form-field>
     <mat-divider></mat-divider>
     <mat-accordion>
@@ -61,15 +59,22 @@
         </mat-expansion-panel-header>
         <mat-form-field>
           <mat-label>Compétences</mat-label>
-          <mat-select>
+          <mat-select formControlName="palsHandled">
             <mat-option value="DOG">Chiens</mat-option>
             <mat-option value="CAT">Chats</mat-option>
           </mat-select>
         </mat-form-field>
         <mat-form-field>
           <mat-label>Disponibilités</mat-label>
-          <mat-select>
-            <mat-option value="option">Lundi</mat-option>
+          <mat-select formControlName="workingDays">
+            <mat-option *ngFor="let day of days;" value="{{day.value}}">{{day.label}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Déplacements</mat-label>
+          <mat-select formControlName="homeService">
+            <mat-option [value]="false">Non</mat-option>
+            <mat-option [value]="true">Oui</mat-option>
           </mat-select>
         </mat-form-field>
       </mat-expansion-panel>
