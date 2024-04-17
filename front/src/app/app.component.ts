@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import {CreateCaregiverComponent} from "./create-caregiver/create-caregiver.component";
+import {CreateCaregiverComponent} from "./components/create-caregiver/create-caregiver.component";
 
 @Component({
   selector: 'app-root',
