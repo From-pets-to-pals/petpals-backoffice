@@ -10,7 +10,7 @@ import {CreateCaregiverComponent} from "./components/create-caregiver/create-car
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'petpals';
+  title = 'PetPals';
 
   constructor() {
   }

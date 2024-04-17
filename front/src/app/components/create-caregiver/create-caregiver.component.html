@@ -1,9 +1,8 @@
-<div class="content">
   <form [formGroup]="form" (ngSubmit)="createCaregiver()">
   <mat-form-field>
     <mat-label>Je suis un...</mat-label>
     <mat-select formControlName="caregiverType" >
-      <mat-option *ngFor="let caregiverType of caregiverOptions;" [value]="caregiverType.value">{{caregiverType.label}}</mat-option>
+      <mat-option *ngFor="let caregiverType of caregiverTypes;" [value]="caregiverType.value">{{caregiverType.label}}</mat-option>
     </mat-select>
     <mat-hint align="end">Here's the dropdown arrow ^</mat-hint>
   </mat-form-field>
@@ -80,4 +79,3 @@
     </mat-divider>
         <button mat-flat-button type="submit" color="primary">Enregistrer</button>
   </form>
-</div>

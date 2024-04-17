@@ -9,7 +9,7 @@ import {
   ReactiveFormsModule,
   Validators
 } from '@angular/forms';
-import type {Caregiver} from '../../interfaces/caregiver';
+import type {Caregiver} from '../../models/interfaces/caregiver';
 import {MatFormField, MatHint, MatLabel} from "@angular/material/form-field";
 import {MatOption, MatSelect} from "@angular/material/select";
 import {MatInput} from "@angular/material/input";
@@ -24,9 +24,10 @@ import {
 import {MatButton} from "@angular/material/button";
 import {NgForOf} from "@angular/common";
 import {Store} from "@ngrx/store";
-import {getToken, reducer, updateToken} from "../../stores/app.state";
+import {updateToken} from "../../stores/app.state";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {MatTooltip} from "@angular/material/tooltip";
+import options from '../../models/menus/select.options';
 
 @Component({
   selector: 'app-create-caregiver',
@@ -39,52 +40,10 @@ import {MatTooltip} from "@angular/material/tooltip";
 export class CreateCaregiverComponent {
   title = 'petpals';
   isRegistered = false;
-  caregiverOptions = [
-    {
-      label:"Groomer",
-      value:"GROOMER"
-    },
-    {
-      label:"Éducateur",
-      value:"TRAINER"
-    },
-    {
-      label:"Vétérinaire",
-      value:"VET"
-    },
-  ]
+  caregiverTypes = options.caregiverType;
+  days = options.days;
 
 
-  days = [
-    {
-      label:"Lundi",
-      value:"MONDAY"
-    },
-    {
-      label:"Mardi",
-      value:"TUESDAY"
-    },
-    {
-      label:"Mercredi",
-      value:"WEDNESDAY"
-    },
-    {
-      label:"Jeudi",
-      value:"THURSDAY"
-    },
-    {
-      label:"Vendredi",
-      value:"FRIDAY"
-    },
-    {
-      label:"Samedi",
-      value:"SATURDAY"
-    },
-    {
-      label:"Dimanche",
-      value:"SUNDAY"
-    }
-  ]
   constructor(private _snackBar: MatSnackBar, private store:Store, private caregiverApiService: CaregiversApiService,private formBuilder: FormBuilder) {
 
   }
@@ -150,22 +109,23 @@ export class CreateCaregiverComponent {
         serviceRating: this.form.get("serviceRating")!.value,
         priceRating: this.form.get("priceRating")!.value,
       } as Caregiver;
-      this.caregiverApiService.createCaregiver(
-      toCreate
-    ).then(res => {
-      this.isRegistered = true;
-      this.token = res.data;
-      this.store.dispatch(updateToken(res.data))
-      return this.openSnackBar("Registration successful");
-    }).catch(err => {
-          return this.openSnackBar(err.message);
-      })
+      this.caregiverApiService
+        .createCaregiver(toCreate)
+        .then(res => {
+              this.isRegistered = true;
+              this.token = res.data;
+              this.store.dispatch(updateToken(res.data))
+              return this.openSnackBar("Registration successful","Close");
+            })
+        .catch(err => {
+              return this.openSnackBar(err.message,"Close");
+            })
     }
-    this.openSnackBar(this.isRegistered ? "User just created an account":"Invalid inputs.")
+    this.openSnackBar(this.isRegistered ? "User just created an account":"Invalid inputs.", "Ok")
   }
 
-  openSnackBar(message: string) {
-    this._snackBar.open(message, 'Ok', {
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action, {
       horizontalPosition: "center",
       verticalPosition: "top",
     });

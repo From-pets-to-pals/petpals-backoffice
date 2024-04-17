@@ -11,3 +11,8 @@ mat-divider{
 button{
   width: 300px;
 }
+
+
+input{
+  height: 25px;
+}
