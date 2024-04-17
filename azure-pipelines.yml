@@ -29,7 +29,9 @@ steps:
     failTaskOnFailedTests: true
     failTaskOnFailureToPublishResults: true
     failTaskOnMissingResultsFile: true
-    
+- task: PublishCodeCoverageResults@2
+  inputs:
+    summaryFileLocation: '$(Build.SourcesDirectory)/front/coverage/index.html'
 - task: ArchiveFiles@2
   displayName: Archive build artifact
   inputs:
