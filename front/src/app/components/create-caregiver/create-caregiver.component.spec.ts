@@ -24,7 +24,6 @@ describe('CreateCaregiverComponent', () => {
 				],
 			})
 			.compileComponents();
-		
 		fixture = TestBed.createComponent(CreateCaregiverComponent);
 		component = fixture.componentInstance;
 		fixture.detectChanges();
@@ -33,7 +32,9 @@ describe('CreateCaregiverComponent', () => {
 	it('should create', () => {
 		expect(component).toBeTruthy();
 	});
-	it('should be ready to ad caregiver', async () => {
+	
+	
+	it('should be ready to add caregiver', async () => {
 		expect(component.isRegistered).toBeFalse();
 		const caregivers = fixture.debugElement.query(By.css("#select_caregiver_type")).nativeElement;
 		caregivers?.click();
@@ -51,12 +52,12 @@ describe('CreateCaregiverComponent', () => {
 		fixture = TestBed.createComponent(CreateCaregiverComponent);
 		component = fixture.componentInstance;
 		fixture.detectChanges();
+		
 		const days = fixture.debugElement.query(By.css("#select_working_days")).nativeElement;
 		days?.click();
 		fixture.detectChanges();
 		// @ts-ignore
 		const options = fixture.debugElement.queryAll(By.css('.mdc-list-item__primary-text')) as HTMLElement[];
-		console.debug(options[0])
 		// @ts-ignore
 		expect(options[0]?.nativeNode.textContent).toEqual("Lundi");
 		// @ts-ignore
