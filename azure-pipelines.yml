@@ -34,11 +34,11 @@ stages:
               failTaskOnMissingResultsFile: true
           - task: PublishCodeCoverageResults@2
             inputs:
-              summaryFileLocation: '$(Build.SourcesDirectory)/front/coverage/cobertura-coverage.xml'
+              summaryFileLocation: '$(Build.SourcesDirectory)/$(SUBFOLDER)/cobertura-coverage.xml'
           - task: ArchiveFiles@2
             displayName: Archive build artifact
             inputs:
-              rootFolderOrFile: '$(Build.SourcesDirectory)/front/dist/front'
+              rootFolderOrFile: '$(Build.SourcesDirectory)/$(SUBFOLDER)'
               includeRootFolder: true
               archiveType: 'zip'
               archiveFile: '$(Build.ArtifactStagingDirectory)/petpals-backoffice-$(Build.BuildId).zip'
