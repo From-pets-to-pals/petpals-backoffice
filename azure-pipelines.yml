@@ -19,7 +19,12 @@ steps:
     npm install -g @angular/cli
     npm install
     ng build
+    npm test
   displayName: 'npm install and build'
+- task: PublishCodeCoverageResults@2
+  inputs:
+    summaryFileLocation: '$(Build.SourcesDirectory)/front/junit-report/*.xml'
+    failIfCoverageEmpty: true
 - task: ArchiveFiles@2
   displayName: Archive build artifact
   inputs:
