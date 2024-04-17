@@ -1,7 +1,7 @@
   <form [formGroup]="form" (ngSubmit)="createCaregiver()">
   <mat-form-field>
     <mat-label>Je suis un...</mat-label>
-    <mat-select formControlName="caregiverType" >
+    <mat-select formControlName="caregiverType" id="select_caregiver_type" >
       <mat-option *ngFor="let caregiverType of caregiverTypes;" [value]="caregiverType.value">{{caregiverType.label}}</mat-option>
     </mat-select>
     <mat-hint align="end">Here's the dropdown arrow ^</mat-hint>
@@ -62,7 +62,7 @@
         </mat-form-field>
         <mat-form-field>
           <mat-label>Disponibilités</mat-label>
-          <mat-select formControlName="workingDays" multiple [matTooltip]="workDays.value!.join(', ')">
+          <mat-select formControlName="workingDays" multiple [matTooltip]="workDays.value!.join(', ')" id="select_working_days">
             <mat-option *ngFor="let day of days;" value="{{day.value}}">{{day.label}}</mat-option>
           </mat-select>
         </mat-form-field>

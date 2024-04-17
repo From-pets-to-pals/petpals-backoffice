@@ -11,7 +11,7 @@ import {
 } from '@angular/forms';
 import type {Caregiver} from '../../models/interfaces/caregiver';
 import {MatFormField, MatHint, MatLabel} from "@angular/material/form-field";
-import {MatOption, MatSelect} from "@angular/material/select";
+import {MatOption, MatSelect, MatSelectModule} from "@angular/material/select";
 import {MatInput} from "@angular/material/input";
 import {MatDivider} from "@angular/material/divider";
 import {
@@ -28,11 +28,12 @@ import {updateToken} from "../../stores/app.state";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {MatTooltip} from "@angular/material/tooltip";
 import options from '../../models/menus/select.options';
+import {MatOptionModule} from "@angular/material/core";
 
 @Component({
   selector: 'app-create-caregiver',
   standalone: true,
-  imports: [ReactiveFormsModule, MatFormField, MatSelect, MatOption, MatInput, MatLabel, MatHint, MatDivider, MatAccordion, MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle, MatExpansionPanelDescription, MatButton, NgForOf, FormsModule, MatTooltip],
+  imports: [ReactiveFormsModule, MatFormField, MatSelectModule, MatOptionModule, MatInput, MatLabel, MatHint, MatDivider, MatAccordion, MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle, MatExpansionPanelDescription, MatButton, NgForOf, FormsModule, MatTooltip],
   templateUrl: './create-caregiver.component.html',
   styleUrl: './create-caregiver.component.css',
 
