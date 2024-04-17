@@ -1,6 +1,5 @@
 <p>create-caregiver works!</p>{{title}}
 <div class="content">
-
   <form [formGroup]="form" (ngSubmit)="createCaregiver()">
   <mat-form-field>
     <mat-label>Je suis un...</mat-label>
@@ -49,7 +48,6 @@
     </mat-form-field>
     <mat-divider></mat-divider>
     <mat-accordion>
-
       <mat-expansion-panel (opened)="panelOpenState = true"
                            (closed)="panelOpenState = false">
         <mat-expansion-panel-header>
@@ -59,14 +57,14 @@
         </mat-expansion-panel-header>
         <mat-form-field>
           <mat-label>Compétences</mat-label>
-          <mat-select formControlName="palsHandled">
+          <mat-select formControlName="palsHandled" multiple>
             <mat-option value="DOG">Chiens</mat-option>
             <mat-option value="CAT">Chats</mat-option>
           </mat-select>
         </mat-form-field>
         <mat-form-field>
           <mat-label>Disponibilités</mat-label>
-          <mat-select formControlName="workingDays">
+          <mat-select formControlName="workingDays" multiple [matTooltip]="workDays.value!.join(', ')">
             <mat-option *ngFor="let day of days;" value="{{day.value}}">{{day.label}}</mat-option>
           </mat-select>
         </mat-form-field>
@@ -83,5 +81,4 @@
     </mat-divider>
         <button mat-flat-button type="submit" color="primary">Enregistrer</button>
   </form>
-
 </div>

@@ -1,6 +1,14 @@
 import {Component} from '@angular/core';
 import {CaregiversApiService} from "../services/caregivers/caregivers-api.service";
-import {FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
+import {
+  AbstractControl,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators
+} from '@angular/forms';
 import type {Caregiver} from '../inter';
 import {MatFormField, MatHint, MatLabel} from "@angular/material/form-field";
 import {MatOption, MatSelect} from "@angular/material/select";
@@ -18,11 +26,12 @@ import {NgForOf} from "@angular/common";
 import {Store} from "@ngrx/store";
 import {getToken, reducer, updateToken} from "../app.state";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {MatTooltip} from "@angular/material/tooltip";
 
 @Component({
   selector: 'app-create-caregiver',
   standalone: true,
-  imports: [ReactiveFormsModule, MatFormField, MatSelect, MatOption, MatInput, MatLabel, MatHint, MatDivider, MatAccordion, MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle, MatExpansionPanelDescription, MatButton,NgForOf,FormsModule],
+  imports: [ReactiveFormsModule, MatFormField, MatSelect, MatOption, MatInput, MatLabel, MatHint, MatDivider, MatAccordion, MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle, MatExpansionPanelDescription, MatButton, NgForOf, FormsModule, MatTooltip],
   templateUrl: './create-caregiver.component.html',
   styleUrl: './create-caregiver.component.css',
 
@@ -79,6 +88,15 @@ export class CreateCaregiverComponent {
   constructor(private _snackBar: MatSnackBar, private store:Store, private caregiverApiService: CaregiversApiService,private formBuilder: FormBuilder) {
 
   }
+  workDays = new FormControl([], this.minLengthArray(1));
+  minLengthArray(min: number) {
+    return (c: AbstractControl): { [p: string]: any } | null => {
+      if (c.value.length >= min)
+        return null;
+
+      return { 'minLengthArray': {valid: false }};
+    }
+  }
   panelOpenState = false;
   form = new FormGroup({
       firstName : new FormControl('', {validators: [Validators.required, Validators.minLength(3)], nonNullable: true}),
@@ -92,8 +110,8 @@ export class CreateCaregiverComponent {
       caregiverType: new FormControl('', {validators: [Validators.required, Validators.pattern("^(GROOMER|VET|TRAINER$)")], nonNullable: true}),
       homeService: new FormControl(false, {validators: [Validators.required], nonNullable: true}),
       isSubscribed: new FormControl(false, {validators: [Validators.required], nonNullable: true}),
-      workingDays: new FormControl([], {validators: [Validators.required], nonNullable: true}),
-      palsHandled: new FormControl([], {validators: [Validators.required], nonNullable: true}),
+      workingDays: this.workDays,
+      palsHandled: new FormControl([], {validators: [Validators.required, this.minLengthArray(1)], nonNullable: true}),
       priceRating: new FormControl(3.2, {validators: [Validators.required], nonNullable: true}),
       serviceRating: new FormControl(4.1, {validators: [Validators.required], nonNullable: true}),
       appointmentDuration: new FormControl(0.25, {validators: [Validators.required], nonNullable: true}),
@@ -123,8 +141,8 @@ export class CreateCaregiverComponent {
         city: this.form.get("city")!.value,
         zipCode: this.form.get("zipCode")!.value,
         country: this.form.get("country")!.value,
-        workingDays:[this.form.get("workingDays")!.value],
-        palsHandled: [this.form.get("palsHandled")!.value],
+        workingDays:this.form.get("workingDays")!.value,
+        palsHandled: this.form.get("palsHandled")!.value,
         homeService: this.form.get("homeService")!.value,
         appointmentDuration: this.form.get("appointmentDuration")!.value,
         caregiverType: this.form.get("caregiverType")!.value,
