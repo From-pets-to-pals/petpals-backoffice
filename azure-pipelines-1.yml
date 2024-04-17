@@ -30,13 +30,13 @@ stages:
           - task: ExtractFiles@1
             inputs:
               archiveFilePatterns: '$(System.ArtifactsDirectory)/$(APP_NAME)/$(APP_NAME)-*'
-              destinationFolder: '$(System.ArtifactsDirectory)'
+              destinationFolder: '$(System.ArtifactsDirectory)/app'
               cleanDestinationFolder: true
               overwriteExistingFiles: false
           - task: CopyFiles@2
             displayName: 'Copy Files from artifact staging directory'
             inputs:
-              SourceFolder: '$(System.ArtifactsDirectory)/front'
+              SourceFolder: '$(System.ArtifactsDirectory)/app'
               Contents: 'front/browser'
               TargetFolder: '$(System.DefaultWorkingDirectory)'
               OverWrite: true
