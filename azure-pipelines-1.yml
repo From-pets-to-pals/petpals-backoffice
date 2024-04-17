@@ -31,8 +31,8 @@ stages:
             inputs:
               archiveFilePatterns: '$(System.ArtifactsDirectory)/$(APP_NAME)/$(APP_NAME)-*'
               destinationFolder: '$(System.ArtifactsDirectory)/app'
-              cleanDestinationFolder: true
-              overwriteExistingFiles: false
+              cleanDestinationFolder: false
+              overwriteExistingFiles: true
           - task: CopyFiles@2
             displayName: 'Copy Files from artifact staging directory'
             inputs:
