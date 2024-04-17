@@ -38,12 +38,12 @@ stages:
             inputs:
               SourceFolder: '$(System.ArtifactsDirectory)/app'
               Contents: 'front/browser'
-              TargetFolder: '$(System.DefaultWorkingDirectory)'
+              TargetFolder: '$(System.DefaultWorkingDirectory)/app'
               OverWrite: true
           - task: AzureStaticWebApp@0
             displayName: Deploy to Azure Static Web App
             inputs:
-              workingDirectory: '$(System.DefaultWorkingDirectory)'
+              workingDirectory: '$(System.DefaultWorkingDirectory)/app'
               output_location: '/front'
               app_location: 'front/browser'
               skip_app_build: true
