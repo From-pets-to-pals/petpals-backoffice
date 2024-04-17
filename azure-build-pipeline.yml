@@ -33,7 +33,7 @@ stages:
               failTaskOnMissingResultsFile: true
           - task: PublishCodeCoverageResults@2
             inputs:
-              summaryFileLocation: '$(Build.SourcesDirectory)/$(SUBFOLDER)/coverrage/front/cobertura-coverage.xml'
+              summaryFileLocation: '$(Build.SourcesDirectory)/$(SUBFOLDER)/coverage/front/cobertura-coverage.xml'
           - task: ArchiveFiles@2
             displayName: Archive build artifact
             inputs:
