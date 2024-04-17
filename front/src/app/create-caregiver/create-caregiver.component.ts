@@ -9,7 +9,7 @@ import {
   ReactiveFormsModule,
   Validators
 } from '@angular/forms';
-import type {Caregiver} from '../inter';
+import type {Caregiver} from '../interfaces/caregiver';
 import {MatFormField, MatHint, MatLabel} from "@angular/material/form-field";
 import {MatOption, MatSelect} from "@angular/material/select";
 import {MatInput} from "@angular/material/input";
@@ -24,7 +24,7 @@ import {
 import {MatButton} from "@angular/material/button";
 import {NgForOf} from "@angular/common";
 import {Store} from "@ngrx/store";
-import {getToken, reducer, updateToken} from "../app.state";
+import {getToken, reducer, updateToken} from "../stores/app.state";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {MatTooltip} from "@angular/material/tooltip";
 
