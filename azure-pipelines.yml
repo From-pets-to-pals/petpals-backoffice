@@ -85,7 +85,7 @@ stages:
           - task: CopyFiles@2
             displayName: 'Copy Files from artifact staging directory'
             inputs:
-              SourceFolder: '$(System.ArtifactsDirectory)/$(APP_NAME)/$(APP_NAME)-*.zip'
+              SourceFolder: '$(System.ArtifactsDirectory)/front'
               Contents: 'front/browser'
               TargetFolder: '$(System.DefaultWorkingDirectory)'
               OverWrite: true
