@@ -78,14 +78,14 @@ stages:
               checkDownloadedFiles: true
           - task: ExtractFiles@1
             inputs:
-              archiveFilePatterns: '$(APP_NAME)/$(APP_NAME)-*'
+              archiveFilePatterns: '$(System.ArtifactsDirectory)/$(APP_NAME)/$(APP_NAME)-*'
               destinationFolder: '$(System.ArtifactsDirectory)/front'
               cleanDestinationFolder: true
               overwriteExistingFiles: false
           - task: CopyFiles@2
             displayName: 'Copy Files from artifact staging directory'
             inputs:
-              SourceFolder: '$(System.ArtifactsDirectory)/front'
-              Contents: 'browser'
+              SourceFolder: '$(System.ArtifactsDirectory)/$(APP_NAME)/$(APP_NAME)-*.zip'
+              Contents: 'front/browser'
               TargetFolder: '$(System.DefaultWorkingDirectory)'
               OverWrite: true
