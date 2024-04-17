@@ -56,6 +56,17 @@
                   "with": "src/app/environments/environment.development.ts"
                 }
               ]
+            },
+            "local": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "fileReplacements": [
+                {
+                  "replace": "src/app/environments/environment.ts",
+                  "with": "src/app/environments/environment.local.ts",
+                },
+              ],
             }
           },
           "defaultConfiguration": "production"
@@ -68,6 +79,9 @@
             },
             "development": {
               "buildTarget": "front:build:development"
+            },
+            "local": {
+              "buildTarget": "front:build:local"
             }
           },
           "defaultConfiguration": "development"

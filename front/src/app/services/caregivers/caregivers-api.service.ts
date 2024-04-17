@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import axios, {AxiosInstance} from 'axios';
-import {environment} from "../../environments/environment.development";
+import {environment} from "../../environments/environment";
 import {Caregiver} from "../../models/interfaces/caregiver";
 
 @Injectable({
