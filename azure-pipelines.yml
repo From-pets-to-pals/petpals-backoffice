@@ -34,7 +34,7 @@ stages:
               failTaskOnMissingResultsFile: true
           - task: PublishCodeCoverageResults@2
             inputs:
-              summaryFileLocation: '$(Build.SourcesDirectory)/front/coverage/index.html'
+              summaryFileLocation: '$(Build.SourcesDirectory)/front/coverage/cobertura-coverage.xml'
           - task: ArchiveFiles@2
             displayName: Archive build artifact
             inputs:
@@ -79,7 +79,7 @@ stages:
           - task: CopyFiles@2
             displayName: 'Copy Files from artifact staging directory'
             inputs:
-              SourceFolder: '$(System.ArtifactsDirectory)/$(APP_NAME)/$(APP_NAME)-*'
+              SourceFolder: '$(System.ArtifactsDirectory)/front'
               Contents: 'browser'
               TargetFolder: '$(System.DefaultWorkingDirectory)'
               OverWrite: true
