@@ -73,13 +73,13 @@ stages:
               buildVersionToDownload: 'latest'
               downloadType: 'single'
               artifactName: 'petpals-backoffice'
-              itemPattern: '$(APP_NAME)/$(APP_NAME)-*.zip'
+              itemPattern: '$(APP_NAME)/$(APP_NAME)-*'
               downloadPath: '$(System.ArtifactsDirectory)'
               checkDownloadedFiles: true
           - task: CopyFiles@2
             displayName: 'Copy Files from artifact staging directory'
             inputs:
-              SourceFolder: '$(System.ArtifactsDirectory)/petpals-backoffice'
+              SourceFolder: '$(System.ArtifactsDirectory)/$(APP_NAME)/$(APP_NAME)-*'
               Contents: 'browser'
               TargetFolder: '$(System.DefaultWorkingDirectory)'
               OverWrite: true
