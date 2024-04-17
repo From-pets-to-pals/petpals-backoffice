@@ -33,6 +33,10 @@ stages:
               destinationFolder: '$(System.ArtifactsDirectory)/app'
               cleanDestinationFolder: false
               overwriteExistingFiles: true
+          - task: CmdLine@2
+            inputs:
+              script: 'ls -l'
+              workingDirectory: '$(System.ArtifactsDirectory)'
           - task: CopyFiles@2
             displayName: 'Copy Files from artifact staging directory'
             inputs:
