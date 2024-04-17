@@ -21,10 +21,17 @@ steps:
     ng build
     npm test
   displayName: 'npm install and build'
+- task: PublishTestResults@2
+  inputs:
+    testResultsFormat: 'JUnit'
+    testResultsFiles: '**/junit.xml'
+    searchFolder: '$(Build.SourcesDirectory)/front'
+    failTaskOnFailedTests: true
+    failTaskOnFailureToPublishResults: true
+    failTaskOnMissingResultsFile: true
 - task: PublishCodeCoverageResults@2
   inputs:
-    summaryFileLocation: '$(Build.SourcesDirectory)/front/junit-report/*.xml'
-    failIfCoverageEmpty: true
+    summaryFileLocation: '$(Build.SourcesDirectory)/front/coverage/index.html'
 - task: ArchiveFiles@2
   displayName: Archive build artifact
   inputs:
