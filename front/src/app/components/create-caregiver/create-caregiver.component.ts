@@ -83,6 +83,7 @@ export class CreateCaregiverComponent {
 				validators: [Validators.required, this.minLengthArray(1)],
 				nonNullable: true
 			}),
+			// PPIPELINES
 			priceRating: new FormControl(3.2, {validators: [Validators.required], nonNullable: true}),
 			serviceRating: new FormControl(4.1, {validators: [Validators.required], nonNullable: true}),
 			appointmentDuration: new FormControl(0.25, {validators: [Validators.required], nonNullable: true}),
