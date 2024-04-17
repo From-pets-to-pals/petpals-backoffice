@@ -1,0 +1,49 @@
+# Node.js with Angular
+# Build a Node.js project that uses Angular.
+# Add steps that analyze code, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
+trigger:
+  - main
+pool:
+  vmImage: ubuntu-latest
+
+stages:
+  - stage: build
+    jobs:
+      - job:
+        steps:
+          - task: NodeTool@0
+            inputs:
+              versionSpec: '18.14'
+            displayName: 'Install Node.js'
+          - script: |
+              cd front
+              npm install -g @angular/cli
+              npm install
+              ng build
+              npm test
+            displayName: 'npm install and build'
+          - task: PublishTestResults@2
+            inputs:
+              testResultsFormat: 'JUnit'
+              testResultsFiles: '**/junit.xml'
+              searchFolder: '$(Build.SourcesDirectory)/front'
+              failTaskOnFailedTests: true
+              failTaskOnFailureToPublishResults: true
+              failTaskOnMissingResultsFile: true
+          - task: PublishCodeCoverageResults@2
+            inputs:
+              summaryFileLocation: '$(Build.SourcesDirectory)/$(SUBFOLDER)/coverrage/front/cobertura-coverage.xml'
+          - task: ArchiveFiles@2
+            displayName: Archive build artifact
+            inputs:
+              rootFolderOrFile: '$(Build.SourcesDirectory)/$(SUBFOLDER)'
+              includeRootFolder: true
+              archiveType: 'zip'
+              archiveFile: '$(Build.ArtifactStagingDirectory)/petpals-backoffice-$(Build.BuildId).zip'
+              replaceExistingArchive: false
+          - task: PublishBuildArtifacts@1
+            displayName: Publish build artifact
+            inputs:
+              PathtoPublish: '$(Build.ArtifactStagingDirectory)/petpals-backoffice-$(Build.BuildId).zip'
+              ArtifactName: 'petpals-backoffice'
