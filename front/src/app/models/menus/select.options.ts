@@ -42,7 +42,35 @@ const options = {
       label:"Dimanche",
       value:"SUNDAY"
     }
-  ]
+  ],
+    palsHandled:[
+        {
+            label:"Chiens",
+            value:"DOG"
+        },
+        {
+            label:"Chat",
+            value:"CAT"
+        },
+        {
+            label:"Furrets",
+            value:"FERRET"
+        },
+        {
+            label:"NAC",
+            value:"NAC"
+        },
+    ],
+    homeService:[
+        {
+            label:"Oui",
+            value:true
+        },
+        {
+            label:"Non",
+            value:false
+        },
+    ]
 }
 
 export default options;

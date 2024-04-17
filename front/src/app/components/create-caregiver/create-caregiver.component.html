@@ -55,22 +55,20 @@
         </mat-expansion-panel-header>
         <mat-form-field>
           <mat-label>Compétences</mat-label>
-          <mat-select formControlName="palsHandled" multiple>
-            <mat-option value="DOG">Chiens</mat-option>
-            <mat-option value="CAT">Chats</mat-option>
+          <mat-select formControlName="palsHandled" multiple id="select_pals_handled">
+            <mat-option *ngFor="let pal of palsHandled;" value="{{pal.value}}">{{pal.label}}</mat-option>
           </mat-select>
         </mat-form-field>
         <mat-form-field>
           <mat-label>Disponibilités</mat-label>
-          <mat-select formControlName="workingDays" multiple [matTooltip]="workDays.value!.join(', ')" id="select_working_days">
+          <mat-select formControlName="workingDays" multiple id="select_working_days">
             <mat-option *ngFor="let day of days;" value="{{day.value}}">{{day.label}}</mat-option>
           </mat-select>
         </mat-form-field>
         <mat-form-field>
           <mat-label>Déplacements</mat-label>
-          <mat-select formControlName="homeService">
-            <mat-option [value]="false">Non</mat-option>
-            <mat-option [value]="true">Oui</mat-option>
+          <mat-select formControlName="homeService" id="select_home_service">
+            <mat-option *ngFor="let hs of homeService;" value="{{hs.value}}">{{hs.label}}</mat-option>
           </mat-select>
         </mat-form-field>
       </mat-expansion-panel>
