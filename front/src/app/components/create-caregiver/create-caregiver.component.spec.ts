@@ -29,19 +29,19 @@ describe('CreateCaregiverComponent', () => {
 		fixture.detectChanges();
 	});
 	
-	it('should create', () => {
+	it('should be created', () => {
 		expect(component).toBeTruthy();
 	});
 	
 	
-	it('should be ready to add caregiver', async () => {
+	it('should have select options upon component creation', async () => {
 		expect(component.isRegistered).toBeFalse();
 		const caregivers = fixture.debugElement.query(By.css("#select_caregiver_type")).nativeElement;
 		caregivers?.click();
 		fixture.detectChanges();
+		
 		// @ts-ignore
 		const inquiryOptions = fixture.debugElement.queryAll(By.css('.mdc-list-item__primary-text')) as HTMLElement[];
-		console.debug(inquiryOptions[0])
 		// @ts-ignore
 		expect(inquiryOptions[0]?.nativeNode.textContent).toEqual("Groomer");
 		// @ts-ignore
