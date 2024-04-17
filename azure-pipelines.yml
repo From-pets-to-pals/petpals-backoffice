@@ -29,6 +29,7 @@ steps:
     failTaskOnFailedTests: true
     failTaskOnFailureToPublishResults: true
     failTaskOnMissingResultsFile: true
+    
 - task: ArchiveFiles@2
   displayName: Archive build artifact
   inputs:
