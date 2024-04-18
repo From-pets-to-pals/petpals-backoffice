@@ -31,19 +31,12 @@ stages:
             inputs:
               archiveFilePatterns: '$(System.ArtifactsDirectory)/$(APP_NAME)/$(APP_NAME)-*'
               destinationFolder: '$(System.ArtifactsDirectory)/app'
-              cleanDestinationFolder: true
-              overwriteExistingFiles: false
-          - task: CopyFiles@2
-            displayName: 'Copy Files from artifact staging directory'
-            inputs:
-              SourceFolder: '$(System.ArtifactsDirectory)/app'
-              Contents: 'front/browser'
-              TargetFolder: '$(System.DefaultWorkingDirectory)/app'
-              OverWrite: true
+              cleanDestinationFolder: false
+              overwriteExistingFiles: true
           - task: AzureStaticWebApp@0
             displayName: Deploy to Azure Static Web App
             inputs:
-              workingDirectory: '$(System.DefaultWorkingDirectory)/app'
+              workingDirectory: '$(System.ArtifactsDirectory)/app'
               output_location: '/front'
               app_location: 'front/browser'
               skip_app_build: true
