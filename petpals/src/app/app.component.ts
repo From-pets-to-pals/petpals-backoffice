@@ -31,19 +31,22 @@ export class AppComponent {
 	}
 	
 	constructor(public dialog: MatDialog) {
-		appWindow.setTitle("Accueil")
 		// @ts-ignore
-		document
-			.getElementById('titlebar-minimize')
-			.addEventListener('click', () => appWindow.minimize())
-// @ts-ignore
-		document
-			.getElementById('titlebar-maximize')
-			.addEventListener('click', () => appWindow.toggleMaximize())
-// @ts-ignore
-		document
-			.getElementById('titlebar-close')
-			.addEventListener('click', () => appWindow.close())
+		if(appWindow.__TAURI__){
+			appWindow.setTitle("Accueil")
+			// @ts-ignore
+			document
+				.getElementById('titlebar-minimize')
+				.addEventListener('click', () => appWindow.minimize())
+			// @ts-ignore
+			document
+				.getElementById('titlebar-maximize')
+				.addEventListener('click', () => appWindow.toggleMaximize())
+			// @ts-ignore
+			document
+				.getElementById('titlebar-close')
+				.addEventListener('click', () => appWindow.close())
+		}
 	}
 }
 
