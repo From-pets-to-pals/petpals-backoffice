@@ -14,15 +14,6 @@
       "shell": {
         "all": false,
         "open": true
-      },
-      "http": {
-        "all": true,
-        "request": true,
-        "scope": [
-          "http://localhost/*",
-          "https://petpals-caregivers.azurewebsites.net/*",
-          "https://hacker-news.firebaseio.com/*"
-        ]
       }
     },
     "windows": [

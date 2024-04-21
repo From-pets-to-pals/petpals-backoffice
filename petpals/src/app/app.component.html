@@ -184,6 +184,9 @@
         <h1>Petpals Tauri + Angular!</h1>
         <div class="row">
 
+            <a  >
+                <img src="/assets/logo.svg" class="logo petpals" alt="Petpals logo"/>
+            </a>
             <a href="https://tauri.app" target="_blank">
                 <img src="/assets/tauri.svg" class="logo tauri" alt="Tauri logo"/>
             </a>
@@ -194,7 +197,7 @@
         <p>Click on the logos to learn more about the frameworks</p>
 
         <div class="tauri_form">
-            <input #greetInput id="greet-input" placeholder="Enter a name..."/>
+            <input #greetInput id="greet-input" placeholder="Enter a name..." (keydown.enter)="greet(greetInput.value)"/>
             <button mat-flat-button class="greet_input" type="submit" color="primary" (click)="greet(greetInput.value)">Greet</button>
             <p>{{ greetingMessage }} </p>
         </div>
