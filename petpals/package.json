@@ -24,6 +24,7 @@
     "@ngrx/store": "^17.2.0",
     "@tauri-apps/cli": "^1",
     "axios": "^1.6.8",
+    "flowbite": "^2.3.0",
     "karma-junit-reporter": "^2.0.1",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",

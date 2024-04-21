@@ -1,5 +1,5 @@
 import {afterRender, AfterRenderPhase, Component} from '@angular/core';
-import {RouterOutlet} from '@angular/router';
+import {RouterLink, RouterLinkActive, RouterOutlet} from '@angular/router';
 import {CreateCaregiverComponent} from "./components/create-caregiver/create-caregiver.component";
 import {invoke} from "@tauri-apps/api/tauri";
 import {MatButton} from "@angular/material/button";
@@ -7,11 +7,11 @@ import {MatDialog} from "@angular/material/dialog";
 import {appWindow} from "@tauri-apps/api/window";
 import {DialogElementsExampleDialog} from "./renders/dialogs/simple-dialog";
 import {NgIf} from "@angular/common";
-
+import { initFlowbite } from 'flowbite';
 @Component({
 	selector: 'app-root',
 	standalone: true,
-	imports: [RouterOutlet, CreateCaregiverComponent, MatButton, NgIf],
+	imports: [RouterOutlet, CreateCaregiverComponent, MatButton, NgIf, RouterLink, RouterLinkActive],
 	templateUrl: './app.component.html',
 	styleUrl: './app.component.css'
 })
@@ -29,6 +29,20 @@ export class AppComponent {
 		invoke<string>("greet", {name}).then((text: string) => {
 			this.openDialog(text);
 		});
+	}
+	
+	setCurrentPage(event: Event){
+		// @ts-ignore
+		console.log(event.target.attributes);
+		
+		// @ts-ignore
+		event.target.ariaCurrent="page";
+		// @ts-ignore
+		console.log(event.target.ariaCurrent);
+	}
+	
+	ngOnInit(): void {
+		initFlowbite();
 	}
 	
 	constructor(public dialog: MatDialog) {

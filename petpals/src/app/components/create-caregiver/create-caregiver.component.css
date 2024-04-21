@@ -26,8 +26,3 @@ mat-divider {
     height: 25px;
 }
 
-@media screen and (max-height: 750px) {
-    .form_create_caregiver {
-        padding-top: 50px;
-    }
-}
