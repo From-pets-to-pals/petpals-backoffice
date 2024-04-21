@@ -17,7 +17,7 @@ stages:
               versionSpec: '18.14'
             displayName: 'Install Node.js'
           - script: |
-              cd front
+              cd petpals
               npm install -g @angular/cli
               npm install
               ng build
@@ -27,13 +27,13 @@ stages:
             inputs:
               testResultsFormat: 'JUnit'
               testResultsFiles: '**/junit.xml'
-              searchFolder: '$(Build.SourcesDirectory)/front'
+              searchFolder: '$(Build.SourcesDirectory)/petpals'
               failTaskOnFailedTests: true
               failTaskOnFailureToPublishResults: true
               failTaskOnMissingResultsFile: true
           - task: PublishCodeCoverageResults@2
             inputs:
-              summaryFileLocation: '$(Build.SourcesDirectory)/$(SUBFOLDER)/coverage/front/cobertura-coverage.xml'
+              summaryFileLocation: '$(Build.SourcesDirectory)/$(SUBFOLDER)/coverage/cobertura-coverage.xml'
           - task: ArchiveFiles@2
             displayName: Archive build artifact
             inputs:

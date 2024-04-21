@@ -37,8 +37,8 @@ stages:
             displayName: Deploy to Azure Static Web App
             inputs:
               workingDirectory: '$(System.ArtifactsDirectory)/app'
-              output_location: '/front'
-              app_location: 'front/browser'
+              output_location: '/petpals'
+              app_location: 'petpals/browser'
               skip_app_build: true
               skip_api_build: true
               verbose: true
