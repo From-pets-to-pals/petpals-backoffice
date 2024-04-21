@@ -46,7 +46,7 @@
 
     h1 {
         font-size: 3.125rem;
-        color: var(--gray-900);
+        color: #673ab9;
         font-weight: 500;
         line-height: 100%;
         letter-spacing: -0.125rem;
@@ -178,7 +178,23 @@
         }
     }
 </style>
-
+<div *ngIf="appWindow.__TAURI__" data-tauri-drag-region class="titlebar">
+    <div class="titlebar-button" id="titlebar-minimize">
+        <img
+                src="https://api.iconify.design/mdi:window-minimize.svg?color=%23e6dada&width=14&height=14"
+                alt="minimize"
+        />
+    </div>
+    <div class="titlebar-button" id="titlebar-maximize">
+        <img
+                src="https://api.iconify.design/mdi:window-maximize.svg?color=%23e6dada&width=14&height=14"
+                alt="maximize"
+        />
+    </div>
+    <div class="titlebar-button" id="titlebar-close">
+        <img src="https://api.iconify.design/zondicons/close-outline.svg?color=%23ff0000&width=18&height=18" alt="close" />
+    </div>
+</div>
 <main class="main">
     <div class="container">
         <h1>Petpals Tauri + Angular!</h1>

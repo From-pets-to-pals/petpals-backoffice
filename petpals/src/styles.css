@@ -1,3 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body{
+    background: #67B26F;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #4ca2cd, #67B26F);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #4ca2cd, #67B26F); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+}
 :root {
     font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
     font-size: 16px;
@@ -13,13 +23,7 @@
     -webkit-text-size-adjust: 100%;
 }
 
-.container {
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    text-align: center;
-}
+
 
 .logo {
     height: 6em;
@@ -110,7 +114,7 @@ button {
 
 .titlebar {
     height: 30px;
-    background: #333333;
+    background: #673ab9;
     user-select: none;
     display: flex;
     justify-content: end;

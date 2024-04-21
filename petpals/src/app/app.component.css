@@ -16,7 +16,20 @@
 
 .main{
     justify-content: space-evenly;
-    margin-top: 100px;
+    color: #FFFFFF;
+    min-height: 100vh;
+}
+.container {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    color: #FFFFFF;
+}
+
+h1{
+    color: #FFFFFF;
 }
 
 

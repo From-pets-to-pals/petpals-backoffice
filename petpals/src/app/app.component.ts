@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {afterRender, AfterRenderPhase, Component} from '@angular/core';
 import {RouterOutlet} from '@angular/router';
 import {CreateCaregiverComponent} from "./components/create-caregiver/create-caregiver.component";
 import {invoke} from "@tauri-apps/api/tauri";
@@ -6,17 +6,19 @@ import {MatButton} from "@angular/material/button";
 import {MatDialog} from "@angular/material/dialog";
 import {appWindow} from "@tauri-apps/api/window";
 import {DialogElementsExampleDialog} from "./renders/dialogs/simple-dialog";
+import {NgIf} from "@angular/common";
 
 @Component({
 	selector: 'app-root',
 	standalone: true,
-	imports: [RouterOutlet, CreateCaregiverComponent, MatButton],
+	imports: [RouterOutlet, CreateCaregiverComponent, MatButton,NgIf],
 	templateUrl: './app.component.html',
 	styleUrl: './app.component.css'
 })
 export class AppComponent {
 	title = 'PetPals';
 	greetingMessage = "";
+	appWindow: Window = window;
 	
 	openDialog(display: string) {
 		this.dialog.open(DialogElementsExampleDialog, {data: {message :display, title: "Welcome"}});
@@ -29,24 +31,30 @@ export class AppComponent {
 			this.openDialog(text);
 		});
 	}
-	
-	constructor(public dialog: MatDialog) {
+	nfAfterViewInit(){
+		
 		// @ts-ignore
-		if(appWindow.__TAURI__){
-			appWindow.setTitle("Accueil")
+		console.log(window.__TAURI__)
+	}
+	constructor(public dialog: MatDialog) {
+		afterRender(() => {
 			// @ts-ignore
-			document
-				.getElementById('titlebar-minimize')
-				.addEventListener('click', () => appWindow.minimize())
-			// @ts-ignore
-			document
-				.getElementById('titlebar-maximize')
-				.addEventListener('click', () => appWindow.toggleMaximize())
-			// @ts-ignore
-			document
-				.getElementById('titlebar-close')
-				.addEventListener('click', () => appWindow.close())
-		}
+			if(window.__TAURI__){
+				appWindow.setTitle("Accueil")
+				// @ts-ignore
+				document
+					.getElementById('titlebar-minimize')
+					.addEventListener('click', () => appWindow.minimize())
+				// @ts-ignore
+				document
+					.getElementById('titlebar-maximize')
+					.addEventListener('click', () => appWindow.toggleMaximize())
+				// @ts-ignore
+				document
+					.getElementById('titlebar-close')
+					.addEventListener('click', () => appWindow.close())
+			}
+		}, {phase: AfterRenderPhase.Write});
 	}
 }
 
