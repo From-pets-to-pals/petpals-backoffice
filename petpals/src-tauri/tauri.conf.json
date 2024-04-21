@@ -11,17 +11,26 @@
   },
   "tauri": {
     "allowlist": {
+      "http": {
+        "all": true,
+        "request": true,"scope": ["https://**"]
+
+      },
       "shell": {
         "all": false,
         "open": true
+      },
+      "window": {
+        "all": true
       }
     },
+
     "windows": [
       {
-        "title": "petpals",
-        "width": 800,
-        "height": 600
-
+        "title": "PetPals",
+        "width": 1200,
+        "height": 1000,
+        "decorations": false
       }
     ],
     "security": {

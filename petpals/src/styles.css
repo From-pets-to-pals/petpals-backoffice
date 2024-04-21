@@ -15,7 +15,6 @@
 
 .container {
     margin: 0;
-    padding-top: 10vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -32,7 +31,9 @@
 .logo.tauri:hover {
     filter: drop-shadow(0 0 2em #24c8db);
 }
-
+.logo.petpals:hover {
+    filter: drop-shadow(0 0 2em #24c8db);
+}
 .row {
     display: flex;
     justify-content: center;
@@ -107,4 +108,29 @@ button {
     }
 }
 
+.titlebar {
+    height: 30px;
+    background: #333333;
+    user-select: none;
+    display: flex;
+    justify-content: end;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    margin-bottom: 10px;
+    z-index: 99;
+}
+.titlebar-button {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    padding:5px ;
 
+}
+.titlebar-button:hover {
+    background: rgb(255, 255, 255,0.2);
+}
+body::-webkit-scrollbar {
+    display: none;
+}

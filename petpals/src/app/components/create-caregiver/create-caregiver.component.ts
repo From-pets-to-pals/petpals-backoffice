@@ -11,7 +11,7 @@ import {
 } from '@angular/forms';
 import type {Caregiver} from '../../models/interfaces/caregiver';
 import {MatFormField, MatHint, MatLabel} from "@angular/material/form-field";
-import {MatOption, MatSelect, MatSelectModule} from "@angular/material/select";
+import {MatSelectModule} from "@angular/material/select";
 import {MatInput} from "@angular/material/input";
 import {MatDivider} from "@angular/material/divider";
 import {
@@ -29,7 +29,7 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 import {MatTooltip} from "@angular/material/tooltip";
 import options from '../../models/menus/select.options';
 import {MatOptionModule} from "@angular/material/core";
-import { fetch, ResponseType } from "@tauri-apps/api/http";
+import {Body, fetch, ResponseType} from "@tauri-apps/api/http";
 import {environment} from "../../environments/environment";
 
 @Component({
@@ -41,7 +41,7 @@ import {environment} from "../../environments/environment";
 	
 })
 export class CreateCaregiverComponent {
-	title = 'petpals';
+	title = 'petpals - add caregiver';
 	isRegistered = false;
 	caregiverTypes = options.caregiverType;
 	days = options.days;
@@ -100,7 +100,6 @@ export class CreateCaregiverComponent {
 	getFromBack() {
 		if (!window.__TAURI__) {
 			this.caregiverApiService.get().then(res => {
-				// @ts-ignore
 				console.log(res.data)
 			})
 		} else {
@@ -120,38 +119,60 @@ export class CreateCaregiverComponent {
 	
 	createCaregiver() {
 		if (this.form.valid && !this.isRegistered) {
-			// @ts-ignore
-			let toCreate = {
-				firstName: this.form.get("firstName")!.value,
-				lastName: this.form.get("lastName")!.value,
-				email: this.form.get("email")!.value,
-				phoneNumber: this.form.get("phoneNumber")!.value,
-				address: this.form.get("address")!.value,
-				city: this.form.get("city")!.value,
-				zipCode: this.form.get("zipCode")!.value,
-				country: this.form.get("country")!.value,
-				workingDays: this.form.get("workingDays")!.value,
-				palsHandled: this.form.get("palsHandled")!.value,
-				homeService: this.form.get("homeService")!.value,
-				appointmentDuration: this.form.get("appointmentDuration")!.value,
-				caregiverType: this.form.get("caregiverType")!.value,
-				isSubscribed: false,
-				serviceRating: this.form.get("serviceRating")!.value,
-				priceRating: this.form.get("priceRating")!.value,
-			} as Caregiver;
-			this.caregiverApiService
-				.createCaregiver(toCreate)
-				.then(res => {
+			let toCreate = this.mapCaregiver();
+			if (!window.__TAURI__) {
+				this.caregiverApiService
+					.createCaregiver(toCreate)
+					.then(res => {
+						this.isRegistered = true;
+						this.token = res.data;
+						this.store.dispatch(updateToken(res.data))
+						this.openSnackBar("Registration successful", "Close");
+					})
+					.catch(err => {
+						this.openSnackBar(err.message, "Close");
+					})
+			} else {
+				fetch(environment.caregivers.url + "caregivers/create", {
+					method: "POST",
+					timeout: 30, //seconds
+					responseType: ResponseType.Text,
+					headers:{
+						'API-KEY': environment.caregivers.apiKey
+					},
+					body: Body.json(toCreate)
+				}).then((res:any) => {
 					this.isRegistered = true;
 					this.token = res.data;
 					this.store.dispatch(updateToken(res.data))
-					return this.openSnackBar("Registration successful", "Close");
-				})
-				.catch(err => {
-					return this.openSnackBar(err.message, "Close");
-				})
+					this.openSnackBar("Welcome aboard", "Ok")
+				}).catch(err => {
+					this.openSnackBar(err.message, "Close");
+				});
+			}
+			
 		}
-		this.openSnackBar(this.isRegistered ? "User just created an account" : "Invalid inputs.", "Ok")
+	}
+	
+	private mapCaregiver() {
+		return {
+			firstName: this.form.get("firstName")!.value,
+			lastName: this.form.get("lastName")!.value,
+			email: this.form.get("email")!.value,
+			phoneNumber: this.form.get("phoneNumber")!.value,
+			address: this.form.get("address")!.value,
+			city: this.form.get("city")!.value,
+			zipCode: this.form.get("zipCode")!.value,
+			country: this.form.get("country")!.value,
+			workingDays: this.form.get("workingDays")!.value,
+			palsHandled: this.form.get("palsHandled")!.value,
+			homeService: this.form.get("homeService")!.value,
+			appointmentDuration: this.form.get("appointmentDuration")!.value,
+			caregiverType: this.form.get("caregiverType")!.value,
+			isSubscribed: false,
+			serviceRating: this.form.get("serviceRating")!.value,
+			priceRating: this.form.get("priceRating")!.value,
+		} as Caregiver;
 	}
 	
 	openSnackBar(message: string, action: string) {

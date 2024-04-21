@@ -13,3 +13,10 @@
     align-content: center;
     margin: auto;
 }
+
+.main{
+    justify-content: space-evenly;
+    margin-top: 100px;
+}
+
+
