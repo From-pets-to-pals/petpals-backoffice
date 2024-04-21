@@ -8,6 +8,8 @@ import {appWindow} from "@tauri-apps/api/window";
 import {DialogElementsExampleDialog} from "./renders/dialogs/simple-dialog";
 import {NgIf} from "@angular/common";
 import { initFlowbite } from 'flowbite';
+import titles from "./models/titles";
+
 @Component({
 	selector: 'app-root',
 	standalone: true,
@@ -16,30 +18,10 @@ import { initFlowbite } from 'flowbite';
 	styleUrl: './app.component.css'
 })
 export class AppComponent {
-	title = 'PetPals';
-	greetingMessage = "";
+	title = titles.home;
 	appWindow: Window = window;
 	
-	openDialog(display: string) {
-		this.dialog.open(DialogElementsExampleDialog, {data: {message: display, title: "Welcome"}});
-	}
 	
-	greet(name: string): void {
-		// Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
-		invoke<string>("greet", {name}).then((text: string) => {
-			this.openDialog(text);
-		});
-	}
-	
-	setCurrentPage(event: Event){
-		// @ts-ignore
-		console.log(event.target.attributes);
-		
-		// @ts-ignore
-		event.target.ariaCurrent="page";
-		// @ts-ignore
-		console.log(event.target.ariaCurrent);
-	}
 	
 	ngOnInit(): void {
 		initFlowbite();
@@ -49,7 +31,7 @@ export class AppComponent {
 		afterRender(() => {
 			// @ts-ignore
 			if (this.appWindow.__TAURI__) {
-				appWindow.setTitle("Accueil")
+				appWindow.setTitle(titles.home)
 				// @ts-ignore
 				document
 					.getElementById('titlebar-minimize')

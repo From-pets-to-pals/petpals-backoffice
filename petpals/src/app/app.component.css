@@ -107,7 +107,7 @@ h1 {
 }
 
 .titlebar {
-    height: 30px;
+    height: 40px;
     background: #111111;
     user-select: none;
     display: flex;
