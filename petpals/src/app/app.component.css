@@ -1,0 +1,15 @@
+.test{
+    display: flex;
+    position: absolute;
+    top: 15vh;
+    left: 15vh;
+}
+
+.greet_input{
+    width: 235px;
+}
+.tauri_form{
+    width: 250px;
+    align-content: center;
+    margin: auto;
+}
