@@ -1,13 +1,10 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
-
 import {CreateCaregiverComponent} from './create-caregiver.component';
 import {provideMockStore} from "@ngrx/store/testing";
-import {BrowserAnimationsModule, NoopAnimationsModule} from "@angular/platform-browser/animations";
-import {AppComponent} from "../../app.component";
-import {MatOption, MatSelect, MatSelectModule} from "@angular/material/select";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {MatSelectModule} from "@angular/material/select";
 import {By} from "@angular/platform-browser";
 import {MatOptionModule} from "@angular/material/core";
-import {DebugElement} from "@angular/core";
 
 describe('CreateCaregiverComponent', () => {
 	let component: CreateCaregiverComponent;
@@ -31,7 +28,6 @@ describe('CreateCaregiverComponent', () => {
 	
 	it('should be created', () => {
 		expect(component).toBeTruthy();
-		
 	});
 	
 	

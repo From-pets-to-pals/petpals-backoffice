@@ -11,7 +11,7 @@ import {NgIf} from "@angular/common";
 @Component({
 	selector: 'app-root',
 	standalone: true,
-	imports: [RouterOutlet, CreateCaregiverComponent, MatButton,NgIf],
+	imports: [RouterOutlet, CreateCaregiverComponent, MatButton, NgIf],
 	templateUrl: './app.component.html',
 	styleUrl: './app.component.css'
 })
@@ -21,25 +21,20 @@ export class AppComponent {
 	appWindow: Window = window;
 	
 	openDialog(display: string) {
-		this.dialog.open(DialogElementsExampleDialog, {data: {message :display, title: "Welcome"}});
+		this.dialog.open(DialogElementsExampleDialog, {data: {message: display, title: "Welcome"}});
 	}
 	
 	greet(name: string): void {
-		
 		// Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
 		invoke<string>("greet", {name}).then((text: string) => {
 			this.openDialog(text);
 		});
 	}
-	nfAfterViewInit(){
-		
-		// @ts-ignore
-		console.log(window.__TAURI__)
-	}
+	
 	constructor(public dialog: MatDialog) {
 		afterRender(() => {
 			// @ts-ignore
-			if(window.__TAURI__){
+			if (this.appWindow.__TAURI__) {
 				appWindow.setTitle("Accueil")
 				// @ts-ignore
 				document

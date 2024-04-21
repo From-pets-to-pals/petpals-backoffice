@@ -112,29 +112,7 @@ button {
     }
 }
 
-.titlebar {
-    height: 30px;
-    background: #673ab9;
-    user-select: none;
-    display: flex;
-    justify-content: end;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    margin-bottom: 10px;
-    z-index: 99;
-}
-.titlebar-button {
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    padding:5px ;
 
-}
-.titlebar-button:hover {
-    background: rgb(255, 255, 255,0.2);
-}
 body::-webkit-scrollbar {
     display: none;
 }

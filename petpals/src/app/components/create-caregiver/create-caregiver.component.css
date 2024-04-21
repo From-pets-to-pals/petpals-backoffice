@@ -1,24 +1,33 @@
-.content{
-  max-width: 300px;
+.content {
+    max-width: 300px;
 }
-mat-form-field{
-  display: flex;
-  position: center;
+
+mat-form-field {
+    display: flex;
+    position: center;
 }
-mat-divider{
-  margin: 12px;
+
+mat-divider {
+    margin: 12px;
 }
-button{
-  width: 300px;
+
+.divider {
+    width: 1px;
+    background: var(--red-to-pink-to-purple-vertical-gradient);
+    margin-inline: 0.5rem;
+}
+
+.button_create_caregiver {
+    width: 300px;
 }
 
 
-input{
-  height: 25px;
+.input_create_caregiver {
+    height: 25px;
 }
 
-@media screen and (max-height:750px) {
-  .form_create_caregiver{
-    padding-top: 50px;
-  }
+@media screen and (max-height: 750px) {
+    .form_create_caregiver {
+        padding-top: 50px;
+    }
 }
