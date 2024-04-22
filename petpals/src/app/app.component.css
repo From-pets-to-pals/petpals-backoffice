@@ -36,7 +36,7 @@
 
 h1 {
     font-size: 3.125rem;
-    color: #673ab9;
+    color: #FFFFFF;
     font-weight: 500;
     line-height: 100%;
     letter-spacing: -0.125rem;
@@ -88,9 +88,9 @@ main {
 }
 
 .main {
-    justify-content: space-evenly;
     color: #FFFFFF;
     min-height: 100vh;
+    padding-top: 80px;
 }
 
 .container {
@@ -107,7 +107,7 @@ h1 {
 }
 
 .titlebar {
-    height: 30px;
+    height: 40px;
     background: #111111;
     user-select: none;
     display: flex;
@@ -154,5 +154,18 @@ ul {
 
 li {
     color: #111111;
+}
 
+.navbar_link{
+    color: #FFFFFF;
+}
+.navbar_link:hover{
+    font-weight: bolder;
+    color: #FFFFFF;
+    text-shadow: rgba(76,162,205,0.76) 0px 0px 31px;
+
+}
+
+.navbal_item{
+    width: 60px;
 }

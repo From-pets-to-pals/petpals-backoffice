@@ -1,3 +1,4 @@
+
 <form [formGroup]="form" (ngSubmit)="createCaregiver()" class="form_create_caregiver">
     <mat-form-field>
         <mat-label>Je suis un...</mat-label>
@@ -39,7 +40,7 @@
                value="France">
         <mat-hint align="end">{{form.get("country")!.value.length}}/10</mat-hint>
     </mat-form-field>
-    <mat-form-field hintLabel="Max 10 characters">
+    <mat-form-field hintLabel="Max 10 char1acters">
         <mat-label>Email</mat-label>
         <input type="email" formControlName="email" matInput maxlength="100" class="input_create_caregiver"
                placeholder="Ex. Nougat">
@@ -62,7 +63,7 @@
             </mat-expansion-panel-header>
             <mat-form-field>
                 <mat-label>Compétences</mat-label>
-                <mat-select formControlName="palsHandled" multiple id="select_pals_handled">
+                <mat-select formControlName="palsHandled"  id="select_pals_handled" multiple class="test">
                     <mat-option *ngFor="let pal of palsHandled;" value="{{pal.value}}">{{pal.label}}</mat-option>
                 </mat-select>
             </mat-form-field>

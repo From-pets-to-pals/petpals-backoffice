@@ -1,4 +1,10 @@
 <div *ngIf="appWindow.__TAURI__" data-tauri-drag-region class="titlebar">
+    <div class="titlebar-text" id="titlebar-text" style="color: #fafafa; position: fixed;left:10px;top: 10px; display: flex;justify-content: space-between; align-items: center">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 14 14">
+            <path fill="none" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" d="M1.5 9.5c.552 0 1-.672 1-1.5s-.448-1.5-1-1.5s-1 .672-1 1.5s.448 1.5 1 1.5m3-4.5c.552 0 1-.672 1-1.5S5.052 2 4.5 2s-1 .672-1 1.5s.448 1.5 1 1.5m5 0c.552 0 1-.672 1-1.5S10.052 2 9.5 2s-1 .672-1 1.5s.448 1.5 1 1.5m3 4.5c.552 0 1-.672 1-1.5s-.448-1.5-1-1.5s-1 .672-1 1.5s.448 1.5 1 1.5M10 10c0 1.38-1.62 2-3 2s-3-.62-3-2s1-3.5 3-3.5s3 2.12 3 3.5" />
+        </svg>
+        <span style="padding-left: 10px"> PetPals</span>
+    </div>
     <div class="titlebar-button" id="titlebar-minimize">
         <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24">
             <path fill="#00791f" d="M19 13H5v-2h14z"/>
@@ -18,81 +24,78 @@
     </div>
 
 </div>
-<div>
+<nav class="bg-white border-gray-200 dark:bg-gray-900">
+    <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+        <a href="#" target="_self" class="flex items-center space-x-3 rtl:space-x-reverse">
+            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 14 14">
+                <path fill="none" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" d="M1.5 9.5c.552 0 1-.672 1-1.5s-.448-1.5-1-1.5s-1 .672-1 1.5s.448 1.5 1 1.5m3-4.5c.552 0 1-.672 1-1.5S5.052 2 4.5 2s-1 .672-1 1.5s.448 1.5 1 1.5m5 0c.552 0 1-.672 1-1.5S10.052 2 9.5 2s-1 .672-1 1.5s.448 1.5 1 1.5m3 4.5c.552 0 1-.672 1-1.5s-.448-1.5-1-1.5s-1 .672-1 1.5s.448 1.5 1 1.5M10 10c0 1.38-1.62 2-3 2s-3-.62-3-2s1-3.5 3-3.5s3 2.12 3 3.5" />
+            </svg>
+            <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white" style="color: #fafafa">PetPals</span>
+        </a>
 
+        <div class="hidden w-full md:block md:w-auto" id="navbar-default">
 
-    <nav class="bg-white border-gray-200 dark:bg-gray-900">
-        <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-            <a href="#" target="_self" class="flex items-center space-x-3 rtl:space-x-reverse">
-                <img src="../assets/logo.svg" class="h-8" alt="Flowbite Logo"/>
-                <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">PetPals</span>
-            </a>
-            <button data-collapse-toggle="navbar-default" type="button"
-                    class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
-                    aria-controls="navbar-default" aria-expanded="false">
+            <ul class="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+                <li class="navbal_item">
+                    <a
+                            routerLink="/"
+                            routerLinkActive="activebutton"
+                            ariaCurrentWhenActive="page"
+                            class="navbar_link"
+                       >Home</a>
+                </li>
+                <li class="navbal_item">
+                    <a routerLink="/create-caregiver"
+                       routerLinkActive="activebutton"
+                       ariaCurrentWhenActive="page"
+                       class="navbar_link"
+                       
+                >Caregivers</a>
+                </li>
+                <li class="navbal_item">
+                    <a
+                       class="navbar_link"
+                     >Owners</a>
+                </li>
+                <li class="navbal_item" *ngIf="appWindow.__TAURI__" >
+                    <a
+                            routerLink="/tauri"
+                            routerLinkActive="activebutton"
+                            ariaCurrentWhenActive="page"
+                            class="navbar_link"
+
+                            class="navbar_link"
+                    >Tauri</a>
+                </li>
+            </ul>
+        </div>
+        <!--
+        <div class="flex md:order-1">
+            <button type="button" data-collapse-toggle="navbar-search" aria-controls="navbar-search" aria-expanded="false" class="md:hidden text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 me-1">
+                <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                </svg>
+                <span class="sr-only">Search</span>
+            </button>
+            <div class="relative hidden md:block">
+                <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                    <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                    </svg>
+                    <span class="sr-only">Search icon</span>
+                </div>
+                <input type="text" id="search-navbar" class="block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search...">
+            </div>
+            <button data-collapse-toggle="navbar-search" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-search" aria-expanded="false">
                 <span class="sr-only">Open main menu</span>
-                <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                     viewBox="0 0 17 14">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                          d="M1 1h15M1 7h15M1 13h15"/>
+                <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"/>
                 </svg>
             </button>
-            <div class="hidden w-full md:block md:w-auto" id="navbar-default">
-                <ul class="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
-                    <li>
-                        <a href="#"
-                           class="block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white md:dark:text-blue-500"
-                           aria-current="page">Home</a>
-                    </li>
-                    <li>
-                        <a href="#"
-                           class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">About</a>
-                    </li>
-                    <li>
-                        <a href="#"
-                           class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Services</a>
-                    </li>
-                    <li>
-                        <a href="#"
-                           class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Pricing</a>
-                    </li>
-                    <li>
-                        <a href="#"
-                           class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Contact</a>
-                    </li>
-                </ul>
-            </div>
         </div>
-    </nav>
-
-
-    <main class="main">
-        <div class="container">
-            <h1>Petpals Tauri + Angular!</h1>
-            <div class="row">
-                <a href="#">
-                    <img src="/assets/logo.svg" class="logo petpals" alt="Petpals logo"/>
-                </a>
-                <a href="https://tauri.app" target="_blank">
-                    <img src="/assets/tauri.svg" class="logo tauri" alt="Tauri logo"/>
-                </a>
-                <a href="https://angular.io" target="_blank">
-                    <img src="/assets/angular.svg" class="logo angular" alt="Angular logo"/>
-                </a>
-            </div>
-            <p>Click on the logos to learn more about the frameworks</p>
-            <div class="tauri_form">
-                <input #greetInput id="greet-input" placeholder="Enter a name..."
-                       (keydown.enter)="greet(greetInput.value)" classs="greet_input"/>
-                <button mat-flat-button class="greet_input" type="submit" color="primary"
-                        (click)="greet(greetInput.value)">Greet
-                </button>
-                <p>{{ greetingMessage }} </p>
-            </div>
-        </div>
-        <div class="left-side">
-            <app-create-caregiver></app-create-caregiver>
-        </div>
-    </main>
-</div>
-<router-outlet/>
+        -->
+    </div>
+</nav>
+<main class="main">
+    <router-outlet/>
+</main>
