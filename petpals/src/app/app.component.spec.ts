@@ -1,8 +1,9 @@
-import { TestBed } from '@angular/core/testing';
-import { AppComponent } from './app.component';
+import {TestBed} from '@angular/core/testing';
+import {AppComponent} from './app.component';
 import {provideMockStore} from "@ngrx/store/testing";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {MatDialog, MatDialogModule} from "@angular/material/dialog";
+import {RouterModule} from "@angular/router";
 
 describe('AppComponent', () => {
   let title = "PetPals - Accueil";
@@ -11,7 +12,7 @@ describe('AppComponent', () => {
       token:null
     }
     await TestBed.configureTestingModule({
-      imports: [AppComponent, BrowserAnimationsModule, MatDialogModule],
+      imports: [AppComponent, BrowserAnimationsModule, MatDialogModule,RouterModule.forRoot([])],
       providers: [
           MatDialog,
         provideMockStore({ initialState }),
