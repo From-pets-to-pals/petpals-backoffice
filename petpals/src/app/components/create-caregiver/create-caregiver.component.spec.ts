@@ -48,7 +48,7 @@ describe('CreateCaregiverComponent', () => {
 	});
 	
 	
-	it('should create caregive', async () => {
+	it('should create caregiver', async () => {
 		let form = new FormGroup({
 				firstName: new FormControl('Sidou', {
 					validators: [Validators.required, Validators.minLength(3)],
@@ -180,7 +180,7 @@ describe('CreateCaregiverComponent', () => {
 		
 	});
 	
-	it('should fail when creating caregiver', async () => {
+	it('should fail when validating caregiver creation form', async () => {
 		// @ts-ignore
 		let form = new FormGroup({
 				firstName: new FormControl('Sidou', {
