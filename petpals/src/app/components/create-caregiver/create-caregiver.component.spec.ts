@@ -6,7 +6,6 @@ import {MatSelectModule} from "@angular/material/select";
 import {By} from "@angular/platform-browser";
 import {MatOptionModule} from "@angular/material/core";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {AxiosResponse} from "axios";
 
 describe('CreateCaregiverComponent', () => {
 	let component: CreateCaregiverComponent;
