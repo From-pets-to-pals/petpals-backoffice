@@ -3,18 +3,26 @@ import {DialogElementsExampleDialog} from "../../renders/dialogs/simple-dialog";
 import {invoke} from "@tauri-apps/api/tauri";
 import {MatDialog} from "@angular/material/dialog";
 import {MatButton} from "@angular/material/button";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {MatFormField, MatLabel} from "@angular/material/form-field";
+import {MatInputModule} from "@angular/material/input";
 
 @Component({
 	selector: 'app-tauri',
 	standalone: true,
-	imports: [
-		MatButton
-	],
+    imports: [
+        MatButton,
+        FormsModule,
+        MatFormField,
+        MatInputModule,
+        MatLabel,
+        ReactiveFormsModule
+    ],
 	templateUrl: './tauri.component.html',
 	styleUrl: './tauri.component.css'
 })
 export class TauriComponent {
-	
+	input = "0";
 	openDialog(display: string, title: string) {
 		this.dialog.open(DialogElementsExampleDialog, {data: {message: display, title: title}});
 	}
@@ -33,4 +41,6 @@ export class TauriComponent {
 	
 	constructor(public dialog: MatDialog) {
 	}
+
+    protected readonly event = event;
 }
