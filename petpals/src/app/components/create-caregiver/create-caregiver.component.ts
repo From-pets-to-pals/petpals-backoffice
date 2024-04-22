@@ -48,8 +48,10 @@ export class CreateCaregiverComponent {
 	homeService = options.homeService;
 	palsHandled = options.palsHandled;
 	
+	getCareGiverApiService(){
+		return this.caregiverApiService;
+	}
 	constructor(private _snackBar: MatSnackBar, private store: Store, private caregiverApiService: CaregiversApiService, private formBuilder: FormBuilder) {
-	
 	}
 	
 	minLengthArray(min: number) {
@@ -118,9 +120,11 @@ export class CreateCaregiverComponent {
 		if (this.form.valid && !this.isRegistered) {
 			let toCreate = this.mapCaregiver();
 			if (!window.__TAURI__) {
+				console.log("axios")
 				this.caregiverApiService
 					.createCaregiver(toCreate)
 					.then(res => {
+						console.log("res")
 						this.isRegistered = true;
 						this.token = res.data;
 						this.store.dispatch(updateToken(res.data))
@@ -138,6 +142,7 @@ export class CreateCaregiverComponent {
 						'API-KEY': environment.caregivers.apiKey
 					},
 					body: Body.json(toCreate)
+					
 				}).then((res:any) => {
 					this.isRegistered = true;
 					this.token = res.data;
@@ -148,10 +153,12 @@ export class CreateCaregiverComponent {
 				});
 			}
 			
+		} else {
+			this.openSnackBar("Invalid inputs", "Close");
 		}
 	}
 	
-	private mapCaregiver() {
+	 mapCaregiver() {
 		return {
 			firstName: this.form.get("firstName")!.value,
 			lastName: this.form.get("lastName")!.value,

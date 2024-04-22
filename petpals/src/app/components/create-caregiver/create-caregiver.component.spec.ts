@@ -5,6 +5,8 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {MatSelectModule} from "@angular/material/select";
 import {By} from "@angular/platform-browser";
 import {MatOptionModule} from "@angular/material/core";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {Axios, AxiosResponse} from "axios";
 
 describe('CreateCaregiverComponent', () => {
 	let component: CreateCaregiverComponent;
@@ -29,6 +31,65 @@ describe('CreateCaregiverComponent', () => {
 	it('should be created', () => {
 		expect(component).toBeTruthy();
 	});
+	
+	it('should open snackbar', () => {
+		let form = new FormGroup({
+				firstName: new FormControl('Sidou', {
+					validators: [Validators.required, Validators.minLength(3)],
+					nonNullable: true
+				}),
+				lastName: new FormControl('Bennaceur', {
+					validators: [Validators.required, Validators.minLength(3)],
+					nonNullable: true
+				}),
+				address: new FormControl('101, rue des Atrebates', {
+					validators: [Validators.required, Validators.minLength(3)],
+					nonNullable: true
+				}),
+				city: new FormControl('Arras', {validators: [Validators.required, Validators.minLength(3)], nonNullable: true}),
+				zipCode: new FormControl('62000', {
+					validators: [Validators.required, Validators.minLength(5)],
+					nonNullable: true
+				}),
+				country: new FormControl('FRANCE', {validators: [Validators.required], nonNullable: true}),
+				email: new FormControl('sa.bennaceur@gmail.com', {validators: [Validators.required, Validators.email], nonNullable: true}),
+				phoneNumber: new FormControl('0764017528', {
+					validators: [Validators.required, Validators.minLength(10), Validators.maxLength(10)],
+					nonNullable: true
+				}),
+				caregiverType: new FormControl('GROOMER', {
+					validators: [Validators.required, Validators.pattern("^(GROOMER|VET|TRAINER$)")],
+					nonNullable: true
+				}),
+				homeService: new FormControl(false, {validators: [Validators.required], nonNullable: true}),
+				isSubscribed: new FormControl(false, {validators: [Validators.required], nonNullable: true}),
+				workingDays: new FormControl(["MONDAY"], component.minLengthArray(1)),
+				palsHandled: new FormControl(["DOG"], {
+					validators: [Validators.required, component.minLengthArray(1)],
+					nonNullable: true
+				}),
+				priceRating: new FormControl(3.2, {validators: [Validators.required], nonNullable: true}),
+				serviceRating: new FormControl(4.1, {validators: [Validators.required], nonNullable: true}),
+				appointmentDuration: new FormControl(0.25, {validators: [Validators.required], nonNullable: true}),
+			}
+		)
+		spyOn(component, "createCaregiver").and.callThrough();
+		spyOn(component, "openSnackBar").and.callThrough();
+		
+		// @ts-ignore
+		component.form = form;
+		const callWith = component.mapCaregiver();
+		// @ts-ignore
+		spyOn(component.getCareGiverApiService(), "createCaregiver").and.callThrough();
+		const inquiryOptions = fixture.debugElement.query(By.css('.button_create_caregiver')).nativeElement;
+		inquiryOptions?.click();
+		//spyOn(component, "").and.callThrough();
+		// @ts-ignore
+		expect(component.getCareGiverApiService().createCaregiver).toHaveBeenCalledWith(callWith);
+		//expect(component.openSnackBar).toHaveBeenCalled();
+		
+	});
+	
 	
 	
 	it('should have select options upon component creation', async () => {
