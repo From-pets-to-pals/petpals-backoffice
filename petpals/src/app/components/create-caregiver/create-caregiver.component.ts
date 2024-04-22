@@ -47,7 +47,7 @@ export class CreateCaregiverComponent {
 	days = options.days;
 	homeService = options.homeService;
 	palsHandled = options.palsHandled;
-	
+	message = "";
 	getCareGiverApiService(){
 		return this.caregiverApiService;
 	}
@@ -100,7 +100,7 @@ export class CreateCaregiverComponent {
 	getFromBack() {
 		if (!window.__TAURI__) {
 			this.caregiverApiService.get().then(res => {
-				console.log(res.data)
+				this.message = res.data
 			})
 		} else {
 			fetch(environment.caregivers.url + "hello", {
@@ -111,7 +111,7 @@ export class CreateCaregiverComponent {
 					'API-KEY': environment.caregivers.apiKey
 				}
 			}).then((res) => {
-				console.log(res.data);
+				console.error(res.data);
 			});
 		}
 	}
@@ -124,7 +124,6 @@ export class CreateCaregiverComponent {
 				this.caregiverApiService
 					.createCaregiver(toCreate)
 					.then(res => {
-						console.log(res.data);
 						this.isRegistered = true;
 						this.token = res.data;
 						this.openSnackBar("Registration successful", "Close");

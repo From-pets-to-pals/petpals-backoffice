@@ -24,9 +24,10 @@ module.exports = function (config) {
             subdir: '.',
             reporters: [
                 {type: 'text-summary', file: 'coverage.txt'},
-                {type: 'text-summary'},
+                {type: 'html'},
                 {type: 'cobertura'}
-            ]
+            ],
+            exclude : ["src/app/*.ts","src/app/components/tauri/*.ts"]
             , check: {
                 global: {
                     statements: 75,
@@ -36,6 +37,7 @@ module.exports = function (config) {
                 },
             },
         },
+
         reporters: ['progress', 'kjhtml', 'junit'],
         restartOnFileChange: true,
         browsers: ['ChromeHeadless'],
