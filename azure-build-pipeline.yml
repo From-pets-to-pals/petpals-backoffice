@@ -18,12 +18,10 @@ stages:
             displayName: 'Install Node.js'
           - script: |
               cd petpals
-              npm install -g @angular/cli
-              npm install
-              ng build
-              npm test
-            displayName: 'npm install and build'
+              npm install -g @angular/cli && npm install && ng build && npm test
+            displayName: 'npm install, buid, and test'
           - task: PublishTestResults@2
+            displayName: Publish test results
             inputs:
               testResultsFormat: 'JUnit'
               testResultsFiles: '**/junit.xml'
@@ -32,6 +30,7 @@ stages:
               failTaskOnFailureToPublishResults: true
               failTaskOnMissingResultsFile: true
           - task: PublishCodeCoverageResults@2
+            displayName: Publish code coverage results
             inputs:
               summaryFileLocation: '$(Build.SourcesDirectory)/petpals/coverage/cobertura-coverage.xml'
               failIfCoverageEmpty: true
