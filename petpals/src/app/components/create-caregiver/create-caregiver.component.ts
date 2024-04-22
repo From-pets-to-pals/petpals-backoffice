@@ -69,7 +69,7 @@ export class CreateCaregiverComponent {
 			address: new FormControl('', {validators: [Validators.required, Validators.minLength(3)], nonNullable: true}),
 			city: new FormControl('', {validators: [Validators.required, Validators.minLength(3)], nonNullable: true}),
 			zipCode: new FormControl('', {validators: [Validators.required, Validators.minLength(5)], nonNullable: true}),
-			country: new FormControl('FRANCE', {validators: [Validators.required], nonNullable: true}),
+			country: new FormControl('', {validators: [Validators.required], nonNullable: true}),
 			email: new FormControl('', {validators: [Validators.required, Validators.email], nonNullable: true}),
 			phoneNumber: new FormControl('', {
 				validators: [Validators.required, Validators.minLength(10), Validators.maxLength(10)],
