@@ -13,7 +13,7 @@ import titles from "./models/titles";
 @Component({
 	selector: 'app-root',
 	standalone: true,
-	imports: [RouterOutlet, CreateCaregiverComponent, MatButton, NgIf, RouterLink, RouterLinkActive],
+	imports: [RouterOutlet, CreateCaregiverComponent, MatButton, NgIf],
 	templateUrl: './app.component.html',
 	styleUrl: './app.component.css'
 })
