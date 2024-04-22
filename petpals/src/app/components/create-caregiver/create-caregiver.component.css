@@ -26,3 +26,13 @@ mat-divider {
     height: 25px;
 }
 
+
+mat-select{
+    background-color: transparent;
+    border: transparent;
+}
+
+mat-select:focus{
+    all:revert;
+}
+
