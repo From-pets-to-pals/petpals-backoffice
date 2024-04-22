@@ -34,6 +34,7 @@ stages:
           - task: PublishCodeCoverageResults@2
             inputs:
               summaryFileLocation: '$(Build.SourcesDirectory)/petpals/coverage/cobertura-coverage.xml'
+              failIfCoverageEmpty: true
           - task: ArchiveFiles@2
             displayName: Archive build artifact
             inputs:
