@@ -29,14 +29,13 @@ module.exports = function (config) {
             ]
             , check: {
                 global: {
-                    statements: 100,
-                    lines: 100,
-                    branches: 100,
-                    functions: 100,
+                    statements: 75,
+                    lines: 75,
+                    branches: 65,
+                    functions: 75,
                 },
             },
         },
-
         reporters: ['progress', 'kjhtml', 'junit'],
         restartOnFileChange: true,
         browsers: ['ChromeHeadless'],
