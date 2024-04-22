@@ -33,7 +33,9 @@ export class TauriComponent {
 			invoke<string>("greet", {name}).then((text: string) => {
 				this.openDialog(text, "Welcome aboard");
 			});
-			
+			invoke<string>("get_from_rest", {name}).then((text: string) => {
+				this.openDialog(text, "Welcome aboard");
+			});
 		} else {
 			this.openDialog("Unable to do this from browser", "Out of scope operation")
 		}

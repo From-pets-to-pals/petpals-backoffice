@@ -13,7 +13,8 @@
     "allowlist": {
       "http": {
         "all": true,
-        "request": true,"scope": ["https://**"]
+        "request": true,
+        "scope": ["http://**"]
 
       },
       "shell": {
