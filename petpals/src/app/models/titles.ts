@@ -1,6 +1,6 @@
 const pageTitles = {
-    home : "PetPals - accueil",
-    createCaregiver : "PetPals - création d'un Caregiver"
+    home : "PetPals - Accueil",
+    createCaregiver : "PetPals - Création d'un Caregiver"
 
 }
 

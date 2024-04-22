@@ -2,16 +2,18 @@ import { TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 import {provideMockStore} from "@ngrx/store/testing";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {MatDialog, MatDialogModule} from "@angular/material/dialog";
 
 describe('AppComponent', () => {
-  let title = "PetPals";
+  let title = "PetPals - Accueil";
   beforeEach(async () => {
     let initialState = {
       token:null
     }
     await TestBed.configureTestingModule({
-      imports: [AppComponent, BrowserAnimationsModule],
+      imports: [AppComponent, BrowserAnimationsModule, MatDialogModule],
       providers: [
+          MatDialog,
         provideMockStore({ initialState }),
       ],
     }).compileComponents();
@@ -33,6 +35,7 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain(`Petpals Tauri + Angular!`);
+    
+    expect(compiled.querySelector('span')?.textContent).toContain(`PetPals`);
   });
 });
