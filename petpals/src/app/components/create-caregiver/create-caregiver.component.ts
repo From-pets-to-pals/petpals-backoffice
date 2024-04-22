@@ -120,19 +120,13 @@ export class CreateCaregiverComponent {
 		if (this.form.valid && !this.isRegistered) {
 			let toCreate = this.mapCaregiver();
 			if (!window.__TAURI__) {
-				console.log("axios")
-				console.log(this.caregiverApiService)
 				
 				this.caregiverApiService
 					.createCaregiver(toCreate)
 					.then(res => {
 						console.log(res.data);
 						this.isRegistered = true;
-						console.log(this.isRegistered)
-						
 						this.token = res.data;
-						console.log("genre")
-						
 						this.openSnackBar("Registration successful", "Close");
 						this.store.dispatch(updateToken(res.data))
 					})

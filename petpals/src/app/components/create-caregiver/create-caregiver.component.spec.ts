@@ -34,6 +34,21 @@ describe('CreateCaregiverComponent', () => {
 		expect(component).toBeTruthy();
 	});
 	
+	it('should open snackbar when unregistered', () => {
+		component.isRegistered = false;
+		spyOn(component,"openSnackBar").and.callThrough();
+		component.createCaregiver();
+		expect(component.openSnackBar).toHaveBeenCalled()
+	});
+	
+	it('should get snackbar message from back on ngInit', () => {
+		// @ts-ignore
+		spyOn(component.getCareGiverApiService(),"get").and.resolveTo(Promise.resolve({data:"Hello from back"}));
+		component.getFromBack();
+		expect(component.getCareGiverApiService().get).toHaveBeenCalled()
+	});
+	
+	
 	it('should create caregive', async () => {
 		let form = new FormGroup({
 				firstName: new FormControl('Sidou', {

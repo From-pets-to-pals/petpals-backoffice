@@ -20,4 +20,10 @@ describe('TauriComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+  
+  it('should open dialog', () => {
+    spyOn(component,"openDialog").and.callThrough();
+    component.greet("Sid");
+    expect(component.openDialog).toHaveBeenCalled();
+  });
 });

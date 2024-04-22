@@ -19,8 +19,8 @@ export class CaregiversApiService {
   async createCaregiver(caregiver: Caregiver) {
     return await (await this._instance.post("caregivers/create", caregiver)).data;
   }
-  get() {
-    return this._instance.get("hello");
+  async get() {
+    return await (await this._instance.get("hello")).data;
   }
 
 }
