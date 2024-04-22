@@ -16,13 +16,11 @@ stages:
             inputs:
               versionSpec: '18.14'
             displayName: 'Install Node.js'
-          - script: |
-              cd petpals
-              npm install -g @angular/cli
-              npm install
-              ng build
-              npm test
-            displayName: 'npm install and build'
+          - task: Npm@1
+            inputs:
+              command: 'custom'
+              workingDir: 'petpals/'
+              customCommand: 'npm install -g @angular/cli && npm install && npm run build && npm run test'
           - task: PublishTestResults@2
             inputs:
               testResultsFormat: 'JUnit'
