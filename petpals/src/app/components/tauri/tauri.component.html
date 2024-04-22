@@ -17,11 +17,12 @@
 <p>Click on the logos to learn more about the frameworks</p>
 	<mat-form-field>
 		<mat-label>Prénom</mat-label>
-		<input matInput class="input_create_caregiver" placeholder="Enter a name..." [formControlName]="input"
-		       (keydown.enter)="greet(input)" style="width: 300px;"/>
+		<input matInput class="input_create_caregiver" placeholder="Enter a name..." [ngModel]="input.value"
+		       (input)="updateInputValue($event)"
+		       (keydown.enter)="greet()" style="width: 300px;"/>
 	</mat-form-field>
 	<button mat-flat-button type="submit" color="primary" class="call_command"
-	        (click)="greet(input)">Greet
+	        (click)="greet()">Greet
 	</button>
 
 </div>

@@ -3,7 +3,7 @@ import {DialogElementsExampleDialog} from "../../renders/dialogs/simple-dialog";
 import {invoke} from "@tauri-apps/api/tauri";
 import {MatDialog} from "@angular/material/dialog";
 import {MatButton} from "@angular/material/button";
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {FormControl, FormControlName, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {MatFormField, MatLabel} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 
@@ -22,14 +22,21 @@ import {MatInputModule} from "@angular/material/input";
 	styleUrl: './tauri.component.css'
 })
 export class TauriComponent {
-	input = "0";
+	input = new FormControl('', {validators: [Validators.required, Validators.minLength(3)], nonNullable: true})
+
 	openDialog(display: string, title: string) {
 		this.dialog.open(DialogElementsExampleDialog, {data: {message: display, title: title}});
 	}
+
+	updateInputValue(event:Event){
+		// @ts-ignore
+		this.input.setValue(event.target.value)
+	}
 	
-	greet(name: string): void {
+	greet(): void {
 		// Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
 		if(window.__TAURI__){
+			const name = this.input.getRawValue()
 			invoke<string>("greet", {name}).then((text: string) => {
 				this.openDialog(text, "Welcome aboard");
 			});
@@ -40,7 +47,6 @@ export class TauriComponent {
 			this.openDialog("Unable to do this from browser", "Out of scope operation")
 		}
 	}
-	
 	constructor(public dialog: MatDialog) {
 	}
 
