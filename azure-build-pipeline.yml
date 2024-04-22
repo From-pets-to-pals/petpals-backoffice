@@ -16,12 +16,12 @@ stages:
             inputs:
               versionSpec: '18.14'
             displayName: 'Install Node.js'
-          - task: Npm@1
-            inputs:
-              command: 'custom'
-              workingDir: 'petpals/'
-              customCommand: 'npm install -g @angular/cli && npm install && npm run build && npm run test'
+          - script: |
+              cd petpals
+              npm install -g @angular/cli && npm install && ng build && npm test
+            displayName: 'npm install, buid, and test'
           - task: PublishTestResults@2
+            displayName: Publish test results
             inputs:
               testResultsFormat: 'JUnit'
               testResultsFiles: '**/junit.xml'
@@ -30,6 +30,7 @@ stages:
               failTaskOnFailureToPublishResults: true
               failTaskOnMissingResultsFile: true
           - task: PublishCodeCoverageResults@2
+            displayName: Publish code coverage results
             inputs:
               summaryFileLocation: '$(Build.SourcesDirectory)/petpals/coverage/cobertura-coverage.xml'
               failIfCoverageEmpty: true
