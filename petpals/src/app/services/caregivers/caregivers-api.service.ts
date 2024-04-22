@@ -16,8 +16,8 @@ export class CaregiversApiService {
         'API-KEY': environment.caregivers.apiKey
       }})
   }
-  createCaregiver(caregiver : Caregiver) {
-    return this._instance.post("caregivers/create", caregiver);
+  async createCaregiver(caregiver: Caregiver) {
+    return await (await this._instance.post("caregivers/create", caregiver)).data;
   }
   get() {
     return this._instance.get("hello");

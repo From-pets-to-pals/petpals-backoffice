@@ -23,7 +23,6 @@ import {
 } from "@angular/material/expansion";
 import {MatButton} from "@angular/material/button";
 import {NgForOf} from "@angular/common";
-import {Store} from "@ngrx/store";
 import {updateToken} from "../../stores/app.state";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {MatTooltip} from "@angular/material/tooltip";
@@ -31,6 +30,7 @@ import options from '../../models/menus/select.options';
 import {MatOptionModule} from "@angular/material/core";
 import {Body, fetch, ResponseType} from "@tauri-apps/api/http";
 import {environment} from "../../environments/environment";
+import {Store} from "@ngrx/store";
 
 @Component({
 	selector: 'app-create-caregiver',
@@ -42,7 +42,7 @@ import {environment} from "../../environments/environment";
 })
 export class CreateCaregiverComponent {
 	title = 'petpals - add caregiver';
-	isRegistered = false;
+	public isRegistered = false;
 	caregiverTypes = options.caregiverType;
 	days = options.days;
 	homeService = options.homeService;
@@ -51,7 +51,7 @@ export class CreateCaregiverComponent {
 	getCareGiverApiService(){
 		return this.caregiverApiService;
 	}
-	constructor(private _snackBar: MatSnackBar, private store: Store, private caregiverApiService: CaregiversApiService, private formBuilder: FormBuilder) {
+	constructor(private store: Store, private _snackBar: MatSnackBar,  private caregiverApiService: CaregiversApiService, private formBuilder: FormBuilder) {
 	}
 	
 	minLengthArray(min: number) {
@@ -121,14 +121,20 @@ export class CreateCaregiverComponent {
 			let toCreate = this.mapCaregiver();
 			if (!window.__TAURI__) {
 				console.log("axios")
+				console.log(this.caregiverApiService)
+				
 				this.caregiverApiService
 					.createCaregiver(toCreate)
 					.then(res => {
-						console.log("res")
+						console.log(res.data);
 						this.isRegistered = true;
+						console.log(this.isRegistered)
+						
 						this.token = res.data;
-						this.store.dispatch(updateToken(res.data))
+						console.log("genre")
+						
 						this.openSnackBar("Registration successful", "Close");
+						this.store.dispatch(updateToken(res.data))
 					})
 					.catch(err => {
 						this.openSnackBar(err.message, "Close");
