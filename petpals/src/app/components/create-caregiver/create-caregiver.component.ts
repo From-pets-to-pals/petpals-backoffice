@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {CaregiversApiService} from "../../services/caregivers/caregivers-api.service";
+import {PetpalsApiService} from "../../services/middleware/petpals-api.service";
 import {
 	AbstractControl,
 	FormBuilder,
@@ -31,6 +31,7 @@ import {MatOptionModule} from "@angular/material/core";
 import {Body, fetch, ResponseType} from "@tauri-apps/api/http";
 import {environment} from "../../environments/environment";
 import {Store} from "@ngrx/store";
+import {invoke} from "@tauri-apps/api/tauri";
 
 @Component({
 	selector: 'app-create-caregiver',
@@ -51,7 +52,7 @@ export class CreateCaregiverComponent {
 	getCareGiverApiService(){
 		return this.caregiverApiService;
 	}
-	constructor(private store: Store, private _snackBar: MatSnackBar,  private caregiverApiService: CaregiversApiService, private formBuilder: FormBuilder) {
+	constructor(private store: Store, private _snackBar: MatSnackBar, private caregiverApiService: PetpalsApiService, private formBuilder: FormBuilder) {
 	}
 	
 	minLengthArray(min: number) {
@@ -79,7 +80,8 @@ export class CreateCaregiverComponent {
 				validators: [Validators.required, Validators.pattern("^(GROOMER|VET|TRAINER$)")],
 				nonNullable: true
 			}),
-			homeService: new FormControl(false, {validators: [Validators.required], nonNullable: true}),
+			homeService: new FormControl<boolean>(false, {validators: [Validators.required], nonNullable: true}),
+
 			isSubscribed: new FormControl(false, {validators: [Validators.required], nonNullable: true}),
 			workingDays: new FormControl([], this.minLengthArray(1)),
 			palsHandled: new FormControl([], {
@@ -98,20 +100,21 @@ export class CreateCaregiverComponent {
 	}
 	
 	getFromBack() {
+		console.log(window.__TAURI__)
 		if (!window.__TAURI__) {
 			this.caregiverApiService.get().then(res => {
-				this.message = res.data
+				this.message = res
 			})
 		} else {
-			fetch(environment.caregivers.url + "hello", {
+			fetch(environment.api.url + "hello", {
 				method: "GET",
 				timeout: 30, //seconds
 				responseType: ResponseType.Text,
 				headers:{
-					'API-KEY': environment.caregivers.apiKey
+					'API-KEY': environment.api.apiKey
 				}
 			}).then((res) => {
-				console.error(res.data);
+				console.log(res.data);
 			});
 		}
 	}
@@ -120,7 +123,6 @@ export class CreateCaregiverComponent {
 		if (this.form.valid && !this.isRegistered) {
 			let toCreate = this.mapCaregiver();
 			if (!window.__TAURI__) {
-				
 				this.caregiverApiService
 					.createCaregiver(toCreate)
 					.then(res => {
@@ -133,25 +135,14 @@ export class CreateCaregiverComponent {
 						this.openSnackBar(err.message, "Close");
 					})
 			} else {
-				fetch(environment.caregivers.url + "caregivers/create", {
-					method: "POST",
-					timeout: 30, //seconds
-					responseType: ResponseType.Text,
-					headers:{
-						'API-KEY': environment.caregivers.apiKey
-					},
-					body: Body.json(toCreate)
-					
-				}).then((res:any) => {
+				const createCaregiver = toCreate;
+				invoke<string>("create_caregiver", {createCaregiver}).then((res: any) => {
 					this.isRegistered = true;
 					this.token = res.data;
-					this.store.dispatch(updateToken(res.data))
+					this.store.dispatch(updateToken(res.statusCode))
 					this.openSnackBar("Welcome aboard", "Ok")
-				}).catch(err => {
-					this.openSnackBar(err.message, "Close");
 				});
 			}
-			
 		} else {
 			this.openSnackBar("Invalid inputs", "Close");
 		}

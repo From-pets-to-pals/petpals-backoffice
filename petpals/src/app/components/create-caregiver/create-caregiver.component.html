@@ -1,5 +1,5 @@
 
-<form [formGroup]="form" (ngSubmit)="createCaregiver()" class="form_create_caregiver">
+<form [formGroup]="form" (ngSubmit)="createCaregiver()" class="form_create_caregiver" autocomplete="one-time-code">
     <mat-form-field>
         <mat-label>Je suis un...</mat-label>
         <mat-select formControlName="caregiverType" id="select_caregiver_type">
@@ -10,46 +10,56 @@
     </mat-form-field>
     <mat-form-field>
         <mat-label>Prénom</mat-label>
-        <input formControlName="firstName" matInput maxlength="35" class="input_create_caregiver"
-               placeholder="Ex. Nougat">
+        <input type="text" formControlName="firstName" name="firstName" matInput maxlength="35"
+               class="input_create_caregiver" autocomplete="one-time-code"
+               placeholder="Ex. David">
     </mat-form-field>
     <mat-form-field>
         <mat-label>Nom</mat-label>
-        <input formControlName="lastName" matInput maxlength="35" class="input_create_caregiver"
-               placeholder="Ex. Nougat">
+        <input formControlName="lastName" matInput maxlength="35" name="lastName" class="input_create_caregiver"
+                type="text" autocomplete="one-time-code"
+               placeholder="Ex. Bowie">
     </mat-form-field>
     <mat-form-field>
         <mat-label>Adresse</mat-label>
         <input formControlName="address" matInput maxlength="250" class="input_create_caregiver"
-               placeholder="Ex. Nougat">
+               type="text" name="address" autocomplete="one-time-code"
+               placeholder="Ex. 12, rue des Alyzées">
         <mat-hint align="end">{{form.get("address")!.value.length}}/250</mat-hint>
     </mat-form-field>
     <mat-form-field>
         <mat-label>Ville</mat-label>
-        <input formControlName="city" matInput maxlength="25" class="input_create_caregiver" placeholder="Ex. Nougat">
+        <input formControlName="city" matInput maxlength="25" class="input_create_caregiver"
+               type="text" name="city" autocomplete="one-time-code"
+               placeholder="Ex. Lille">
         <mat-hint align="end">{{form.get("city")!.value.length}}/25</mat-hint>
     </mat-form-field>
     <mat-form-field hintLabel="Max 10 characters">
         <mat-label>Code postal</mat-label>
-        <input formControlName="zipCode" matInput maxlength="5" class="input_create_caregiver" placeholder="92150">
+        <input formControlName="zipCode" matInput maxlength="5" class="input_create_caregiver"
+               type="text" name="zipCode" autocomplete="one-time-code"
+               placeholder="59000">
         <mat-hint align="end">{{form.get("zipCode")!.value.length}}/5</mat-hint>
     </mat-form-field>
     <mat-form-field hintLabel="Max 10 characters">
         <mat-label>Pays</mat-label>
         <input formControlName="country" matInput maxlength="10" class="input_create_caregiver"
+               type="text" name="country" autocomplete="one-time-code"
                placeholder="France">
         <mat-hint align="end">{{form.get("country")!.value.length}}/10</mat-hint>
     </mat-form-field>
     <mat-form-field hintLabel="Max 10 char1acters">
         <mat-label>Email</mat-label>
         <input type="email" formControlName="email" matInput maxlength="100" class="input_create_caregiver"
-               placeholder="Ex. Nougat">
+               name="email" autocomplete="one-time-code"
+               placeholder="Ex. my-doggo@gmail.com">
         <mat-hint align="end">{{form.get("email")!.value.length}}/100</mat-hint>
     </mat-form-field>
     <mat-form-field hintLabel="Max 10 characters">
         <mat-label>Téléphone</mat-label>
         <input formControlName="phoneNumber" type="tel" matInput maxlength="10" class="input_create_caregiver"
-               placeholder="Ex. Nougat">
+               name="phoneNumber" autocomplete="one-time-code"
+               placeholder="Ex. 0610203040">
         <mat-hint align="end">{{form.get("phoneNumber")!.value.length}}/10</mat-hint>
     </mat-form-field>
     <mat-divider></mat-divider>
@@ -63,7 +73,7 @@
             </mat-expansion-panel-header>
             <mat-form-field>
                 <mat-label>Compétences</mat-label>
-                <mat-select formControlName="palsHandled"  id="select_pals_handled" multiple class="test">
+                <mat-select formControlName="palsHandled"  id="select_pals_handled" multiple >
                     <mat-option *ngFor="let pal of palsHandled;" value="{{pal.value}}">{{pal.label}}</mat-option>
                 </mat-select>
             </mat-form-field>
@@ -76,7 +86,7 @@
             <mat-form-field>
                 <mat-label>Déplacements</mat-label>
                 <mat-select formControlName="homeService" id="select_home_service">
-                    <mat-option *ngFor="let hs of homeService;" value="{{hs.value}}">{{hs.label}}</mat-option>
+                    <mat-option *ngFor="let hs of homeService;" [value]="hs.value">{{hs.label}}</mat-option>
                 </mat-select>
             </mat-form-field>
         </mat-expansion-panel>
