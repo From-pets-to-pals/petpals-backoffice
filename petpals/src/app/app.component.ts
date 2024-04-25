@@ -18,9 +18,7 @@ import titles from "./models/titles";
 export class AppComponent {
 	title = titles.home;
 	appWindow: Window = window;
-	
-	
-	
+
 	ngOnInit(): void {
 		initFlowbite();
 	}

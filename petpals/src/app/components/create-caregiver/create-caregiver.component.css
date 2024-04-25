@@ -24,15 +24,20 @@ mat-divider {
 
 .input_create_caregiver {
     height: 25px;
+    all:unset;
+    color: #2f2f2f;
 }
+.input_create_caregiver:focus {
+    height: 25px;
+    all:unset;
 
+}
 
 mat-select{
     background-color: transparent;
     border: transparent;
 }
-
 mat-select:focus{
-    all:revert;
+    all:unset;
 }
 

@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TauriComponent } from './tauri.component';
+import {Browser} from "puppeteer";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 describe('TauriComponent', () => {
   let component: TauriComponent;
@@ -8,7 +10,7 @@ describe('TauriComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TauriComponent]
+      imports: [TauriComponent, BrowserAnimationsModule]
     })
     .compileComponents();
     
@@ -19,11 +21,13 @@ describe('TauriComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+    expect(component.input.value).toEqual("");
+
   });
   
   it('should open dialog', () => {
     spyOn(component,"openDialog").and.callThrough();
-    component.greet("Sid");
+    component.greet();
     expect(component.openDialog).toHaveBeenCalled();
   });
 });

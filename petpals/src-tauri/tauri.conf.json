@@ -7,13 +7,14 @@
   },
   "package": {
     "productName": "petpals",
-    "version": "0.0.0"
+    "version": "0.1.0"
   },
   "tauri": {
     "allowlist": {
       "http": {
         "all": true,
-        "request": true,"scope": ["https://**"]
+        "request": true,
+        "scope": ["https://petpals-middleware-dev.azurewebsites.net/**","http://127.0.0.1:80/**"]
 
       },
       "shell": {
@@ -28,8 +29,6 @@
     "windows": [
       {
         "title": "PetPals",
-        "width": 1000,
-        "height": 750,
         "decorations": false
       }
     ],
@@ -39,7 +38,7 @@
     "bundle": {
       "active": true,
       "targets": "all",
-      "identifier": "com.tauri.dev",
+      "identifier": "com.petpals",
       "icon": [
         "icons/32x32.png",
         "icons/128x128.png",

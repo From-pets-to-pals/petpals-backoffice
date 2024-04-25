@@ -70,22 +70,8 @@ main {
     margin-top: 1.5rem;
 }
 
-.test {
-    display: flex;
-    position: absolute;
-    top: 15vh;
-    left: 15vh;
-}
 
-.greet_input {
-    width: 235px;
-}
 
-.tauri_form {
-    width: 250px;
-    align-content: center;
-    margin: auto;
-}
 
 .main {
     color: #FFFFFF;
@@ -131,9 +117,6 @@ h1 {
     background: rgb(255, 255, 255, 0.8);
 }
 
-.greet_input {
-    color: #2f2f2f;
-}
 
 nav {
     position: fixed;
