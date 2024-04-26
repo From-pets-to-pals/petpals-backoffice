@@ -25,7 +25,8 @@ module.exports = function (config) {
             reporters: [
                 {type: 'text-summary', file: 'coverage.txt'},
                 {type: 'html'},
-                {type: 'cobertura'}
+                {type: 'cobertura'},
+                { type: 'lcov', subdir: 'lcov-report' }
             ],
             exclude : ["src/app/*.ts","src/app/components/tauri/*.ts"]
             , check: {
