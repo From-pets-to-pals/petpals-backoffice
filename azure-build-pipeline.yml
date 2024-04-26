@@ -12,13 +12,20 @@ stages:
     jobs:
       - job:
         steps:
+          - task: CmdLine@2
+            inputs:
+              script: |
+                git clone https://$(GIT_USER):$(PAT)@github.com/From-pets-to-pals/petpals-conf.git
+                ls
+                cp -r petpals-conf/dev/front/sonar-project.properties petpals
+                ls $(APP_NAME)/src/main/resources
           - task: NodeTool@0
             inputs:
               versionSpec: '18.14'
             displayName: 'Install Node.js'
           - script: |
               cd petpals
-              npm install -g @angular/cli && npm install && ng build && npm test
+              npm install -g @angular/cli && npm install && ng build && npm test && npm run sonar-scanner
             displayName: 'npm install, buid, and test'
           - task: PublishTestResults@2
             displayName: Publish test results
