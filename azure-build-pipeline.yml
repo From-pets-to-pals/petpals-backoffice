@@ -26,6 +26,12 @@ stages:
               cd petpals
               npm install -g @angular/cli && npm install && ng build && npm test && npm run sonar-scanner
             displayName: 'npm install, buid, and test'
+          - task: CmdLine@2
+            displayName: Sonar analysis
+            inputs :
+                script: |
+                    cd petpals
+                    npm run sonar-scanner
           - task: PublishTestResults@2
             displayName: Publish test results
             inputs:
