@@ -17,8 +17,7 @@ stages:
               script: |
                 git clone https://$(GIT_USER):$(PAT)@github.com/From-pets-to-pals/petpals-conf.git
                 ls
-                cp -r petpals-conf/dev/front/sonar-project.properties petpals
-                ls $(APP_NAME)/src/main/resources
+                cp petpals-conf/dev/front/sonar-project.properties petpals
           - task: NodeTool@0
             inputs:
               versionSpec: '18.14'
@@ -27,6 +26,12 @@ stages:
               cd petpals
               npm install -g @angular/cli && npm install && ng build && npm test && npm run sonar-scanner
             displayName: 'npm install, buid, and test'
+          - task: CmdLine@2
+            displayName: Sonar analysis
+            inputs :
+                script: |
+                    cd petpals
+                    npm run sonar-scanner
           - task: PublishTestResults@2
             displayName: Publish test results
             inputs:
