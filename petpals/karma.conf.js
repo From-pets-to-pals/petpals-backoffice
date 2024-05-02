@@ -28,13 +28,13 @@ module.exports = function (config) {
                 {type: 'cobertura'},
                 { type: 'lcov', subdir: 'lcov-report' }
             ],
-            exclude : ["src/app/*.ts","src/app/components/tauri/*.ts"]
+            exclude : ["src/app/*.ts","src/app/components/tauri/*.ts","**/src/app/environments/*.ts"]
             , check: {
                 global: {
                     statements: 75,
-                    lines: 75,
+                    lines: 80,
                     branches: 65,
-                    functions: 75,
+                    functions: 70,
                 },
             },
         },

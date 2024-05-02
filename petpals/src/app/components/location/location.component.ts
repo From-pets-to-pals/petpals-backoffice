@@ -47,9 +47,8 @@ export class LocationComponent {
   }
 
   ngOnInit(){
-    console.log("??")
     window.navigator.geolocation.getCurrentPosition(this.success, this.error, this.options);
-    console.log(window.navigator.userAgent)
+    this.form.get("deviceId")?.setValue(window.navigator.userAgent)
   }
 
 
