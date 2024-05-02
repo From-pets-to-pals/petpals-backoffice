@@ -17,7 +17,4 @@ export class GeolocApiService {
     async get(coords: any) {
         return await (await this._instance.get(`${coords.latitude},${coords.longitude}/1/km`, {withCredentials: false})).data;
     }
-    async getWithName(name: string) {
-        return await (await this._instance.get(`hello/${name}`)).data;
-    }
 }

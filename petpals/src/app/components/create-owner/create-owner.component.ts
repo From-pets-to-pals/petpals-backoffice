@@ -142,10 +142,6 @@ export class CreateOwnerComponent {
         this.pals.splice(i,1);
     }
 
-    ShowList(){
-        console.log(this.pals)
-    }
-
     updatePalIdentityInformation(event: any, i: number, key: string){
         // @ts-ignore
         this.pals[i].palIdentityInformation[key] = event.target.value
