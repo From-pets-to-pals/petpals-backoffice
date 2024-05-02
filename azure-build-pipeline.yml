@@ -13,6 +13,16 @@ stages:
       - job:
         steps:
           - task: CmdLine@2
+            condition: ne(variables['Build.SourceBranchName'], 'main')
+            displayName: Fetch additional repos
+            inputs:
+              script: |
+                cd $(Build.SourcesDirectory)/$(APP_NAME)
+                echo $(Build.SourceBranchName)
+                git pull --all
+                git show-ref
+                cd $(Build.SourcesDirectory)
+          - task: CmdLine@2
             inputs:
               script: |
                 git clone https://$(GIT_USER):$(PAT)@github.com/From-pets-to-pals/petpals-conf.git
@@ -26,6 +36,12 @@ stages:
               cd petpals
               npm install -g @angular/cli && npm install && ng build && npm test && npm run sonar-scanner
             displayName: 'npm install, buid, and test'
+            condition: eq(variables['Build.SourceBranchName'], 'main')
+          - script: |
+              cd petpals
+              npm install -g @angular/cli && npm install && ng build && npm test && npm run sonar-scanner -- -Dsonar.pullrequest.branch=$(System.PullRequest.SourceBranch) -Dsonar.pullrequest.key=$(System.PullRequest.PullRequestId) -Dsonar.pullrequest.base=main
+            displayName: 'npm install, buid, and test'
+            condition: ne(variables['Build.SourceBranchName'], 'main')
           - task: CmdLine@2
             displayName: Sonar analysis
             inputs :
