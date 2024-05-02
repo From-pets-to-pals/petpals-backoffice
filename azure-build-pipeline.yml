@@ -18,7 +18,6 @@ stages:
             inputs:
               script: |
                 cd $(Build.SourcesDirectory)/$(APP_NAME)
-                echo $(Build.SourceBranchName)
                 git pull --all
                 git show-ref
                 cd $(Build.SourcesDirectory)
@@ -39,8 +38,6 @@ stages:
             condition: eq(variables['Build.SourceBranchName'], 'main')
           - script: |
               cd petpals
-              echo $(System.PullRequest.PullRequestId)
-              echo $(System.PullRequest.PullRequestNumber)
               npm install -g @angular/cli && npm install && ng build && npm test && npm run sonar-scanner -- -Dsonar.pullrequest.branch=$(System.PullRequest.SourceBranch) -Dsonar.pullrequest.key=$(System.PullRequest.PullRequestNumber) -Dsonar.pullrequest.base=main
             displayName: 'npm install, buid, and test'
             condition: ne(variables['Build.SourceBranchName'], 'main')
