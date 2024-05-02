@@ -1,7 +1,0 @@
-organization=from-pets-to-pals
-projectKey=From-pets-to-pals_petpals-backoffice
-serverUrl=https://sonarcloud.io
-serverVersion=8.0.0.53978
-dashboardUrl=https://sonarcloud.io/dashboard?id=From-pets-to-pals_petpals-backoffice
-ceTaskId=AY8bo6g36GoxpCBU0NI8
-ceTaskUrl=https://sonarcloud.io/api/ce/task?id=AY8bo6g36GoxpCBU0NI8

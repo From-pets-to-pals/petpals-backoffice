@@ -1,0 +1,10 @@
+.input_create_owner {
+    height: 25px;
+    all:unset;
+    color: #2f2f2f;
+}
+.input_create_owner:focus {
+    height: 25px;
+    all:unset;
+
+}

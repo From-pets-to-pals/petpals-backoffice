@@ -1,6 +1,5 @@
-import {Component} from '@angular/core';
+import {Component, EventEmitter, Output} from '@angular/core';
 import {GeolocApiService} from "../../services/geoloc/geoloc-api.service";
-import {FormControl, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-location',
@@ -11,20 +10,8 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 })
 export class LocationComponent {
   location = ""
-  form = new FormGroup({
-  location: new FormControl("", {
-    validators: [Validators.required],
-    nonNullable: true
-  }),
-  deviceId: new FormControl(window.navigator.userAgent, {
-    validators: [Validators.required, Validators.minLength(3)],
-    nonNullable: true
-  }),
-  email: new FormControl('', {
-    validators: [Validators.required, Validators.email],
-    nonNullable: true
-  })})
-
+  @Output()
+  updatedLocation = new EventEmitter<string>();
   constructor(private geolocApiService: GeolocApiService) {
     this.success = this.success.bind(this);
   }
@@ -35,10 +22,10 @@ export class LocationComponent {
   };
 
   success(pos: any) {
-    const crd = pos.coords;
-    this.geolocApiService.get(crd).then(res => {
+    const coordinates = pos.coords;
+    this.geolocApiService.get(coordinates).then(res => {
       this.location = `${res.lat}_${res.lng}_${res.postal_code.substring(0,5)}_${res.country_code}`
-      this.form.get('location')?.setValue(this.location)
+      this.SendLocation()
     })
   }
 
@@ -48,8 +35,11 @@ export class LocationComponent {
 
   ngOnInit(){
     window.navigator.geolocation.getCurrentPosition(this.success, this.error, this.options);
-    this.form.get("deviceId")?.setValue(window.navigator.userAgent)
   }
 
 
+
+  SendLocation(){
+    this.updatedLocation.emit(this.location)
+  }
 }

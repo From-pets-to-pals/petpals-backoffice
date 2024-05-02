@@ -49,6 +49,8 @@ export class CreateCaregiverComponent {
 	homeService = options.homeService;
 	palsHandled = options.palsHandled;
 	message = "";
+	panelOpenState = false;
+
 	getCareGiverApiService(){
 		return this.caregiverApiService;
 	}
@@ -63,7 +65,6 @@ export class CreateCaregiverComponent {
 		}
 	}
 	
-	panelOpenState = false;
 	form = new FormGroup({
 			firstName: new FormControl('', {validators: [Validators.required, Validators.minLength(3)], nonNullable: true}),
 			lastName: new FormControl('', {validators: [Validators.required, Validators.minLength(3)], nonNullable: true}),
@@ -100,7 +101,6 @@ export class CreateCaregiverComponent {
 	}
 	
 	getFromBack() {
-		console.log(window.__TAURI__)
 		if (!window.__TAURI__) {
 			this.caregiverApiService.get().then(res => {
 				this.message = res
