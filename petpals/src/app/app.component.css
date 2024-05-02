@@ -124,79 +124,10 @@ nav {
     z-index: 3;
     padding-bottom: 10px;
     background: #67B26F; /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #4ca2cd, #67B26F); /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #4ca2cd, #67B26F); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-
+    box-shadow: 0 0 10px #0f0f0f;
 }
 
 
-ul {
-    background: transparent;
-    color: #111111;
-}
-
-li {
-    color: #111111;
-}
-
-.navbar_link{
-    color: #FFFFFF;
-}
-.navbar_link:hover{
-    font-weight: bolder;
-    color: #FFFFFF;
-    text-shadow: rgba(76,162,205,0.76) 0px 0px 31px;
-
-}
-
-.navbal_item{
-    width: 60px;
-}
-
-ul {
-    background: transparent;
-    color: #111111;
-}
-
-li {
-    color: #111111;
-}
-
-.navbar_link{
-    color: #FFFFFF;
-}
-.navbar_link:hover{
-    font-weight: bolder;
-    color: #FFFFFF;
-    text-shadow: rgba(76,162,205,0.76) 0px 0px 31px;
-
-}
-
-.navbal_item{
-    width: 60px;
-}
-ul {
-    background: transparent;
-    color: #111111;
-}
-
-li {
-    color: #111111;
-}
-
-.navbar_link{
-    color: #FFFFFF;
-}
-.navbar_link:hover{
-    font-weight: bolder;
-    color: #FFFFFF;
-    text-shadow: rgba(76,162,205,0.76) 0px 0px 31px;
-
-}
-
-.navbal_item{
-    width: 60px;
-}
 ul {
     background: transparent;
     color: #111111;
