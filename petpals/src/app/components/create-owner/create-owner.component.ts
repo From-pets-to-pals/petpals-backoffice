@@ -16,6 +16,7 @@ import {MatSelect} from "@angular/material/select";
 import {CommonModule, NgForOf} from "@angular/common";
 import {Pal} from "../../models/interfaces/pals";
 import options from "../../models/menus/select.options";
+import dayjs from "dayjs"
 
 @Component({
     selector: 'app-create-owner',
@@ -47,7 +48,7 @@ export class CreateOwnerComponent {
     sexOptions = options.gender;
     speciesOptions = options.palsHandled;
     passportOptions = options.passport;
-
+    maxBirthDate:Date= dayjs().subtract(1, 'day').toDate()
     // @ts-ignore
     pals: Pal[] = [{
         palIdentityInformation:
@@ -147,6 +148,8 @@ export class CreateOwnerComponent {
         this.pals[i].palIdentityInformation[key] = event.target.value
         console.log(this.pals)
     }
-
+    ngOnInit(){
+        console.log(this.maxBirthDate)
+    }
     protected readonly Date = Date;
 }

@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CreateOwnerComponent } from './create-owner.component';
-import options from "../../models/menus/select.options";
+import { CreateOwnerComponent } from '../app/components/create-owner/create-owner.component';
+import options from "../app/models/menus/select.options";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 describe('CreateOwnerComponent', () => {

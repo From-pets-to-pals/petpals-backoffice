@@ -55,7 +55,7 @@
 					</mat-form-field>
 					<mat-form-field hintLabel="Max 25 characters">
 						<mat-label>Birthdate</mat-label>
-						<input  type="date" matInput [max]="Date()" class="input_create_owner"
+						<input  type="date" matInput [max]="maxBirthDate" class="input_create_owner"
 						         autocomplete="one-time-code">
 						<mat-hint align="end">{{pals[i].palIdentityInformation.name.length}}/25</mat-hint>
 					</mat-form-field>

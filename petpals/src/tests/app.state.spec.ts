@@ -1,8 +1,8 @@
-import * as store from './app.state';
-import {getToken} from "./app.state";
+import * as store from '../app/stores/app.state';
+import {getToken} from "../app/stores/app.state";
 
 describe('Store tests', () => {
-	it('shoulld register and retrieve token', () => {
+	it('should register and retrieve token', () => {
 		// arrange
 		const token = "123456789";
 		const expectedState: store.AppState = {

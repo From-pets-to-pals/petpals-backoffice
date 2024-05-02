@@ -38,7 +38,7 @@ module.exports = function (config) {
             },
         },
 
-        reporters: ['progress', 'kjhtml', 'junit'],
+        reporters: ['progress','junit'],
         restartOnFileChange: true,
         browsers: ['ChromeHeadless'],
         junitReporter: {
