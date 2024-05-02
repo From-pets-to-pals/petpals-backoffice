@@ -39,15 +39,11 @@ stages:
             condition: eq(variables['Build.SourceBranchName'], 'main')
           - script: |
               cd petpals
-              npm install -g @angular/cli && npm install && ng build && npm test && npm run sonar-scanner -- -Dsonar.pullrequest.branch=$(System.PullRequest.SourceBranch) -Dsonar.pullrequest.key=$(System.PullRequest.PullRequestId) -Dsonar.pullrequest.base=main
+              echo $(System.PullRequest.PullRequestId)
+              echo $(System.PullRequest.PullRequestNumber)
+              npm install -g @angular/cli && npm install && ng build && npm test && npm run sonar-scanner -- -Dsonar.pullrequest.branch=$(System.PullRequest.SourceBranch) -Dsonar.pullrequest.key=$(System.PullRequest.PullRequestNumber) -Dsonar.pullrequest.base=main
             displayName: 'npm install, buid, and test'
             condition: ne(variables['Build.SourceBranchName'], 'main')
-          - task: CmdLine@2
-            displayName: Sonar analysis
-            inputs :
-                script: |
-                    cd petpals
-                    npm run sonar-scanner
           - task: PublishTestResults@2
             displayName: Publish test results
             inputs:
