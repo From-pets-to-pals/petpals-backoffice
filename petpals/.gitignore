@@ -13,6 +13,7 @@ yarn-error.log
 
 # IDEs and editors
 .idea/
+../.idea/*.xml
 .project
 .classpath
 .c9/
@@ -42,4 +43,4 @@ testem.log
 .DS_Store
 Thumbs.db
 .scannerwork
-../.idea
+../.idea/**/*.xml
