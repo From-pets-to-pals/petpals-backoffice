@@ -5,8 +5,7 @@ import {GeolocApiService} from "../../services/geoloc/geoloc-api.service";
   selector: 'app-location',
   standalone: true,
   imports: [],
-  templateUrl: './location.component.html',
-  styleUrl: './location.component.css'
+  templateUrl: './location.component.html'
 })
 export class LocationComponent {
   location = ""

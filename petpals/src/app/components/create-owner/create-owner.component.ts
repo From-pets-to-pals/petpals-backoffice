@@ -1,9 +1,10 @@
-import {Component, ViewChild} from '@angular/core';
+import {Component} from '@angular/core';
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {LocationComponent} from "../location/location.component";
 import {
     MatAccordion,
-    MatExpansionPanel, MatExpansionPanelDescription,
+    MatExpansionPanel,
+    MatExpansionPanelDescription,
     MatExpansionPanelHeader,
     MatExpansionPanelTitle
 } from "@angular/material/expansion";
@@ -48,7 +49,7 @@ export class CreateOwnerComponent {
     sexOptions = options.gender;
     speciesOptions = options.palsHandled;
     passportOptions = options.passport;
-    maxBirthDate:Date= dayjs().subtract(1, 'day').toDate()
+    maxBirthDate= dayjs().subtract(1, 'day').format('YYYY-MM-DD')
     // @ts-ignore
     pals: Pal[] = [{
         palIdentityInformation:
