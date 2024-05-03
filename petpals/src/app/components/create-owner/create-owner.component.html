@@ -1,22 +1,22 @@
 <app-location (updatedLocation)="GetData($event)"></app-location>
-<form [formGroup]="form"  class="form_create_caregiver" autocomplete="one-time-code">
+<form [formGroup]="form"  class="form_create_owner" autocomplete="off">
 	<mat-form-field>
 		<mat-label>Username</mat-label>
 		<input type="text" formControlName="username" name="username" matInput maxlength="35"
-		       class="input_create_owner" autocomplete="one-time-code"
+		       class="input_create_owner" autocomplete="off"
 		       placeholder="Ex. Sidney">
 	</mat-form-field>
 	<mat-form-field hintLabel="Max 10 char1acters">
 		<mat-label>Email</mat-label>
 		<input type="email" formControlName="email" matInput maxlength="100" class="input_create_owner"
-		       name="email" autocomplete="one-time-code"
+		       name="email" autocomplete="off"
 		       placeholder="Ex. my-doggo@gmail.com">
 		<mat-hint align="end">{{form.get("email")!.value.length}}/100</mat-hint>
 	</mat-form-field>
 	<mat-form-field hintLabel="Max 10 characters">
 		<mat-label>Téléphone</mat-label>
 		<input formControlName="phoneNumber" type="tel" matInput maxlength="10" class="input_create_owner"
-		       name="phoneNumber" autocomplete="one-time-code"
+		       name="phoneNumber" autocomplete="off"
 		       placeholder="Ex. 0610203040">
 		<mat-hint align="end">{{form.get("phoneNumber")!.value.length}}/10</mat-hint>
 	</mat-form-field>
@@ -40,7 +40,7 @@
 					<mat-form-field hintLabel="Max 25 characters">
 						<mat-label>Name</mat-label>
 						<input  type="tel" matInput maxlength="10" class="input_create_owner"
-						       name="name" autocomplete="one-time-code" (value)="pal.palIdentityInformation.name"
+						       name="name" autocomplete="off" [value]="pal.palIdentityInformation.name"
 						        (keyup)="updatePalIdentityInformation($event, i,'name')"
 						       placeholder="Ashe">
 						<mat-hint align="end">{{pals[i].palIdentityInformation.name.length}}/25</mat-hint>
@@ -48,7 +48,7 @@
 					<mat-form-field hintLabel="Max 25 characters">
 						<mat-label>Short name</mat-label>
 						<input  type="tel" matInput maxlength="10" class="input_create_owner"
-						        name="name" autocomplete="one-time-code" [value]="pal.palIdentityInformation.shortName"
+						        name="name" autocomplete="off" [value]="pal.palIdentityInformation.shortName"
 						        (keyup)="updatePalIdentityInformation($event, i,'shortName')"
 						        placeholder="Ashe">
 						<mat-hint align="end">{{pals[i].palIdentityInformation.shortName.length}}/25</mat-hint>
@@ -56,7 +56,7 @@
 					<mat-form-field hintLabel="Max 25 characters">
 						<mat-label>Birthdate</mat-label>
 						<input  type="date" matInput [max]="maxBirthDate" class="input_create_owner"
-						         autocomplete="one-time-code">
+						         autocomplete="off">
 						<mat-hint align="end">{{pals[i].palIdentityInformation.name.length}}/25</mat-hint>
 					</mat-form-field>
 					<mat-form-field hintLabel="Select a specie">
@@ -69,7 +69,7 @@
 					<mat-form-field hintLabel="Fill in the breed Max 50 characters">
 						<mat-label>Breed</mat-label>
 						<input  type="tel" matInput maxlength="10" class="input_create_owner"
-						        name="breed" autocomplete="one-time-code" [value]="pal.palIdentityInformation.breed"
+						        name="breed" autocomplete="off" [value]="pal.palIdentityInformation.breed"
 						        (keyup)="updatePalIdentityInformation($event, i,'breed')"
 						        placeholder="Ashe">
 						<mat-hint align="end">{{pals[i].palIdentityInformation.shortName.length}}/50</mat-hint>
