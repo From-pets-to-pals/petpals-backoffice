@@ -23,7 +23,4 @@ export class PetpalsApiService {
   async get() {
     return await (await this._instance.get("hello", {withCredentials: false})).data;
   }
-  async getWithName(name: string) {
-    return await (await this._instance.get(`hello/${name}`)).data;
-  }
 }

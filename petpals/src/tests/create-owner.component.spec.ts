@@ -39,10 +39,18 @@ describe('CreateOwnerComponent', () => {
     expect(component.pals.length).toEqual(1)
     component.AddPalToList()
     expect(component.pals.length).toEqual(2)
+    component.AddPalToList()
+    expect(component.pals.length).toEqual(3)
+    component.RemoveLastPal()
+    expect(component.pals.length).toEqual(2)
     component.RemovePal(1)
     expect(component.pals.length).toEqual(1)
     component.updatePalIdentityInformation({target:{value: "Ashe"}}, 0, "name")
+    component.updatePalIdentityInformation({target:{value: "Culcul"}}, 0, "shortName")
+
     expect(component.pals[0].palIdentityInformation.name).toEqual("Ashe")
+    expect(component.pals[0].palIdentityInformation.shortName).toEqual("Culcul")
+
 
   });
 });

@@ -151,5 +151,4 @@ export class CreateOwnerComponent {
     ngOnInit(){
         console.log(this.maxBirthDate)
     }
-    protected readonly Date = Date;
 }
