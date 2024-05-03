@@ -50,5 +50,4 @@ export class TauriComponent {
 	constructor(public dialog: MatDialog) {
 	}
 
-    protected readonly event = event;
 }
