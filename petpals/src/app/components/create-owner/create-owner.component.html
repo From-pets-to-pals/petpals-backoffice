@@ -1,172 +1,184 @@
 <app-location (updatedLocation)="GetData($event)"></app-location>
 <form [formGroup]="form" class="form_create_owner" autocomplete="off">
-	<mat-form-field>
-		<mat-label>Username</mat-label>
-		<input type="text" formControlName="username" name="username" matInput maxlength="35"
-		       class="input_create_owner" autocomplete="off" [required]="true"
-		       placeholder="Ex. Sidney">
-	</mat-form-field>
-	<mat-form-field hintLabel="Max 10 char1acters">
-		<mat-label>Email</mat-label>
-		<input type="email" formControlName="email" matInput maxlength="100" class="input_create_owner"
-		       name="email" autocomplete="off" [required]="true"
-		       placeholder="Ex. my-doggo@gmail.com">
-		<mat-hint align="end">{{ form.get("email")!.value.length }}/100</mat-hint>
-	</mat-form-field>
-	<mat-form-field hintLabel="Max 10 characters">
-		<mat-label>Téléphone</mat-label>
-		<input formControlName="phoneNumber" type="tel" matInput maxlength="10" class="input_create_owner"
-		       name="phoneNumber" autocomplete="off" [required]="true"
-		       placeholder="Ex. 0610203040">
-		<mat-hint align="end">{{ form.get("phoneNumber")!.value.length }}/10</mat-hint>
-	</mat-form-field>
-	<mat-divider></mat-divider>
-	<mat-accordion>
-		<mat-expansion-panel (opened)="panelOpenState = true"
-		                     (closed)="panelOpenState = false">
-			<mat-expansion-panel-header>
-				<mat-panel-title>
-					Pal(s)
-				</mat-panel-title>
-			</mat-expansion-panel-header>
-			<mat-panel-description>
-				The pal(s) you want to register with
+    <mat-form-field>
+        <mat-label>Username</mat-label>
+        <input type="text" formControlName="username" name="username" matInput maxlength="35"
+               class="input_create_owner" autocomplete="off" [required]="true"
+               placeholder="Ex. Sidney">
+    </mat-form-field>
+    <mat-form-field hintLabel="Max 10 char1acters">
+        <mat-label>Email</mat-label>
+        <input type="email" formControlName="email" matInput maxlength="100" class="input_create_owner"
+               name="email" autocomplete="off" [required]="true"
+               placeholder="Ex. my-doggo@gmail.com">
+        <mat-hint align="end">{{ form.get("email")!.value.length }}/100</mat-hint>
+    </mat-form-field>
+    <mat-form-field hintLabel="Max 10 characters">
+        <mat-label>Téléphone</mat-label>
+        <input formControlName="phoneNumber" type="tel" matInput maxlength="10" class="input_create_owner"
+               name="phoneNumber" autocomplete="off" [required]="true"
+               placeholder="Ex. 0610203040">
+        <mat-hint align="end">{{ form.get("phoneNumber")!.value.length }}/10</mat-hint>
+    </mat-form-field>
+    <mat-divider></mat-divider>
+    <mat-accordion>
+        <mat-expansion-panel (opened)="panelOpenState = true"
+                             (closed)="panelOpenState = false">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Pal(s)
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <mat-panel-description>
+                The pal(s) you want to register with
 
-			</mat-panel-description>
+            </mat-panel-description>
 
-			<div style="display: ruby block; max-width: 580px; overflow: scroll; justify-content: space-evenly" formArrayName="pals">
+            <div style="display: ruby block; max-width: 580px; overflow: scroll; justify-content: space-evenly"
+                 formArrayName="pals">
 
-					<div style="max-width: 300px;padding:30px;" *ngFor="let pal of this.form.controls.pals.value;
-					let i = index" >
-<div formGroupName="{{i}}">
+                <div style="max-width: 30px;padding:30px;" *ngFor="let pal of this.form.controls.pals.controls;
+					let i = index">
+                    <div formArrayName="{{i}}">
+                        <div formGroupName="palIdentityInformation">
+                            <mat-form-field hintLabel="Max 25 characters">
+                                <mat-label>Name</mat-label>
+                                <input type="text" matInput maxlength="10" class="input_create_owner"
+                                       name="name" autocomplete="off"
+                                       formControlName="name"
+                                       placeholder="Ashe">
+                            </mat-form-field>
 
-						<mat-form-field hintLabel="Max 25 characters">
-							<mat-label>Name</mat-label>
-							<input type="text" matInput maxlength="10" class="input_create_owner"
-							       name="name" autocomplete="off"
-							       formControlName="palIdentityInformation.name"
-							       (keyup)="updatePalIdentityInformation($event, i,'name')" [required]="true"
-							       placeholder="Ashe">
-						</mat-form-field>
-						<mat-form-field hintLabel="Max 25 characters">
-							<mat-label>Short name</mat-label>
-							<input type="tel" matInput maxlength="10" class="input_create_owner"
-							       name="name" autocomplete="off"
-							       formControlName="{{i}}"
-							       (keyup)="updatePalIdentityInformation($event, i,'shortName')"
-							       placeholder="Ashe">
-						</mat-form-field>
-						<mat-form-field hintLabel="Max 25 characters">
-							<mat-label>Birthdate</mat-label>
-							<input type="date" matInput [max]="maxBirthDate" class="input_create_owner" [required]="true"
-							       autocomplete="off" (change)="updatePalIdentityInformation($event, i , 'birthDate')">
-						</mat-form-field>
-						<mat-form-field hintLabel="Select a specie">
-							<mat-label>Espèce</mat-label>
-							<mat-select id="pal_specie" [required]="true">
-								<mat-option *ngFor="let option of speciesOptions;" [value]="option.value"
-								>{{ option.label }}
-								</mat-option>
-							</mat-select>
-						</mat-form-field>
-						<mat-form-field hintLabel="Fill in the breed Max 50 characters">
-							<mat-label>Breed</mat-label>
-							<input type="tel" matInput maxlength="10" class="input_create_owner"
-							       name="breed" autocomplete="off"  [required]="true"
-							       (keyup)="updatePalIdentityInformation($event, i,'breed')"
-							       placeholder="Ashe">
-						</mat-form-field>
-						<mat-form-field hintLabel="Select pal sex">
-							<mat-label>Sex</mat-label>
-							<mat-select id="pal_is_male" [required]="true">
-								<mat-option *ngFor="let option of sexOptions;"
-								            [value]="option.value">{{ option.label }}
-								</mat-option>
-							</mat-select>
-						</mat-form-field>
-						<mat-form-field hintLabel="Pal has passport ?">
-							<mat-label>Passeport européen</mat-label>
-							<mat-select id="pal_has_passport"  [required]="true">
-								<mat-option *ngFor="let option of passportOptions;"
-								            [value]="option.value">{{ option.label }}
-								</mat-option>
-							</mat-select>
-						</mat-form-field>
-							<mat-form-field hintLabel="Pal vaccines up to date ?">
-								<mat-label>Vacciné</mat-label>
-								<mat-select id="pal_is_vaccinated"  [required]="true">
-									<mat-option *ngFor="let option of passportOptions;"
-									            [value]="option.value">{{ option.label }}
-									</mat-option>
-								</mat-select>
-						</mat-form-field>
-							<mat-form-field hintLabel="Pal vaccines up to date ?">
-								<mat-label>Stérilisé</mat-label>
-								<mat-select id="pal_is_sterilized"[required]="true">
-									<mat-option *ngFor="let option of passportOptions;"
-									            [value]="option.value">{{ option.label }}
-									</mat-option>
-								</mat-select>
-							</mat-form-field>
-							<mat-form-field >
-								<mat-label>Next vaccine</mat-label>
-								<input type="date" matInput [min]="maxBirthDate" class="input_create_owner"
-								       autocomplete="off" (change)="updatePalMedicalInformation($event, i ,
-								       'nextVaccine')">
-							</mat-form-field>
-							<mat-form-field hintLabel="Pal weight (kg)">
-								<mat-label>Weight</mat-label>
-								<input type="number" matInput maxlength="10" class="input_create_owner"
-								       name="weight" autocomplete="off"
-								       [min]="0.1" [max]="500.0"
-								       (keyup)="updatePalMeasurement($event, i,'weight')" step="0.1"
-								       (change)="updatePalMeasurement($event, i,'weight')"
-								       placeholder="0.1">
-							</mat-form-field>
-						<mat-form-field hintLabel="Pal height (cm)">
-							<mat-label>Height</mat-label>
-							<input type="number" matInput maxlength="10" class="input_create_owner"
-							       name="height" autocomplete="off"
-							       [min]="0.1" [max]="1000.0"
-							       (keyup)="updatePalMeasurement($event, i,'height')" step="0.1"
-							       (change)="updatePalMeasurement($event, i,'height')"
-							       placeholder="0.1">
-						</mat-form-field>
-</div>
-						@if (i === 0) {
-							<button mat-flat-button type="button" color="primary" class="button_create_caregiver"
-							        disabled
-							        style="margin: 15px;left:40px"
-							        (click)="RemovePal(i)">Remove
-							</button>
-						} @else {
-							<button mat-flat-button type="button" color="primary" class="button_create_caregiver"
-							        style="margin: 15px;left:40px"
-							        (click)="RemovePal(i)">Remove
-							</button>
-						}
+                            <mat-form-field hintLabel="Max 25 characters">
+                                <mat-label>Short name</mat-label>
+                                <input type="tel" matInput maxlength="10" class="input_create_owner"
+                                       name="name" autocomplete="off"
+                                       formControlName="shortName"
+                                       placeholder="Ashe">
+                            </mat-form-field>
+                            <mat-form-field hintLabel="Max 25 characters">
+                                <mat-label>Birthdate</mat-label>
+                                <input type="date" matInput [max]="maxBirthDate" class="input_create_owner"
+                                       [required]="true"
+                                       formControlName="birthDate"
+                                       autocomplete="off">
+                            </mat-form-field>
+                            <mat-form-field hintLabel="Select a specie">
+                                <mat-label>Espèce</mat-label>
+                                <mat-select id="pal_specie" [required]="true"
+                                            formControlName="specie"
+                                >
+                                    <mat-option *ngFor="let option of speciesOptions;" [value]="option.value"
+                                    >{{ option.label }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <mat-form-field hintLabel="Fill in the breed Max 50 characters">
+                                <mat-label>Breed</mat-label>
+                                <input type="tel" matInput maxlength="10" class="input_create_owner"
+                                       name="breed" autocomplete="off" [required]="true"
+                                       formControlName="breed"
 
-					</div>
-			</div>
-			<div style="justify-content: space-around; display: flex">
+                                       placeholder="Ashe">
+                            </mat-form-field>
+                            <mat-form-field hintLabel="Select pal sex">
+                                <mat-label>Sex</mat-label>
+                                <mat-select id="pal_is_male" [required]="true"
+                                            formControlName="isMale"
+                                >
+                                    <mat-option *ngFor="let option of sexOptions;"
+                                                [value]="option.value">{{ option.label }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <mat-form-field hintLabel="Pal has passport ?">
+                                <mat-label>Passeport européen</mat-label>
+                                <mat-select id="pal_has_passport" [required]="true"
+                                            formControlName="hasPassport"
+                                >
+                                    <mat-option *ngFor="let option of passportOptions;"
+                                                [value]="option.value">{{ option.label }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div formGroupName="palMedicalInformation">
 
-				<button mat-flat-button type="button" color="primary" class="button_create_caregiver"
-				        (click)="AddPalToList()">Add
-					another pal
-				</button>
-				@if (form.controls["pals"].value.length > 1) {
+                            <mat-form-field hintLabel="Pal vaccines up to date ?">
+                                <mat-label>Vacciné</mat-label>
+                                <mat-select id="pal_is_vaccinated" [required]="true" formControlName="isVaccinated">
+                                    <mat-option *ngFor="let option of passportOptions;"
+                                                [value]="option.value">{{ option.label }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <mat-form-field hintLabel="Pal vaccines up to date ?">
+                                <mat-label>Stérilisé</mat-label>
+                                <mat-select id="pal_is_sterilized" [required]="true" formControlName="isSterilized">
+                                    <mat-option *ngFor="let option of passportOptions;"
+                                                [value]="option.value">{{ option.label }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <mat-form-field>
+                                <mat-label>Next vaccine</mat-label>
+                                <input type="date" matInput [min]="minDate" class="input_create_owner"
+                                       autocomplete="off" formGroupName="nextVaccine">
+                            </mat-form-field>
+                        </div>
+                        <div formGroupName="palMeasurement">
+                            <mat-form-field hintLabel="Pal weight (kg)">
+                                <mat-label>Weight</mat-label>
+                                <input type="number" matInput maxlength="10"
+                                       name="weight" autocomplete="off" formControlName="weight"
+                                       [min]="0.1" [max]="500.0" [step]="0.2"
+                                       placeholder="0.1">
+                            </mat-form-field>
+                            <mat-form-field hintLabel="Pal height (cm)">
+                                <mat-label>Height</mat-label>
+                                <input type="number" matInput maxlength="10"
+                                       name="height" autocomplete="off" formControlName="height"
+                                       [min]="0.1" [max]="1000.0" [step]="0.2"
+                                       placeholder="0.1">
+                            </mat-form-field>
 
-					<button mat-flat-button type="button" color="primary" class="button_create_caregiver"
-					        (click)="RemoveLastPal()">Remove last pal
-					</button>
-				}
-			</div>
+                        </div>
 
-		</mat-expansion-panel>
-	</mat-accordion>
-	<mat-divider>
-	</mat-divider>
-	<button mat-flat-button type="button" color="primary" class="button_create_caregiver">
-		Enregistrer
-	</button>
+                    </div>
+                    @if (i === 0) {
+                    <button mat-flat-button type="button" color="primary" class="button_create_caregiver"
+                            disabled
+                            style="margin: 15px;left:40px"
+                            (click)="RemovePal(i)">Remove
+                    </button>
+                    } @else {
+                    <button mat-flat-button type="button" color="primary" class="button_create_caregiver"
+                            style="margin: 15px;left:40px"
+                            (click)="RemovePal(i)">Remove
+                    </button>
+                    }
+
+                </div>
+            </div>
+            <div style="justify-content: space-around; display: flex">
+
+                <button mat-flat-button type="button" color="primary" class="button_create_caregiver"
+                        (click)="AddPalToList()">Add
+                    another pal
+                </button>
+                @if (form.controls["pals"].value.length > 1) {
+
+                <button mat-flat-button type="button" color="primary" class="button_create_caregiver"
+                        (click)="RemoveLastPal()">Remove last pal
+                </button>
+                }
+            </div>
+
+        </mat-expansion-panel>
+    </mat-accordion>
+    <mat-divider>
+    </mat-divider>
+    <button mat-flat-button type="button" color="primary" class="button_create_caregiver" (click)="ShowList()">
+        Enregistrer
+    </button>
 </form>

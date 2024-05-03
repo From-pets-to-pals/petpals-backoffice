@@ -50,6 +50,7 @@ export class CreateOwnerComponent {
     speciesOptions = options.palsHandled;
     passportOptions = options.passport;
     maxBirthDate= dayjs().subtract(1, 'day').format('YYYY-MM-DD')
+    minDate= dayjs().add(1, 'day').format('YYYY-MM-DD')
 
     constructor(private fb: FormBuilder) {  }
     form = this.fb.group({
@@ -74,10 +75,10 @@ export class CreateOwnerComponent {
             nonNullable: true
         }),
         pals: this.fb.array(
-            [{
+            [this.fb.group ({
                 palIdentityInformation: this.fb.group(
                     {
-                        name: new FormControl('dsqdqs', {
+                        name: new FormControl('', {
                             validators: [Validators.required],
                             nonNullable: true
                         }), birthDate: new FormControl(null, {
@@ -89,7 +90,7 @@ export class CreateOwnerComponent {
                         }), isMale: new FormControl(true, {
                             validators: [Validators.required],
                             nonNullable: true
-                        }),specie: new FormControl('', {
+                        }),specie: new FormControl('DOG', {
                             validators: [Validators.required],
                             nonNullable: true
                         }),breed: new FormControl('', {
@@ -129,7 +130,7 @@ export class CreateOwnerComponent {
                         }),
                     }
                 ),
-            }]
+            })]
         )
     })
 
@@ -140,12 +141,12 @@ export class CreateOwnerComponent {
 
     AddPalToList() {
         // @ts-ignore
-        this.form.controls["pals"].value.push(
+        this.form.controls["pals"].controls.push(
         // @ts-ignore
            this.fb.group( {
                palIdentityInformation: this.fb.group(
                    {
-                       name: new FormControl('dsqdqs', {
+                       name: new FormControl('', {
                            validators: [Validators.required, Validators.minLength(4)],
                            nonNullable: true
                        }), birthDate: new FormControl(null, {
@@ -201,33 +202,27 @@ export class CreateOwnerComponent {
     }
 
     RemoveLastPal(){
-        this.form.controls["pals"].value.pop();
+        this.form.controls["pals"].controls.pop();
     }
 
     RemovePal(i: number){
-        this.form.controls["pals"].value.splice(i,1);
+        this.form.controls["pals"].controls.splice(i,1);
     }
 
-    updatePalIdentityInformation(event: any, i: number, key: string){
-        console.log(this.form.controls["pals"].value)
-    }
-    updatePalMedicalInformation(event: any, i: number, key: string){
+    ShowList(){
+        for(let i = 0; i < this.form.controls["pals"].controls.length; i ++){
         // @ts-ignore
-        this.pals[i].palMedicalInformation[key] = event.target.value
-    }
+        console.log(this.form.controls.pals.controls[i].controls.palIdentityInformation.get('name').value)
 
-    updatePalMeasurement(event: any, i: number, key: string){
-        const value = event.target.value;
-        if(String(value).match("^[0-9]{1,4}\.[0-9]{1}$")){
-            // @ts-ignore
-            this.pals[i].palMeasurement[key] = value
-            return
         }
-        // @ts-ignore
-        this.pals[i].palMeasurement[key] = 0.1
+        console.log(this.form.valid)
+
     }
+
     ngOnInit(){
         // @ts-ignore
-        console.log(this.form.controls.pals[0].controls.get('palIdentityInformation'))
+        console.log(this.form.controls["pals"].controls[0])
+        // @ts-ignore
+        console.log(this.form.controls.pals.controls[0].controls.palIdentityInformation.get('name').value)
     }
 }
