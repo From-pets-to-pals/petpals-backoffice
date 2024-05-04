@@ -66,7 +66,7 @@ export class CreateCaregiverComponent {
 	}
 	
 	form = new FormGroup({
-			firstName: new FormControl('', {validators: [Validators.required, Validators.minLength(3)], nonNullable: true}),
+			firstName: new FormControl('', {validators: [Validators.required, Validators.minLength(3),], nonNullable: true}),
 			lastName: new FormControl('', {validators: [Validators.required, Validators.minLength(3)], nonNullable: true}),
 			address: new FormControl('', {validators: [Validators.required, Validators.minLength(3)], nonNullable: true}),
 			city: new FormControl('', {validators: [Validators.required, Validators.minLength(3)], nonNullable: true}),

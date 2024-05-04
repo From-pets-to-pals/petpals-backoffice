@@ -4,13 +4,19 @@ import {Pal} from "./pals";
 export interface CreateOwner {
     username: string;
     email: string;
-
     deviceId: string;
     location: string;
     pals: Pal[]
 }
 
-
+export interface Owner {
+    username: string;
+    reference: string;
+    email: string;
+    deviceId: string;
+    location: string;
+    pals: Pal[]
+}
 
 export interface CreateOwnerForm {
     username: FormControl<string>;

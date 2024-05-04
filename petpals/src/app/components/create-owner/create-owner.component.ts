@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
+import {FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {LocationComponent} from "../location/location.component";
 import {
     MatAccordion,
@@ -19,6 +19,17 @@ import options from "../../models/menus/select.options";
 import dayjs from "dayjs"
 import {Pal} from "../../models/interfaces/pals";
 import {CreateOwner} from "../../models/interfaces/owner";
+import {PetpalsApiService} from "../../services/middleware/petpals-api.service";
+import {MatSnackBar} from "@angular/material/snack-bar";
+import {
+    MatStep, MatStepContent,
+    MatStepLabel,
+    MatStepper,
+    MatStepperIcon,
+    MatStepperNext,
+    MatStepperPrevious
+} from "@angular/material/stepper";
+import {MatIcon} from "@angular/material/icon";
 
 @Component({
     selector: 'app-create-owner',
@@ -40,7 +51,15 @@ import {CreateOwner} from "../../models/interfaces/owner";
         MatSelect,
         NgForOf,
         ReactiveFormsModule,
-        MatExpansionPanelDescription
+        MatExpansionPanelDescription,
+        MatStepper,
+        MatStep,
+        MatStepLabel,
+        MatStepperPrevious,
+        MatStepperNext,
+        MatStepperIcon,
+        MatIcon,
+        MatStepContent
     ],
     templateUrl: './create-owner.component.html',
     styleUrl: './create-owner.component.css'
@@ -50,16 +69,18 @@ export class CreateOwnerComponent {
     sexOptions = options.gender;
     speciesOptions = options.palsHandled;
     passportOptions = options.passport;
-    maxBirthDate= dayjs().subtract(1, 'day').format('YYYY-MM-DD')
-    minDate= dayjs().add(1, 'day').format('YYYY-MM-DD')
+    maxBirthDate = dayjs().subtract(1, 'day').format('YYYY-MM-DD')
+    minDate = dayjs().add(1, 'day').format('YYYY-MM-DD')
 
-    constructor(private fb: FormBuilder) {  }
-    form = this.fb.group({
+    constructor(private fb: FormBuilder, private apiService: PetpalsApiService, private _snackBar: MatSnackBar) {
+    }
+    /** Form init **/
+    form = new FormGroup({
         location: new FormControl("", {
             validators: [Validators.required],
             nonNullable: true
         }),
-        deviceId: new FormControl(window.navigator.userAgent, {
+        deviceId: new FormControl('', {
             validators: [Validators.required, Validators.minLength(3)],
             nonNullable: true
         }),
@@ -75,45 +96,43 @@ export class CreateOwnerComponent {
             validators: [Validators.required, Validators.minLength(10), Validators.maxLength(10)],
             nonNullable: true
         }),
-        pals: this.fb.array(
-            [this.fb.group ({
-                palIdentityInformation: this.fb.group(
+        pals: new FormArray(
+            [new FormGroup({
+                palIdentityInformation: new FormGroup(
                     {
                         name: new FormControl('', {
-                            validators: [Validators.required],
+                            validators: [Validators.required, Validators.minLength(3)],
                             nonNullable: true
                         }), birthDate: new FormControl(null, {
-                            validators: [Validators.required],
-                            nonNullable: true
-                        }), shortName: new FormControl('', {
-                            validators: [Validators.required, Validators.minLength(4)],
-                            nonNullable: true
+                            nonNullable: false
+                        }), shortName: new FormControl(null, {
+                            nonNullable: false
                         }), isMale: new FormControl(true, {
                             validators: [Validators.required],
                             nonNullable: true
-                        }),specie: new FormControl('DOG', {
+                        }), specie: new FormControl('DOG', {
                             validators: [Validators.required],
                             nonNullable: true
-                        }),breed: new FormControl('', {
-                            validators: [Validators.required],
+                        }), breed: new FormControl('', {
+                            validators: [Validators.required, Validators.minLength(3)],
                             nonNullable: true
-                        }),hasPassport: new FormControl(false, {
+                        }), hasPassport: new FormControl(false, {
                             validators: [Validators.required],
                             nonNullable: true
                         }), icadIdentifier: new FormControl('', {
-                            validators: [Validators.required, Validators.minLength(15), Validators.maxLength(15)],
+                            validators: [Validators.required, Validators.pattern("^(250)(26|22)\\d{10}$")],
                             nonNullable: true
                         })
                     }
                 ),
-                palMedicalInformation:  this.fb.group(
+                palMedicalInformation: new FormGroup(
                     {
-                       nextVaccine: new FormControl(null, {
+                        nextVaccine: new FormControl(null, {
                             validators: [Validators.required],
                             nonNullable: true
-                        }),nextPlannedVetApp: new FormControl(null, {
-                            validators: [Validators.required],
-                            nonNullable: true
+                        }),
+                        nextPlannedVetApp: new FormControl(null, {
+                            nonNullable: false
                         }),
                         isVaccinated: new FormControl(false, {
                             validators: [Validators.required],
@@ -125,7 +144,7 @@ export class CreateOwnerComponent {
                         }),
                     }
                 ),
-                palMeasurement:  this.fb.group(
+                palMeasurement: new FormGroup(
                     {
                         weight: new FormControl(0.1, {
                             validators: [Validators.required, Validators.min(0.1), Validators.max(200.0)],
@@ -141,104 +160,109 @@ export class CreateOwnerComponent {
         )
     })
 
+    /** Location function **/
     GetData(something: string) {
         this.form.get("location")?.setValue(something)
+        this.form.get("deviceId")?.setValue(window.navigator.userAgent)
+
         console.log(this.form.value)
     }
-
+    /** Form actions **/
     AddPalToList() {
-        // @ts-ignore
         this.form.controls["pals"].controls.push(
-        // @ts-ignore
-           this.fb.group( {
-               palIdentityInformation: this.fb.group(
-                   {
-                       icadIdentifier: new FormControl('', {
-                           validators: [Validators.required, Validators.minLength(15), Validators.maxLength(15)],
-                           nonNullable: true
-                       }),
-                       name: new FormControl('', {
-                           validators: [Validators.required, Validators.minLength(4)],
-                           nonNullable: true
-                       }), birthDate: new FormControl(null, {
-                           validators: [Validators.required],
-                           nonNullable: true
-                       }), shortName: new FormControl('', {
-                           validators: [Validators.required, Validators.minLength(4)],
-                           nonNullable: true
-                       }), isMale: new FormControl(true, {
-                           validators: [Validators.required],
-                           nonNullable: true
-                       }),specie: new FormControl('', {
-                           validators: [Validators.required],
-                           nonNullable: true
-                       }),breed: new FormControl('', {
-                           validators: [Validators.required],
-                           nonNullable: true
-                       }),hasPassport: new FormControl(false, {
-                           validators: [Validators.required],
-                           nonNullable: true
-                       }),
-                   }
-               ),
-               palMedicalInformation:  this.fb.group(
-                   {
-                       nextPlannedVetApp: new FormControl(null, {
-                           validators: [Validators.required],
-                           nonNullable: true
-                       }),
-                       nextVaccine: new FormControl(null, {
-                           validators: [Validators.required],
-                           nonNullable: true
-                       }),
-                       isVaccinated: new FormControl(false, {
-                           validators: [Validators.required],
-                           nonNullable: true
-                       }),
-                       isSterilized: new FormControl(false, {
-                           validators: [Validators.required],
-                           nonNullable: true
-                       }),
-                   }
-               ),
-               palMeasurement:  this.fb.group(
-                   {
-                       weight: new FormControl(0.1, {
-                           validators: [Validators.required, Validators.min(0.1), Validators.max(200.0)],
-                           nonNullable: true
-                       }),
-                       height: new FormControl(0.1, {
-                           validators: [Validators.required, Validators.min(0.1), Validators.max(200.0)],
-                           nonNullable: true
-                       }),
-                   }
-               ),
+            new FormGroup({
+                palIdentityInformation: new FormGroup(
+                    {
+                        name: new FormControl('', {
+                            validators: [Validators.required],
+                            nonNullable: true
+                        }), birthDate: new FormControl(null, {
+                            nonNullable: false
+                        }), shortName: new FormControl(null, {
+                            nonNullable: false
+                        }), isMale: new FormControl(true, {
+                            validators: [Validators.required],
+                            nonNullable: true
+                        }), specie: new FormControl('DOG', {
+                            validators: [Validators.required],
+                            nonNullable: true
+                        }), breed: new FormControl('', {
+                            validators: [Validators.required, Validators.minLength(3)],
+                            nonNullable: true
+                        }), hasPassport: new FormControl(false, {
+                            validators: [Validators.required],
+                            nonNullable: true
+                        }), icadIdentifier: new FormControl('', {
+                            validators: [Validators.required, Validators.pattern("^(250)(26|22)\\d{10}$")],
+                            nonNullable: true
+                        })
+                    }
+                ),
+                palMedicalInformation: new FormGroup(
+                    {
+                        nextVaccine: new FormControl(null, {
+                            validators: [Validators.required],
+                            nonNullable: true
+                        }), nextPlannedVetApp: new FormControl(null, {
+                            nonNullable: false
+                        }),
+                        isVaccinated: new FormControl(false, {
+                            validators: [Validators.required],
+                            nonNullable: true
+                        }),
+                        isSterilized: new FormControl(false, {
+                            validators: [Validators.required],
+                            nonNullable: true
+                        }),
+                    }
+                ),
+                palMeasurement: new FormGroup(
+                    {
+                        weight: new FormControl(0.1, {
+                            validators: [Validators.required, Validators.min(0.1), Validators.max(200.0)],
+                            nonNullable: true
+                        }),
+                        height: new FormControl(0.1, {
+                            validators: [Validators.required, Validators.min(0.1), Validators.max(200.0)],
+                            nonNullable: true
+                        }),
+                    }
+                ),
             }))
     }
 
-    RemoveLastPal(){
+    RemoveLastPal() {
         this.form.controls["pals"].controls.pop();
     }
 
-    RemovePal(i: number){
-        this.form.controls["pals"].controls.splice(i,1);
+    RemovePal(i: number) {
+        this.form.controls["pals"].controls.splice(i, 1);
     }
 
-    ShowList(){
-        for(let i = 0; i < this.form.controls["pals"].controls.length; i ++){
-        // @ts-ignore
-        console.log(this.form.controls.pals.controls[i].controls.palIdentityInformation.get('name').value)
-
+    ShowList() {
+        for (let i = 0; i < this.form.controls["pals"].controls.length; i++) {
+            console.log(this.form.controls.pals.controls[i].controls.palIdentityInformation.get('name')!.value)
         }
         console.log(this.form.valid)
-        this.mapOwner()
-
+        if (this.form.valid) {
+            const ownerToCreate = this.mapOwner()
+            this.GetPalsApiService().createOwner(ownerToCreate).then(res => {
+                console.log(res.data)
+                this.openSnackBar("Registration successful", "Close")
+            }).catch(err => {
+                console.log(err)
+            })
+        } else {
+            this.openSnackBar("Invalid form", "Close")
+        }
     }
 
-    mapOwner(){
-        const palsList:Pal[] = [];
+    /** Mappers **/
+
+    mapOwner() {
+        const palsList: Pal[] = [];
         const palsInForm = this.form.controls.pals.controls
-        for(let i = 0; i < palsInForm.length; i++){
+        for (let i = 0; i < palsInForm.length; i++) {
             palsList.push(
                 {
                     palMeasurement: {
@@ -265,13 +289,28 @@ export class CreateOwnerComponent {
             )
         }
         const owner: CreateOwner = {
-            email : this.form.get('email')!.value,
-            username : this.form.get('username')!.value,
-            deviceId : this.form.get('deviceId')!.value,
-            location : this.form.get('location')!.value,
-            pals : palsList
-
+            email: this.form.get('email')!.value,
+            username: this.form.get('username')!.value,
+            deviceId: this.form.get('deviceId')!.value,
+            location: this.form.get('location')!.value,
+            pals: palsList
         }
         console.log(owner)
+
+        return owner;
+    }
+
+    /** Service */
+
+    GetPalsApiService(){
+        return this.apiService;
+    }
+
+    /** Snackbar **/
+    openSnackBar(message: string, action: string) {
+        this._snackBar.open(message, action, {
+            horizontalPosition: "center",
+            verticalPosition: "top",
+        });
     }
 }

@@ -6,7 +6,7 @@ export interface Pal {
 
 export interface PalIdentityInformation {
     name: string;
-    shortName: string,
+    shortName: string | null,
     birthDate: Date | null,
     isMale: boolean,
     specie: string,
