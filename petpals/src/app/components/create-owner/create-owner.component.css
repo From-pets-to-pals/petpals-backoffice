@@ -8,3 +8,8 @@
     all:unset;
 
 }
+
+.mat-step-icon .mat-step-icon-state-edit{
+    width: 35px;
+    height: 35px;
+}

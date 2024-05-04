@@ -201,8 +201,7 @@ export class CreateOwnerComponent {
                 palMedicalInformation: new FormGroup(
                     {
                         nextVaccine: new FormControl(null, {
-                            validators: [Validators.required],
-                            nonNullable: true
+                            nonNullable: false
                         }), nextPlannedVetApp: new FormControl(null, {
                             nonNullable: false
                         }),
