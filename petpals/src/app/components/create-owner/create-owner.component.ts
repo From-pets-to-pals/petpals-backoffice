@@ -104,66 +104,92 @@ export class CreateOwnerComponent {
             })
         }
     );
-    palMedicalInformationFormGroup =  new FormGroup(
+    palMedicalInformationFormGroup = new FormGroup(
         {
-            nextVaccine: new FormControl(null, {
-                validators: [Validators.required],
-                nonNullable: true
-            }),
-            nextPlannedVetApp: new FormControl(null, {
-                nonNullable: false
-            }),
-            isVaccinated: new FormControl(false, {
-                validators: [Validators.required],
-                nonNullable: true
-            }),
-            isSterilized: new FormControl(false, {
-                validators: [Validators.required],
-                nonNullable: true
-            }),
+            nextVaccine: new FormControl(null,
+                {
+                    validators: [Validators.required],
+                    nonNullable: true
+                }
+            ),
+            nextPlannedVetApp: new FormControl(null,
+                {
+                    nonNullable: false
+                }
+            ),
+            isVaccinated: new FormControl(false,
+                {
+                    validators: [Validators.required],
+                    nonNullable: true
+                }
+            ),
+            isSterilized: new FormControl(false,
+                {
+                    validators: [Validators.required],
+                    nonNullable: true
+                }
+            ),
         }
     )
 
     palMeasurementFormGroup = new FormGroup(
         {
-            weight: new FormControl(0.1, {
-                validators: [Validators.required, Validators.min(0.1), Validators.max(200.0)],
-                nonNullable: true
-            }),
-            height: new FormControl(0.1, {
-                validators: [Validators.required, Validators.min(0.1), Validators.max(200.0)],
-                nonNullable: true
-            }),
+            weight: new FormControl(0.1,
+                {
+                    validators: [Validators.required, Validators.min(0.1), Validators.max(200.0)],
+                    nonNullable: true
+                }
+            ),
+            height: new FormControl(0.1,
+                {
+                    validators: [Validators.required, Validators.min(0.1), Validators.max(200.0)],
+                    nonNullable: true
+                }
+            ),
         }
     )
     /** Form init **/
     form = new FormGroup({
-        location: new FormControl("", {
-            validators: [Validators.required],
-            nonNullable: true
-        }),
-        deviceId: new FormControl('', {
-            validators: [Validators.required, Validators.minLength(3)],
-            nonNullable: true
-        }),
-        email: new FormControl('', {
-            validators: [Validators.required, Validators.email],
-            nonNullable: true
-        }),
-        username: new FormControl('', {
-            validators: [Validators.required, Validators.minLength(4)],
-            nonNullable: true
-        }),
-        phoneNumber: new FormControl('', {
-            validators: [Validators.required, Validators.minLength(10), Validators.maxLength(10)],
-            nonNullable: true
-        }),
+        location: new FormControl("",
+            {
+                validators: [Validators.required],
+                nonNullable: true
+            }
+        ),
+        deviceId: new FormControl('',
+            {
+                validators: [Validators.required, Validators.minLength(3)],
+                nonNullable: true
+            }
+        ),
+        email: new FormControl('',
+            {
+                validators: [Validators.required, Validators.email],
+                nonNullable: true
+            }
+        ),
+        username: new FormControl('',
+            {
+                validators: [Validators.required, Validators.minLength(4)],
+                nonNullable: true
+            }
+        ),
+        phoneNumber: new FormControl('',
+            {
+                validators: [Validators.required, Validators.minLength(10), Validators.maxLength(10)],
+                nonNullable: true
+            }
+        ),
         pals: new FormArray(
-            [new FormGroup({
-                palIdentityInformation: this.palIdentityInformationFormGroup,
-                palMedicalInformation: this.palMedicalInformationFormGroup,
-                palMeasurement: this.palMeasurementFormGroup
-            })]
+            [
+                new FormGroup(
+                    {
+                        palIdentityInformation: this.palIdentityInformationFormGroup,
+                        palMedicalInformation: this.palMedicalInformationFormGroup,
+                        palMeasurement: this.palMeasurementFormGroup
+                    }
+                )
+            ]
         )
     })
 
@@ -176,11 +202,14 @@ export class CreateOwnerComponent {
     /** Form actions **/
     AddPalToList() {
         this.form.controls["pals"].controls.push(
-            new FormGroup({
-                palIdentityInformation: this.palIdentityInformationFormGroup,
-                palMedicalInformation: this.palMedicalInformationFormGroup,
-                palMeasurement: this.palMeasurementFormGroup
-            }))
+            new FormGroup(
+                {
+                    palIdentityInformation: this.palIdentityInformationFormGroup,
+                    palMedicalInformation: this.palMedicalInformationFormGroup,
+                    palMeasurement: this.palMeasurementFormGroup
+                }
+            )
+        )
     }
 
     RemoveLastPal() {
@@ -247,7 +276,7 @@ export class CreateOwnerComponent {
 
     /** Service */
 
-    GetPalsApiService(){
+    GetPalsApiService() {
         return this.apiService;
     }
 
