@@ -3,6 +3,8 @@ import {Pal} from "./pals";
 
 export interface CreateOwner {
     username: string;
+    email: string;
+
     deviceId: string;
     location: string;
     pals: Pal[]

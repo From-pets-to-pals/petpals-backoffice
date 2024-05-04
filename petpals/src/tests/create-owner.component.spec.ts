@@ -3,7 +3,6 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { CreateOwnerComponent } from '../app/components/create-owner/create-owner.component';
 import options from "../app/models/menus/select.options";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import dayjs from "dayjs";
 
 describe('CreateOwnerComponent', () => {
   let component: CreateOwnerComponent;
@@ -37,25 +36,14 @@ describe('CreateOwnerComponent', () => {
       expect(component.speciesOptions[i].label).toEqual(options.palsHandled[i].label)
       expect(component.speciesOptions[i].value).toEqual(options.palsHandled[i].value)
     }
-    expect(component.pals.length).toEqual(1)
+    expect(component.form.controls.pals.length).toEqual(1)
     component.AddPalToList()
-    expect(component.pals.length).toEqual(2)
+    expect(component.form.controls.pals.length).toEqual(2)
     component.AddPalToList()
-    expect(component.pals.length).toEqual(3)
+    expect(component.form.controls.pals.length).toEqual(3)
     component.RemoveLastPal()
-    expect(component.pals.length).toEqual(2)
+    expect(component.form.controls.pals.length).toEqual(2)
     component.RemovePal(1)
-    expect(component.pals.length).toEqual(1)
-    component.updatePalIdentityInformation({target:{value: "Ashe"}}, 0, "name")
-    component.updatePalIdentityInformation({target:{value: "Culcul"}}, 0, "shortName")
-    component.updatePalMeasurement({target:{value: 5.9}}, 0, "weight")
-    component.updatePalMedicalInformation({target:{value: dayjs("2032-12-25").toDate()}}, 0, "nextVaccine")
-
-    expect(component.pals[0].palIdentityInformation.name).toEqual("Ashe")
-    expect(component.pals[0].palIdentityInformation.shortName).toEqual("Culcul")
-    expect(component.pals[0].palMeasurement.weight).toEqual(5.9)
-    expect(component.pals[0].palMedicalInformation.nextVaccine).toEqual(dayjs("2032-12-25").toDate())
-
-
+    expect(component.form.controls.pals.length).toEqual(1)
   });
 });

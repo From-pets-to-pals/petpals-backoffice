@@ -34,10 +34,10 @@
 
             </mat-panel-description>
 
-            <div style="display: ruby block; max-width: 580px; overflow: scroll; justify-content: space-evenly"
+            <div style="display: flex; max-width: 580px; overflow: scroll; justify-content: space-evenly"
                  formArrayName="pals">
 
-                <div style="max-width: 30px;padding:30px;" *ngFor="let pal of this.form.controls.pals.controls;
+                <div *ngFor="let pal of this.form.controls.pals.controls;
 					let i = index">
                     <div formArrayName="{{i}}">
                         <div formGroupName="palIdentityInformation">

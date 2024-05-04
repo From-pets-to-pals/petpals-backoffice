@@ -15,9 +15,10 @@ import {MatInput} from "@angular/material/input";
 import {MatOption} from "@angular/material/autocomplete";
 import {MatSelect} from "@angular/material/select";
 import {CommonModule, NgForOf} from "@angular/common";
-import {Pal} from "../../models/interfaces/pals";
 import options from "../../models/menus/select.options";
 import dayjs from "dayjs"
+import {Pal} from "../../models/interfaces/pals";
+import {CreateOwner} from "../../models/interfaces/owner";
 
 @Component({
     selector: 'app-create-owner',
@@ -99,12 +100,18 @@ export class CreateOwnerComponent {
                         }),hasPassport: new FormControl(false, {
                             validators: [Validators.required],
                             nonNullable: true
-                        }),
+                        }), icadIdentifier: new FormControl('', {
+                            validators: [Validators.required, Validators.minLength(15), Validators.maxLength(15)],
+                            nonNullable: true
+                        })
                     }
                 ),
                 palMedicalInformation:  this.fb.group(
                     {
                        nextVaccine: new FormControl(null, {
+                            validators: [Validators.required],
+                            nonNullable: true
+                        }),nextPlannedVetApp: new FormControl(null, {
                             validators: [Validators.required],
                             nonNullable: true
                         }),
@@ -146,6 +153,10 @@ export class CreateOwnerComponent {
            this.fb.group( {
                palIdentityInformation: this.fb.group(
                    {
+                       icadIdentifier: new FormControl('', {
+                           validators: [Validators.required, Validators.minLength(15), Validators.maxLength(15)],
+                           nonNullable: true
+                       }),
                        name: new FormControl('', {
                            validators: [Validators.required, Validators.minLength(4)],
                            nonNullable: true
@@ -172,6 +183,10 @@ export class CreateOwnerComponent {
                ),
                palMedicalInformation:  this.fb.group(
                    {
+                       nextPlannedVetApp: new FormControl(null, {
+                           validators: [Validators.required],
+                           nonNullable: true
+                       }),
                        nextVaccine: new FormControl(null, {
                            validators: [Validators.required],
                            nonNullable: true
@@ -216,13 +231,47 @@ export class CreateOwnerComponent {
 
         }
         console.log(this.form.valid)
+        this.mapOwner()
 
     }
 
-    ngOnInit(){
-        // @ts-ignore
-        console.log(this.form.controls["pals"].controls[0])
-        // @ts-ignore
-        console.log(this.form.controls.pals.controls[0].controls.palIdentityInformation.get('name').value)
+    mapOwner(){
+        const palsList:Pal[] = [];
+        const palsInForm = this.form.controls.pals.controls
+        for(let i = 0; i < palsInForm.length; i++){
+            palsList.push(
+                {
+                    palMeasurement: {
+                        weight: palsInForm[i].controls.palMeasurement.get("weight")!.value,
+                        height: palsInForm[i].controls.palMeasurement.get("height")!.value,
+                    }, palMedicalInformation: {
+                        isVaccinated: palsInForm[i].controls.palMedicalInformation.get("isVaccinated")!.value,
+                        medicalHistory: [],
+                        nextVaccine: palsInForm[i].controls.palMedicalInformation.get("nextVaccine")!.value,
+                        nextPlannedVetApp: palsInForm[i].controls.palMedicalInformation.get("nextPlannedVetApp")!.value,
+                        isSterilized: palsInForm[i].controls.palMedicalInformation.get("isSterilized")!.value
+                    },
+                    palIdentityInformation: {
+                        name: palsInForm[i].controls.palIdentityInformation.get("name")!.value,
+                        shortName: palsInForm[i].controls.palIdentityInformation.get("shortName")!.value,
+                        birthDate: palsInForm[i].controls.palIdentityInformation.get("birthDate")!.value,
+                        isMale: palsInForm[i].controls.palIdentityInformation.get("isMale")!.value,
+                        specie: palsInForm[i].controls.palIdentityInformation.get("specie")!.value,
+                        breed: palsInForm[i].controls.palIdentityInformation.get("breed")!.value,
+                        icadIdentifier: palsInForm[i].controls.palIdentityInformation.get("icadIdentifier")!.value,
+                        hasPassport: palsInForm[i].controls.palIdentityInformation.get("hasPassport")!.value
+                    }
+                }
+            )
+        }
+        const owner: CreateOwner = {
+            email : this.form.get('email')!.value,
+            username : this.form.get('username')!.value,
+            deviceId : this.form.get('deviceId')!.value,
+            location : this.form.get('location')!.value,
+            pals : palsList
+
+        }
+        console.log(owner)
     }
 }
