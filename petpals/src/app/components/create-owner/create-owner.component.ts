@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
+import {FormArray, FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {LocationComponent} from "../location/location.component";
 import {
     MatAccordion,
@@ -73,7 +73,7 @@ export class CreateOwnerComponent {
     maxBirthDate = dayjs().subtract(1, 'day').format('YYYY-MM-DD')
     minDate = dayjs().add(1, 'day').format('YYYY-MM-DD')
 
-    constructor(private fb: FormBuilder, private apiService: PetpalsApiService, private _snackBar: MatSnackBar) {
+    constructor(private apiService: PetpalsApiService, private _snackBar: MatSnackBar) {
     }
 
     palIdentityInformationFormGroup = new FormGroup(
