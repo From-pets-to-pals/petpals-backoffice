@@ -70,8 +70,8 @@ export class CreateOwnerComponent {
     sexOptions = options.gender;
     speciesOptions = options.palsHandled;
     passportOptions = options.passport;
-    maxBirthDate = dayjs().subtract(1, 'day').format('YYYY-MM-DD')
-    minDate = dayjs().add(1, 'day').format('YYYY-MM-DD')
+    maxBirthDate = dayjs().subtract(2, 'day').format('YYYY-MM-DD')
+    minDate = dayjs().add(2, 'day').format('YYYY-MM-DD')
 
     constructor(private apiService: PetpalsApiService, private _snackBar: MatSnackBar) {
     }
@@ -191,10 +191,6 @@ export class CreateOwnerComponent {
     }
 
     ShowList() {
-        for (let i = 0; i < this.form.controls["pals"].controls.length; i++) {
-            console.log(this.form.controls.pals.controls[i].controls.palIdentityInformation.get('name')!.value)
-        }
-        console.log(this.form.valid)
         if (this.form.valid) {
             const ownerToCreate = this.mapOwner()
             this.GetPalsApiService().createOwner(ownerToCreate).then(res => {
@@ -209,7 +205,6 @@ export class CreateOwnerComponent {
     }
 
     /** Mappers **/
-
     mapOwner() {
         const palsList: Pal[] = [];
         const palsInForm = this.form.controls.pals.controls

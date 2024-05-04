@@ -53,10 +53,6 @@ const options = {
             value:"CAT"
         },
         {
-            label:"Furrets",
-            value:"FERRET"
-        },
-        {
             label:"NAC",
             value:"NAC"
         },
