@@ -213,28 +213,28 @@ export class CreateOwnerComponent {
     mapOwner() {
         const palsList: Pal[] = [];
         const palsInForm = this.form.controls.pals.controls
-        for (let i = 0; i < palsInForm.length; i++) {
+        for (const palInForm of palsInForm) {
             palsList.push(
                 {
                     palMeasurement: {
-                        weight: palsInForm[i].controls.palMeasurement.get("weight")!.value,
-                        height: palsInForm[i].controls.palMeasurement.get("height")!.value,
+                        weight: palInForm.controls.palMeasurement.get("weight")!.value,
+                        height: palInForm.controls.palMeasurement.get("height")!.value,
                     }, palMedicalInformation: {
-                        isVaccinated: palsInForm[i].controls.palMedicalInformation.get("isVaccinated")!.value,
+                        isVaccinated: palInForm.controls.palMedicalInformation.get("isVaccinated")!.value,
                         medicalHistory: [],
-                        nextVaccine: palsInForm[i].controls.palMedicalInformation.get("nextVaccine")!.value,
-                        nextPlannedVetApp: palsInForm[i].controls.palMedicalInformation.get("nextPlannedVetApp")!.value,
-                        isSterilized: palsInForm[i].controls.palMedicalInformation.get("isSterilized")!.value
+                        nextVaccine: palInForm.controls.palMedicalInformation.get("nextVaccine")!.value,
+                        nextPlannedVetApp: palInForm.controls.palMedicalInformation.get("nextPlannedVetApp")!.value,
+                        isSterilized: palInForm.controls.palMedicalInformation.get("isSterilized")!.value
                     },
                     palIdentityInformation: {
-                        name: palsInForm[i].controls.palIdentityInformation.get("name")!.value,
-                        shortName: palsInForm[i].controls.palIdentityInformation.get("shortName")!.value,
-                        birthDate: palsInForm[i].controls.palIdentityInformation.get("birthDate")!.value,
-                        isMale: palsInForm[i].controls.palIdentityInformation.get("isMale")!.value,
-                        specie: palsInForm[i].controls.palIdentityInformation.get("specie")!.value,
-                        breed: palsInForm[i].controls.palIdentityInformation.get("breed")!.value,
-                        icadIdentifier: palsInForm[i].controls.palIdentityInformation.get("icadIdentifier")!.value,
-                        hasPassport: palsInForm[i].controls.palIdentityInformation.get("hasPassport")!.value
+                        name: palInForm.controls.palIdentityInformation.get("name")!.value,
+                        shortName: palInForm.controls.palIdentityInformation.get("shortName")!.value,
+                        birthDate: palInForm.controls.palIdentityInformation.get("birthDate")!.value,
+                        isMale: palInForm.controls.palIdentityInformation.get("isMale")!.value,
+                        specie: palInForm.controls.palIdentityInformation.get("specie")!.value,
+                        breed: palInForm.controls.palIdentityInformation.get("breed")!.value,
+                        icadIdentifier: palInForm.controls.palIdentityInformation.get("icadIdentifier")!.value,
+                        hasPassport: palInForm.controls.palIdentityInformation.get("hasPassport")!.value
                     }
                 }
             )
