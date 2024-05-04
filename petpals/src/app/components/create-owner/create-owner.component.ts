@@ -31,6 +31,7 @@ import {
     MatStepperPrevious
 } from "@angular/material/stepper";
 import {MatIcon} from "@angular/material/icon";
+import {templates} from "../../models/menus/formatters";
 
 @Component({
     selector: 'app-create-owner',
@@ -70,8 +71,8 @@ export class CreateOwnerComponent {
     sexOptions = options.gender;
     speciesOptions = options.palsHandled;
     passportOptions = options.passport;
-    maxBirthDate = dayjs().subtract(2, 'day').format('YYYY-MM-DD')
-    minDate = dayjs().add(2, 'day').format('YYYY-MM-DD')
+    maxBirthDate = dayjs().subtract(2, 'day').format(templates.format.date)
+    minDate = dayjs().add(2, 'day').format(templates.format.date)
 
     constructor(private apiService: PetpalsApiService, private _snackBar: MatSnackBar) {
     }
@@ -98,7 +99,7 @@ export class CreateOwnerComponent {
                 validators: [Validators.required],
                 nonNullable: true
             }), icadIdentifier: new FormControl('', {
-                validators: [Validators.required, Validators.pattern("^(250)(26|22)\\d{10}$")],
+                validators: [Validators.required, Validators.pattern(templates.regex.icadIdentifier)],
                 nonNullable: true
             })
         }
