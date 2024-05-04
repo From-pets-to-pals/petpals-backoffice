@@ -1,11 +1,9 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
-
 import {CreateOwnerComponent} from '../app/components/create-owner/create-owner.component';
 import options from "../app/models/menus/select.options";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {FormArray, FormControl, FormGroup, Validators} from "@angular/forms";
 import dayjs from "dayjs";
-import {By} from "@angular/platform-browser";
 
 describe('CreateOwnerComponent', () => {
     let component: CreateOwnerComponent;
@@ -58,9 +56,9 @@ describe('CreateOwnerComponent', () => {
 
     it('should set location and device', async () => {
         expect(component).toBeTruthy();
-        spyOn(component, "GetData").withArgs("hohoho").and.callThrough()
-        component.GetData("hohoho")
-        expect(component.GetData).toHaveBeenCalled()
+        spyOn(component, "GetLocationData").withArgs("hohoho").and.callThrough()
+        component.GetLocationData("hohoho")
+        expect(component.GetLocationData).toHaveBeenCalled()
         expect(component.form.get("location")?.value).toEqual("hohoho")
 
     });
@@ -153,10 +151,8 @@ describe('CreateOwnerComponent', () => {
                 })]
             )
         })
-
         expect(component.form.valid).toBeTruthy()
         spyOn(component, "mapOwner").and.callThrough();
-
         const callWith = component.mapOwner();
         await spyOn(component.GetPalsApiService(), "createOwner").and.resolveTo(Promise.resolve({data: "123456789"}));
         component.ShowList()

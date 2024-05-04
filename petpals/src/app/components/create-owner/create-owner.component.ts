@@ -22,7 +22,8 @@ import {CreateOwner} from "../../models/interfaces/owner";
 import {PetpalsApiService} from "../../services/middleware/petpals-api.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {
-    MatStep, MatStepContent,
+    MatStep,
+    MatStepContent,
     MatStepLabel,
     MatStepper,
     MatStepperIcon,
@@ -161,12 +162,11 @@ export class CreateOwnerComponent {
     })
 
     /** Location function **/
-    GetData(something: string) {
+    GetLocationData(something: string) {
         this.form.get("location")?.setValue(something)
         this.form.get("deviceId")?.setValue(window.navigator.userAgent)
-
-        console.log(this.form.value)
     }
+
     /** Form actions **/
     AddPalToList() {
         this.form.controls["pals"].controls.push(
@@ -294,8 +294,6 @@ export class CreateOwnerComponent {
             location: this.form.get('location')!.value,
             pals: palsList
         }
-        console.log(owner)
-
         return owner;
     }
 
