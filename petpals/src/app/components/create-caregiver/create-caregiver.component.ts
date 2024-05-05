@@ -28,7 +28,7 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 import {MatTooltip} from "@angular/material/tooltip";
 import options from '../../models/menus/select.options';
 import {MatOptionModule} from "@angular/material/core";
-import {Body, fetch, ResponseType} from "@tauri-apps/api/http";
+import {fetch, ResponseType} from "@tauri-apps/api/http";
 import {environment} from "../../environments/environment";
 import {Store} from "@ngrx/store";
 import {invoke} from "@tauri-apps/api/tauri";
