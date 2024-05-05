@@ -1,7 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TauriComponent } from './tauri.component';
-import {Browser} from "puppeteer";
+import { TauriComponent } from '../app/components/tauri/tauri.component';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 describe('TauriComponent', () => {

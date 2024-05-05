@@ -3,7 +3,7 @@ import {DialogElementsExampleDialog} from "../../renders/dialogs/simple-dialog";
 import {invoke} from "@tauri-apps/api/tauri";
 import {MatDialog} from "@angular/material/dialog";
 import {MatButton} from "@angular/material/button";
-import {FormControl, FormControlName, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
+import {FormControl, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {MatFormField, MatLabel} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 
@@ -50,5 +50,4 @@ export class TauriComponent {
 	constructor(public dialog: MatDialog) {
 	}
 
-    protected readonly event = event;
 }

@@ -53,10 +53,6 @@ const options = {
             value:"CAT"
         },
         {
-            label:"Furrets",
-            value:"FERRET"
-        },
-        {
             label:"NAC",
             value:"NAC"
         },
@@ -70,6 +66,26 @@ const options = {
             label:"Non",
             value:false
         },
+    ],
+    gender:[
+        {
+            label:"Male",
+            value:true
+        },
+        {
+            label:"Femelle",
+            value: false
+        }
+    ],
+    passport:[
+        {
+            label:"Oui",
+            value:true
+        },
+        {
+            label:"Non",
+            value: false
+        }
     ]
 }
 

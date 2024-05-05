@@ -1,5 +1,5 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {CreateCaregiverComponent} from './create-caregiver.component';
+import {CreateCaregiverComponent} from '../app/components/create-caregiver/create-caregiver.component';
 import {MockStore, provideMockStore} from "@ngrx/store/testing";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {MatSelectModule} from "@angular/material/select";

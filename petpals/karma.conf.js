@@ -27,19 +27,18 @@ module.exports = function (config) {
                 {type: 'html'},
                 {type: 'cobertura'},
                 { type: 'lcov', subdir: 'lcov-report' }
-            ],
-            exclude : ["src/app/*.ts","src/app/components/tauri/*.ts"]
+            ]
             , check: {
                 global: {
                     statements: 75,
-                    lines: 75,
+                    lines: 80,
                     branches: 65,
                     functions: 75,
                 },
             },
         },
 
-        reporters: ['progress', 'kjhtml', 'junit'],
+        reporters: ['progress','junit'],
         restartOnFileChange: true,
         browsers: ['ChromeHeadless'],
         junitReporter: {
