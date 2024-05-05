@@ -6,8 +6,8 @@ export interface Pal {
 
 export interface PalIdentityInformation {
     name: string;
-    shortName: string | null,
-    birthDate: Date | null,
+    shortname: string | null,
+    birthDate: string | null,
     isMale: boolean,
     specie: string,
     breed: string,
@@ -18,8 +18,8 @@ export interface PalIdentityInformation {
 export interface PalMedicalInformation {
     isVaccinated: boolean;
     medicalHistory: string[];
-    nextVaccine: Date | null;
-    nextPlannedVetApp: Date | null;
+    nextVaccine: string | null;
+    nextPlannedVetApp: string | null;
     isSterilized: boolean;
 }
 

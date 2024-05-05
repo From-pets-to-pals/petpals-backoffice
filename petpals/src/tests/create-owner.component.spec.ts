@@ -97,7 +97,7 @@ describe('CreateOwnerComponent', () => {
                                 nonNullable: true
                             }), birthDate: new FormControl(date, {
                                 nonNullable: false
-                            }), shortName: new FormControl(null, {
+                            }), shortname: new FormControl(null, {
                                 nonNullable: false
                             }), isMale: new FormControl(true, {
                                 validators: [Validators.required],
