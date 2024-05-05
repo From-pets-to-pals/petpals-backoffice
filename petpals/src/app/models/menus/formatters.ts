@@ -10,5 +10,8 @@ export const templates = {
 }
 
 export function formatDate (date: Date)  {
+    if(date === null){
+        return null;
+    }
     return dayjs(date).format("YYYY-MM-DD")
 }

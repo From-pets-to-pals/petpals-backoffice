@@ -258,8 +258,9 @@ export class CreateOwnerComponent {
                         isVaccinated: palInForm.controls.palMedicalInformation.get("isVaccinated")!.value,
                         medicalHistory: [],
                         // @ts-ignore
-                        nextVaccine: palInForm.controls.palMedicalInformation.get("nextVaccine")!.value == null ? null: formatDate(palInForm.controls.palMedicalInformation.get("nextVaccine")!.value),
-                        nextPlannedVetApp: palInForm.controls.palMedicalInformation.get("nextPlannedVetApp")!.value == null ? null :  formatDate(palInForm.controls.palMedicalInformation.get("nextPlannedApp")!.value),
+                        nextVaccine: formatDate(palInForm.controls.palMedicalInformation.get("nextVaccine")!.value),
+                        // @ts-ignore
+                        nextPlannedVetApp: formatDate(palInForm.controls.palMedicalInformation.get("nextPlannedVetApp")!.value),
                         isSterilized: palInForm.controls.palMedicalInformation.get("isSterilized")!.value
                     },
                     palIdentityInformation: {
