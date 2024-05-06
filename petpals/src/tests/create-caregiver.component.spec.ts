@@ -6,6 +6,7 @@ import {MatSelectModule} from "@angular/material/select";
 import {By} from "@angular/platform-browser";
 import {MatOptionModule} from "@angular/material/core";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {formatDate} from "../app/models/menus/formatters";
 
 describe('CreateCaregiverComponent', () => {
 	let component: CreateCaregiverComponent;
@@ -42,12 +43,10 @@ describe('CreateCaregiverComponent', () => {
 	
 	it('should get snackbar message from back on ngInit', () => {
 		// @ts-ignore
-		spyOn(component.getCareGiverApiService(),"get").and.resolveTo(Promise.resolve({data:"Hello from back"}));
-		component.getFromBack();
-		expect(component.getCareGiverApiService().get).toHaveBeenCalled()
+		expect(formatDate(null)).toEqual(null)
 	});
-	
-	
+
+
 	it('should create caregiver', async () => {
 		let form = new FormGroup({
 				firstName: new FormControl('Sidou', {

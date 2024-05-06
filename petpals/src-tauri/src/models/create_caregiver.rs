@@ -1,6 +1,7 @@
 
 pub mod caregivers_create {
     use serde::{Deserialize, Serialize};
+    use crate::models::species::species::Species;
 
     #[derive(Debug, Serialize,Deserialize,Clone)]
     #[serde(rename_all(deserialize="camelCase", serialize="camelCase"))]
@@ -39,18 +40,7 @@ pub mod caregivers_create {
     }
 
 
-    #[derive(Clone,Serialize,Deserialize,Debug)]
-    struct Species (
-        String
-    );
 
-    impl Species {
-        const DOG:&'static str  = "DOG";
-        const CAT:&'static str  = "CAT";
-        const FERRET:&'static str  = "FERRET";
-        const NAC:&'static str  = "NAC";
-
-    }
 
     #[derive(Clone,Serialize,Deserialize,Debug)]
     struct CaregiverTypes (

@@ -6,13 +6,14 @@ extern crate dotenv;
 use std::env;
 
 use dotenv::dotenv;
-use reqwest::{Client, Response};
+use reqwest::Client;
 use reqwest::header::{HeaderMap, HeaderValue};
 use serde::{Deserialize, Serialize};
 use tauri::{State, WindowEvent};
 use tauri::async_runtime::Mutex;
 
 use crate::models::create_caregiver::caregivers_create::CreateCaregiver;
+use crate::models::create_owner::owners_create::{NewOwner};
 use crate::models::tauri_response::tauri_response::TauriResponse;
 
 mod models;
@@ -47,6 +48,19 @@ async fn create_caregiver<'r>(client: State<'r, HttpClient>, create_caregiver: C
     Ok(res)
 }
 
+#[tauri::command]
+async fn create_owner<'r>(client: State<'r, HttpClient>, create_owner: NewOwner)
+                              -> Result<TauriResponse, TauriResponse> {
+    let mut url = env::var("API_URL").unwrap();
+    url.push_str("owners");
+    let query = client.client.lock().await.post(url).json
+    (&create_owner)
+        .send
+        ().await.unwrap();
+    let  res:TauriResponse =  TauriResponse::new(query.status()
+                                                     .as_u16(), query.text().await.unwrap());
+    Ok(res)
+}
 
 
 // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
@@ -70,7 +84,8 @@ fn main() {
                     std::thread::sleep(std::time::Duration::from_nanos(1));
                 }
             })
-        .invoke_handler(tauri::generate_handler![greet,get_from_rest,create_caregiver])
+        .invoke_handler(tauri::generate_handler![greet,get_from_rest,create_caregiver,
+            create_owner])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }

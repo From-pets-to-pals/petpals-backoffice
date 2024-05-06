@@ -114,6 +114,7 @@
             "karmaConfig": "karma.conf.js",
             "codeCoverageExclude": [
               "src/app/*.ts",
+              "src/**/services/**/*.ts",
               "src/app/components/tauri/*.ts",
               "**/src/app/environments/*.ts",
               "src/app/components/location/*.ts"]

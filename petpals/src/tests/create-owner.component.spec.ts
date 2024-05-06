@@ -4,16 +4,26 @@ import options from "../app/models/menus/select.options";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {FormArray, FormControl, FormGroup, Validators} from "@angular/forms";
 import dayjs from "dayjs";
+import {MockStore, provideMockStore} from "@ngrx/store/testing";
+import {error} from "@angular/compiler-cli/src/transformers/util";
 
 describe('CreateOwnerComponent', () => {
     let component: CreateOwnerComponent;
     let fixture: ComponentFixture<CreateOwnerComponent>;
+    let store : MockStore;
+    let initialState = {
+        token: null
+    }
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [CreateOwnerComponent, BrowserAnimationsModule]
+            imports: [CreateOwnerComponent, BrowserAnimationsModule],
+            providers: [
+                provideMockStore({initialState}),
+            ],
         })
             .compileComponents();
+        store = TestBed.inject(MockStore);
         fixture = TestBed.createComponent(CreateOwnerComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
@@ -154,9 +164,108 @@ describe('CreateOwnerComponent', () => {
         expect(component.form.valid).toBeTruthy()
         spyOn(component, "mapOwner").and.callThrough();
         const callWith = component.mapOwner();
-        await spyOn(component.GetPalsApiService(), "createOwner").and.resolveTo(Promise.resolve({data: "123456789"}));
+        spyOn(component.GetPalsApiService(), "createOwner").and.resolveTo(Promise.resolve({data: "123456789"}));
         component.ShowList()
         expect(component.mapOwner).toHaveBeenCalledTimes(2);
         expect(component.GetPalsApiService().createOwner).toHaveBeenCalledWith(callWith);
+
+
+    });
+
+    it('should map owner and throw error', async () => {
+        expect(component).toBeTruthy();
+        const date = dayjs().toDate()
+        // @ts-ignore
+        component.form = new FormGroup({
+            location: new FormControl("PARIS_FRANCE", {
+                validators: [Validators.required],
+                nonNullable: true
+            }),
+            deviceId: new FormControl('OPPO X59', {
+                validators: [Validators.required, Validators.minLength(3)],
+                nonNullable: true
+            }),
+            email: new FormControl('sa.bennaceur@test.com', {
+                validators: [Validators.required, Validators.email],
+                nonNullable: true
+            }),
+            username: new FormControl('Athos', {
+                validators: [Validators.required, Validators.minLength(4)],
+                nonNullable: true
+            }),
+            phoneNumber: new FormControl('0756565656', {
+                validators: [Validators.required, Validators.minLength(10), Validators.maxLength(10)],
+                nonNullable: true
+            }),
+            pals: new FormArray(
+                [new FormGroup({
+                    palIdentityInformation: new FormGroup(
+                        {
+                            name: new FormControl('Ashe', {
+                                validators: [Validators.required, Validators.minLength(3)],
+                                nonNullable: true
+                            }), birthDate: new FormControl(date, {
+                                nonNullable: false
+                            }), shortname: new FormControl(null, {
+                                nonNullable: false
+                            }), isMale: new FormControl(true, {
+                                validators: [Validators.required],
+                                nonNullable: true
+                            }), specie: new FormControl('DOG', {
+                                validators: [Validators.required],
+                                nonNullable: true
+                            }), breed: new FormControl('Husky', {
+                                validators: [Validators.required, Validators.minLength(3)],
+                                nonNullable: true
+                            }), hasPassport: new FormControl(false, {
+                                validators: [Validators.required],
+                                nonNullable: true
+                            }), icadIdentifier: new FormControl('250261515151515', {
+                                validators: [Validators.required, Validators.pattern("^(250)(26|22)\\d{10}$")],
+                                nonNullable: true
+                            })
+                        }
+                    ),
+                    palMedicalInformation: new FormGroup(
+                        {
+                            nextVaccine: new FormControl(date, {
+                                validators: [Validators.required],
+                                nonNullable: true
+                            }),
+                            nextPlannedVetApp: new FormControl(date, {
+                                nonNullable: false
+                            }),
+                            isVaccinated: new FormControl(true, {
+                                validators: [Validators.required],
+                                nonNullable: true
+                            }),
+                            isSterilized: new FormControl(false, {
+                                validators: [Validators.required],
+                                nonNullable: true
+                            }),
+                        }
+                    ),
+                    palMeasurement: new FormGroup(
+                        {
+                            weight: new FormControl(0.1, {
+                                validators: [Validators.required, Validators.min(0.1), Validators.max(200.0)],
+                                nonNullable: true
+                            }),
+                            height: new FormControl(0.1, {
+                                validators: [Validators.required, Validators.min(0.1), Validators.max(200.0)],
+                                nonNullable: true
+                            }),
+                        }
+                    ),
+                })]
+            )
+        })
+        expect(component.form.valid).toBeTruthy()
+        spyOn(component, "mapOwner").and.callThrough();
+
+        spyOn(component.GetPalsApiService(), "createOwner").and.returnValue(Promise.reject("bliblablou"));
+        component.ShowList()
+        expect(component.mapOwner).toHaveBeenCalledTimes(1);
+
     });
 });

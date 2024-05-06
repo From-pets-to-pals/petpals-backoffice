@@ -32,6 +32,9 @@ import {
 } from "@angular/material/stepper";
 import {MatIcon} from "@angular/material/icon";
 import {formatDate, templates} from "../../models/menus/formatters";
+import {updateToken, getToken, selectToken} from "../../stores/app.state";
+import {Store} from "@ngrx/store";
+import {invoke} from "@tauri-apps/api/tauri";
 
 @Component({
     selector: 'app-create-owner',
@@ -68,13 +71,14 @@ import {formatDate, templates} from "../../models/menus/formatters";
 })
 export class CreateOwnerComponent {
     panelOpenState = false;
+    isRegistered  = getToken === null;
     sexOptions = options.gender;
     speciesOptions = options.palsHandled;
     passportOptions = options.passport;
     maxBirthDate = dayjs().subtract(2, 'day').format(templates.format.date)
     minDate = dayjs().add(2, 'day').format(templates.format.date)
 
-    constructor(private apiService: PetpalsApiService, private _snackBar: MatSnackBar) {
+    constructor(private store: Store, private apiService: PetpalsApiService, private _snackBar: MatSnackBar) {
     }
 
 
@@ -232,14 +236,22 @@ export class CreateOwnerComponent {
     ShowList() {
         if (this.form.valid) {
             const ownerToCreate = this.mapOwner()
-            this.GetPalsApiService().createOwner(ownerToCreate).then(res => {
-                console.log(res.data)
-                this.openSnackBar("Registration successful", "Close")
-            }).catch(err => {
-                console.log(err)
-            })
+            if (!window.__TAURI__) {
+                this.GetPalsApiService().createOwner(ownerToCreate).then(res => {
+                    this.store.dispatch(updateToken(res.data))
+                    this.openSnackBar("Registration successful", "Close")
+                }).catch(err => {
+                    this.openSnackBar(`Registration error ${err.message}`, "Close")
+                })
+            } else {
+                const createOwner = ownerToCreate
+                invoke<string>("create_owner", {createOwner}).then((res: any) => {
+                    this.isRegistered = true;
+                    this.store.dispatch(updateToken(res.data))
+                    this.openSnackBar("Welcome aboard", "Ok")
+                });
+            }
         } else {
-            console.log(this.form.getRawValue())
             this.openSnackBar("Invalid form", "Close")
         }
     }
