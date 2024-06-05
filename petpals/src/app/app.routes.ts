@@ -4,10 +4,12 @@ import {TauriComponent} from "./components/tauri/tauri.component";
 import {isTauriGuard} from "./guards/is-tauri-guard";
 import {NgModule} from "@angular/core";
 import {CreateOwnerComponent} from "./components/create-owner/create-owner.component";
+import {MapDisplayComponent} from "./components/map-display/map-display.component";
 
 export const routes: Routes = [
 	{path: 'create-caregiver', component: CreateCaregiverComponent},
 	{path: 'create-owner', component: CreateOwnerComponent},
+	{path: 'map-display', component: MapDisplayComponent},
 
 // @ts-ignore
 	{path: 'tauri', component: TauriComponent, canActivate: [isTauriGuard]}

@@ -57,6 +57,13 @@
                        class="navbar_link"
                      >Owners</a>
                 </li>
+                <li class="navbal_item">
+                    <a
+                            routerLink="/map-display"
+                            ariaCurrentWhenActive="page"
+                            class="navbar_link"
+                    >Map</a>
+                </li>
                 <li class="navbal_item" *ngIf="appWindow.__TAURI__" >
                     <a
                             routerLink="/tauri"
@@ -69,6 +76,7 @@
     </div>
 </nav>
 <main class="main">
+
 
     <router-outlet/>
 </main>

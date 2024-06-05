@@ -33,9 +33,8 @@ export class LocationComponent {
   }
 
   ngOnInit(){
-    window.navigator.geolocation.getCurrentPosition(this.success, this.error, this.options);
+    window.navigator.geolocation.watchPosition(this.success, this.error, this.options);
   }
-
 
 
   SendLocation(){
