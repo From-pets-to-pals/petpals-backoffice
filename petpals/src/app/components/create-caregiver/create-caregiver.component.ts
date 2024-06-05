@@ -27,9 +27,8 @@ import {updateToken} from "../../stores/app.state";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {MatTooltip} from "@angular/material/tooltip";
 import options from '../../models/menus/select.options';
+import createCaregiverForm from "../../models/menus/control-names-to-displayable-names";
 import {MatOptionModule} from "@angular/material/core";
-import {fetch, ResponseType} from "@tauri-apps/api/http";
-import {environment} from "../../environments/environment";
 import {Store} from "@ngrx/store";
 import {invoke} from "@tauri-apps/api/tauri";
 
@@ -129,7 +128,16 @@ export class CreateCaregiverComponent {
                 });
             }
         } else {
-            this.openSnackBar("Invalid inputs", "Close");
+            let invalidControls:string[] = [];
+            // @ts-ignore
+            for(const control in this.form.controls){
+                // @ts-ignore
+                if(!control.isValid && control !== "isSubscribed" &&control !== "priceRating" && control !== "serviceRating" && control !== "homeService"){
+                    // @ts-ignore
+                    invalidControls.push(createCaregiverForm[control]);
+                }
+            }
+            this.openSnackBar(`Invalid inputs, please check your ${invalidControls.join(", ")}`, "Close");
         }
     }
 
