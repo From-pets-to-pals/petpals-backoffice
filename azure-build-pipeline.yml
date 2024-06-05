@@ -33,7 +33,7 @@ stages:
             displayName: 'Install Node.js'
           - script: |
               cd petpals
-              npm install -g @angular/cli && npm install && ng build && npm test && npm run sonar-scanner
+              npm install -g @angular/cli@17.3.1 && npm install && ng build && npm test && npm run sonar-scanner
             displayName: 'npm install, buid, and test'
             condition: eq(variables['Build.SourceBranchName'], 'main')
           - script: |
