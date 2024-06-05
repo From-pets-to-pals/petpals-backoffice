@@ -5,7 +5,6 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {FormArray, FormControl, FormGroup, Validators} from "@angular/forms";
 import dayjs from "dayjs";
 import {MockStore, provideMockStore} from "@ngrx/store/testing";
-import {error} from "@angular/compiler-cli/src/transformers/util";
 
 describe('CreateOwnerComponent', () => {
     let component: CreateOwnerComponent;
@@ -14,6 +13,7 @@ describe('CreateOwnerComponent', () => {
     let initialState = {
         token: null
     }
+    const date = dayjs().toDate()
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
@@ -33,7 +33,6 @@ describe('CreateOwnerComponent', () => {
         expect(component).toBeTruthy();
     });
     it('should set good options and update pal in pals list', () => {
-        expect(component).toBeTruthy();
         for (let i = 0; i < options.passport.length; i++) {
             expect(component.passportOptions[i].label).toEqual(options.passport[i].label)
             expect(component.passportOptions[i].value).toEqual(options.passport[i].value)
@@ -58,14 +57,12 @@ describe('CreateOwnerComponent', () => {
     });
 
     it('should open snackbar', () => {
-        expect(component).toBeTruthy();
-        spyOn(component, "openSnackBar").withArgs("Invalid form", "Close").and.callThrough()
+        spyOn(component, "openSnackBar").and.callThrough()
         component.ShowList()
         expect(component.openSnackBar).toHaveBeenCalled()
     });
 
     it('should set location and device', async () => {
-        expect(component).toBeTruthy();
         spyOn(component, "GetLocationData").withArgs("hohoho").and.callThrough()
         component.GetLocationData("hohoho")
         expect(component.GetLocationData).toHaveBeenCalled()
@@ -74,8 +71,6 @@ describe('CreateOwnerComponent', () => {
     });
 
     it('should map owner and call back', async () => {
-        expect(component).toBeTruthy();
-        const date = dayjs().toDate()
         // @ts-ignore
         component.form = new FormGroup({
             location: new FormControl("PARIS_FRANCE", {
@@ -173,8 +168,6 @@ describe('CreateOwnerComponent', () => {
     });
 
     it('should map owner and throw error', async () => {
-        expect(component).toBeTruthy();
-        const date = dayjs().toDate()
         // @ts-ignore
         component.form = new FormGroup({
             location: new FormControl("PARIS_FRANCE", {

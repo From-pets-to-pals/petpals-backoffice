@@ -252,7 +252,25 @@ export class CreateOwnerComponent {
                 });
             }
         } else {
-            this.openSnackBar("Invalid form", "Close")
+            let invalidPersonalInformations: string[] = [];
+            let invalidPals:number[] = [];
+            for(const control in this.form.controls){
+                // @ts-ignore
+                if(!control.isValid && control !== "pals" && control !== "location"){
+                    invalidPersonalInformations.push(control.toString());
+                }
+
+                if(control === "pals"){
+                    for(let i = 0; i < this.form.controls[control].controls.length; i++){
+                        // @ts-ignore
+                        if(!this.form.controls[control].controls[i].isValid){
+                            invalidPals.push(i + 1);
+                        }
+                    }
+                }
+            }
+            const errorMessage = `Invalid form, please check your ${invalidPersonalInformations.join(", ")} and the forms for pal(s) number ${invalidPals.join(", ")}.`;
+            this.openSnackBar(errorMessage, "Close")
         }
     }
 
