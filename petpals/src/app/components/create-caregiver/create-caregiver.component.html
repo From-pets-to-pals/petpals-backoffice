@@ -8,6 +8,14 @@
         </mat-select>
         <mat-hint align="end">Here's the dropdown arrow ^</mat-hint>
     </mat-form-field>
+	<mat-accordion>
+		<mat-expansion-panel (opened)="panelOpenState = true"
+		                     (closed)="panelOpenState = false">
+			<mat-expansion-panel-header>
+				<mat-panel-title>
+					Informations personnelles
+				</mat-panel-title>
+			</mat-expansion-panel-header>
     <mat-form-field>
         <mat-label>Prénom</mat-label>
         <input type="text" formControlName="firstName" name="firstName" matInput maxlength="35"
@@ -62,6 +70,8 @@
                placeholder="Ex. 0610203040">
         <mat-hint align="end">{{form.get("phoneNumber")!.value.length}}/10</mat-hint>
     </mat-form-field>
+		</mat-expansion-panel>
+	</mat-accordion>
     <mat-divider></mat-divider>
     <mat-accordion>
         <mat-expansion-panel (opened)="panelOpenState = true"
