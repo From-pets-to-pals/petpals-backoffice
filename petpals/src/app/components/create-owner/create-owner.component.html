@@ -52,7 +52,7 @@
 										<input type="text" matInput maxlength="15" class="input_create_owner"
 										       name="icadIdentifier" autocomplete="off"
 										       formControlName="icadIdentifier"
-										       placeholder="250...">
+										       placeholder="{{icad_placeholder}}">
 									</mat-form-field>
 									<mat-form-field hintLabel="Max 25 characters">
 										<mat-label>Name</mat-label>
@@ -85,13 +85,53 @@
 											</mat-option>
 										</mat-select>
 									</mat-form-field>
-									<mat-form-field hintLabel="Fill in the breed Max 50 characters">
+									<mat-form-field hintLabel="Fill in the breed Max 50 characters" *ngIf="this.form.controls.pals.controls[i].controls.palIdentityInformation.controls.specie.value === 'DOG'">
 										<mat-label>Breed</mat-label>
-										<input type="tel" matInput maxlength="50" class="input_create_owner"
-										       name="breed" autocomplete="off" [required]="true"
+										<input #input
+										       type="text"
+										       placeholder="Pick one"
+										       matInput
 										       formControlName="breed"
-
-										       placeholder="Ashe">
+										       class="input_create_owner"
+										       [matAutocomplete]="auto"
+										       (input)="filterDogBreeds($event)">
+										<mat-autocomplete requireSelection #auto="matAutocomplete">
+											@for (option of dogBreeds; track option) {
+												<mat-option [value]="option.name">{{option.name}}</mat-option>
+											}
+										</mat-autocomplete>
+									</mat-form-field>
+									<mat-form-field hintLabel="Fill in the breed Max 50 characters"
+									                *ngIf="this.form.controls.pals.controls[i].controls.palIdentityInformation.controls.specie.value === 'CAT'">
+										<mat-label>Breed</mat-label>
+										<input #input
+										       type="text"
+										       placeholder="Pick one"
+										       matInput
+										       formControlName="breed"
+										       [matAutocomplete]="auto"
+										       (input)="filterCatBreeds($event)">
+										<mat-autocomplete requireSelection #auto="matAutocomplete">
+											@for (option of catBreeds; track option) {
+												<mat-option [value]="option.name">{{option.name}}</mat-option>
+											}
+										</mat-autocomplete>
+									</mat-form-field>
+									<mat-form-field hintLabel="Fill in the breed Max 50 characters"
+									                *ngIf="this.form.controls.pals.controls[i].controls.palIdentityInformation.controls.specie.value === 'NAC'">
+										<mat-label>Breed</mat-label>
+										<input #input
+										       type="text"
+										       placeholder="Pick one"
+										       matInput
+										       formControlName="breed"
+										       [matAutocomplete]="auto"
+										       (input)="filterNacBreeds($event)">
+										<mat-autocomplete requireSelection #auto="matAutocomplete">
+											@for (option of nacBreeds; track option) {
+												<mat-option [value]="option.name">{{option.name}}</mat-option>
+											}
+										</mat-autocomplete>
 									</mat-form-field>
 									<mat-form-field hintLabel="Select pal sex">
 										<mat-label>Sex</mat-label>

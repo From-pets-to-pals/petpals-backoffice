@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {PetpalsApiService} from "../../services/middleware/petpals-api.service";
+import {PetPalsApiService} from "../../services/middleware/pet-pals-api.service";
 import {
     AbstractControl,
     FormBuilder,
@@ -31,6 +31,8 @@ import createCaregiverForm from "../../models/menus/control-names-to-displayable
 import {MatOptionModule} from "@angular/material/core";
 import {Store} from "@ngrx/store";
 import {invoke} from "@tauri-apps/api/tauri";
+import {Breed, Specie} from "../../models/interfaces/pals";
+import {Country} from "../../models/interfaces/common";
 
 @Component({
     selector: 'app-create-caregiver',
@@ -49,12 +51,17 @@ export class CreateCaregiverComponent {
     palsHandled = options.palsHandled;
     message = "";
     panelOpenState = false;
+    countries: Country[] = [];
+    species: Specie[] = [];
 
-    getCareGiverApiService() {
-        return this.caregiverApiService;
-    }
+    constructor(private store: Store, private _snackBar: MatSnackBar, private apiService: PetPalsApiService, private formBuilder: FormBuilder) {
+        this.apiService.getCaregiverOptions().then(res => {
+            this.species = res.species;
+            this.countries  = res.countries;
+            console.log(res)
+            this.form.controls.country.setValue(this.countries[0].name)
+        });
 
-    constructor(private store: Store, private _snackBar: MatSnackBar, private caregiverApiService: PetpalsApiService, private formBuilder: FormBuilder) {
     }
 
     minLengthArray(min: number) {
@@ -74,7 +81,7 @@ export class CreateCaregiverComponent {
             address: new FormControl('', {validators: [Validators.required, Validators.minLength(3)], nonNullable: true}),
             city: new FormControl('', {validators: [Validators.required, Validators.minLength(3)], nonNullable: true}),
             zipCode: new FormControl('', {validators: [Validators.required, Validators.minLength(5)], nonNullable: true}),
-            country: new FormControl('', {validators: [Validators.required], nonNullable: true}),
+            country: new FormControl("", {validators: [Validators.required], nonNullable: true}),
             email: new FormControl('', {validators: [Validators.required, Validators.email], nonNullable: true}),
             phoneNumber: new FormControl('', {
                 validators: [Validators.required, Validators.minLength(10), Validators.maxLength(10)],
@@ -103,7 +110,7 @@ export class CreateCaregiverComponent {
         if (this.form.valid && !this.isRegistered) {
             let toCreate = this.mapCaregiver();
             if (!window.__TAURI__) {
-                this.caregiverApiService
+                this.apiService
                     .createCaregiver(toCreate)
                     .then(res => {
                         this.isRegistered = true;
