@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Output} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {GeolocApiService} from "../../services/geoloc/geoloc-api.service";
 
 @Component({
@@ -7,7 +7,7 @@ import {GeolocApiService} from "../../services/geoloc/geoloc-api.service";
   imports: [],
   templateUrl: './location.component.html'
 })
-export class LocationComponent {
+export class LocationComponent implements OnInit {
   location = ""
   @Output()
   updatedLocation = new EventEmitter<string>();

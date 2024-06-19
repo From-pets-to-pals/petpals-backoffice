@@ -236,6 +236,7 @@ export class CreateOwnerComponent {
     ShowList() {
         if (this.form.valid) {
             const ownerToCreate = this.mapOwner()
+            console.log(this.mapOwner())
             if (!window.__TAURI__) {
                 this.GetPalsApiService().createOwner(ownerToCreate).then(res => {
                     this.store.dispatch(updateToken(res.data))
@@ -264,6 +265,7 @@ export class CreateOwnerComponent {
                     for(let i = 0; i < this.form.controls[control].controls.length; i++){
                         // @ts-ignore
                         if(!this.form.controls[control].controls[i].isValid){
+                            console.log(this.form)
                             invalidPals.push(i + 1);
                         }
                     }
