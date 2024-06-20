@@ -55,13 +55,16 @@ export class CreateCaregiverComponent {
     species: Specie[] = [];
 
     constructor(private store: Store, private _snackBar: MatSnackBar, private apiService: PetPalsApiService, private formBuilder: FormBuilder) {
-        this.apiService.getCaregiverOptions().then(res => {
+        this.getApiService().getCaregiverOptions().then(res => {
             this.species = res.species;
             this.countries  = res.countries;
             console.log(res)
             this.form.controls.country.setValue(this.countries[0].name)
         });
 
+    }
+    getApiService(){
+        return this.apiService;
     }
 
     minLengthArray(min: number) {

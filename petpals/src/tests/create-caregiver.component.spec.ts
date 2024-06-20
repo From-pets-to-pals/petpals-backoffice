@@ -100,13 +100,13 @@ describe('CreateCaregiverComponent', () => {
 		// @ts-ignore
 		component.form = form;
 		const callWith = component.mapCaregiver();
-		await spyOn(component.getCareGiverApiService(), "createCaregiver").and.resolveTo(Promise.resolve({data:"123456789"}));
+		await spyOn(component.getApiService(), "createCaregiver").and.resolveTo(Promise.resolve({data:"123456789"}));
 		
 		const createCaregiverButton = fixture.debugElement.query(By.css(".button_create_caregiver")).nativeElement;
 		createCaregiverButton?.click();
 		fixture.detectChanges();
 		// @ts-ignore
-		expect(component.getCareGiverApiService().createCaregiver).toHaveBeenCalledWith(callWith);
+		expect(component.getApiService().createCaregiver).toHaveBeenCalledWith(callWith);
 		expect(component.createCaregiver).toHaveBeenCalled();
 		expect(component.mapCaregiver).toHaveBeenCalled();
 		
@@ -167,13 +167,13 @@ describe('CreateCaregiverComponent', () => {
 		// @ts-ignore
 		component.form = form;
 		const callWith = component.mapCaregiver();
-		await spyOn(component.getCareGiverApiService(), "createCaregiver").and.resolveTo(Promise.reject({message:"123456789"}));
+		await spyOn(component.getApiService(), "createCaregiver").and.resolveTo(Promise.reject({message:"123456789"}));
 		
 		const createCaregiverButton = fixture.debugElement.query(By.css(".button_create_caregiver")).nativeElement;
 		createCaregiverButton?.click();
 		fixture.detectChanges();
 		// @ts-ignore
-		expect(component.getCareGiverApiService().createCaregiver).toHaveBeenCalledWith(callWith);
+		expect(component.getApiService().createCaregiver).toHaveBeenCalledWith(callWith);
 		expect(component.createCaregiver).toHaveBeenCalled();
 		expect(component.mapCaregiver).toHaveBeenCalled();
 		
