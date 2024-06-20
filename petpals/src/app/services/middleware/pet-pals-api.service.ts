@@ -13,7 +13,6 @@ export class PetPalsApiService {
   constructor() {
     this._instance = axios.create({
       baseURL:environment.api.url,
-      withCredentials: false,
       headers: {
         'API-KEY': environment.api.apiKey
       }})
@@ -29,9 +28,9 @@ export class PetPalsApiService {
   }
 
   async getCaregiverOptions() {
-    return await (await this._instance.get("options/create/caregiver", {withCredentials: false})).data;
+    return await (await this._instance.get("options/create/caregiver", )).data;
   }
   async getOwnerOptions() {
-    return await (await this._instance.get("options/create/owner", {withCredentials: false})).data;
+    return await (await this._instance.get("options/create/owner", )).data;
   }
 }

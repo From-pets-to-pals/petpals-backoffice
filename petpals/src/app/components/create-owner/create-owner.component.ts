@@ -97,7 +97,7 @@ export class CreateOwnerComponent {
             this.options = res;
             this.user_country = res.countries[0];
             this.icad_placeholder = `${this.user_country?.number}...`
-        });
+        }).catch(err => console.log(err));
     }
 
 
@@ -125,7 +125,6 @@ export class CreateOwnerComponent {
                     validators: [Validators.required],
                     nonNullable: true
                 }), icadIdentifier: new FormControl('', {
-                    validators: [Validators.required, Validators.pattern(templates.regex.icadIdentifier)],
                     nonNullable: true
                 })
             }
@@ -300,7 +299,8 @@ export class CreateOwnerComponent {
                     this.store.dispatch(updateToken(res.data))
                     this.openSnackBar("Registration successful", "Close")
                 }).catch(err => {
-                    this.openSnackBar(`Registration error ${err.message}`, "Close")
+                    console.log(err)
+                    this.openSnackBar(`Registration error ${err.data}`, "Close")
                 })
             } else {
                 const createOwner = ownerToCreate
