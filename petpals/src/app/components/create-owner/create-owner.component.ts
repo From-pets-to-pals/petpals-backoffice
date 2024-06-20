@@ -316,6 +316,8 @@ export class CreateOwnerComponent {
             for(const control in this.form.controls){
                 // @ts-ignore
                 if(!control.isValid && control !== "pals" && control !== "location"){
+                    console.log(this.form.controls.deviceId.value)
+
                     invalidPersonalInformations.push(control.toString());
                 }
 
