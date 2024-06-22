@@ -88,6 +88,10 @@ export class CreateOwnerComponent {
     user_country : Country | undefined;
     icad_placeholder : string | undefined;
     constructor(private store: Store, private apiService: PetPalsApiService, private _snackBar: MatSnackBar) {
+
+    }
+
+    ngOnInit(){
         this.apiService.getOwnerOptions().then(res => {
             this.species = res.species;
             this.dogBreeds = res.dogBreeds;
@@ -99,8 +103,6 @@ export class CreateOwnerComponent {
             this.icad_placeholder = `${this.user_country?.number}...`
         }).catch(err => console.log(err));
     }
-
-
 
     buildPalIdentityInformationFormGroup() {
         return new FormGroup(
@@ -125,6 +127,7 @@ export class CreateOwnerComponent {
                     validators: [Validators.required],
                     nonNullable: true
                 }), icadIdentifier: new FormControl('', {
+                    validators: [Validators.pattern(templates.regex.icadIdentifier), Validators.required],
                     nonNullable: true
                 })
             }
@@ -236,8 +239,7 @@ export class CreateOwnerComponent {
     /** Form actions **/
 
     filterDogBreeds(event : Event): void {
-        // @ts-ignore
-        const input = event.target.value;
+        const input = (event.target as HTMLInputElement).value;
         if(input === ""){
             // @ts-ignore
             this.dogBreeds = this.options?.dogBreeds;
@@ -248,8 +250,8 @@ export class CreateOwnerComponent {
     }
 
     filterCatBreeds(event : Event): void {
-        // @ts-ignore
-        const input = event.target.value;
+        const input = (event.target as HTMLInputElement).value;
+
         if(input === ""){
             // @ts-ignore
             this.catBreeds = this.options?.catBreeds;
@@ -260,8 +262,7 @@ export class CreateOwnerComponent {
     }
 
     filterNacBreeds(event : Event): void {
-        // @ts-ignore
-        const input = event.target.value;
+        const input = (event.target as HTMLInputElement).value;
         if(input === ""){
             // @ts-ignore
             this.nacBreeds = this.options?.nacBreeds;
@@ -299,8 +300,7 @@ export class CreateOwnerComponent {
                     this.store.dispatch(updateToken(res.data))
                     this.openSnackBar("Registration successful", "Close")
                 }).catch(err => {
-                    console.log(err)
-                    this.openSnackBar(`Registration error ${err.data}`, "Close")
+                    this.openSnackBar(`Registration error ${err.response.data}`, "Close")
                 })
             } else {
                 const createOwner = ownerToCreate
@@ -316,8 +316,6 @@ export class CreateOwnerComponent {
             for(const control in this.form.controls){
                 // @ts-ignore
                 if(!control.isValid && control !== "pals" && control !== "location"){
-                    console.log(this.form.controls.deviceId.value)
-
                     invalidPersonalInformations.push(control.toString());
                 }
 
