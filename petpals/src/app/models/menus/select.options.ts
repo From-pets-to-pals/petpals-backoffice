@@ -45,15 +45,15 @@ const options = {
   ],
     palsHandled:[
         {
-            label:"Chiens",
+            label:"Dogs",
             value:"DOG"
         },
         {
-            label:"Chat",
+            label:"Cats",
             value:"CAT"
         },
         {
-            label:"NAC",
+            label:"NACs",
             value:"NAC"
         },
     ],

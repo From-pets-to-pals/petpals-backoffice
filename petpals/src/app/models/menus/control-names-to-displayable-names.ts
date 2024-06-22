@@ -1,20 +1,20 @@
 const createCaregiverForm = {
-    firstName: "first name",
-    lastName: "last name",
-    address: "address",
-    city: "city",
-    zipCode: "zip code",
-    country:"country",
+    firstName: "prénom",
+    lastName: "nom",
+    address: "adresse",
+    city: "ville",
+    zipCode: "code postal",
+    country:"pays",
     email:"email",
-    phoneNumber: "phone number",
-    caregiverType: "job",
-    homeService:"home service",
-    isSubscribed: "subscription",
-    workingDays:"working days",
-    palsHandled:"pals handled",
-    priceRating:"price rating",
-    serviceRating:"service rating",
-    appointmentDuration:"appointment duration"
+    phoneNumber: "numéro de téléphone",
+    caregiverType: "activité",
+    homeService:"déplacements",
+    isSubscribed: "abonnement",
+    workingDays:"jours ouvrés",
+    palsHandled:"pals gérés",
+    priceRating:"avis sur les prix",
+    serviceRating:"avis sur le service",
+    appointmentDuration:"durée moyenne de rendez-vous"
 }
 
 export default createCaregiverForm;

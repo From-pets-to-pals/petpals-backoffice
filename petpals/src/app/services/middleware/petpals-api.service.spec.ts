@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { PetpalsApiService } from './petpals-api.service';
+import { PetPalsApiService } from './pet-pals-api.service';
 
 describe('CaregiversApiService', () => {
-  let service: PetpalsApiService;
+  let service: PetPalsApiService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(PetpalsApiService);
+    service = TestBed.inject(PetPalsApiService);
   });
 
   it('should be created', () => {

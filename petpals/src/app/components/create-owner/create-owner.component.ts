@@ -12,14 +12,14 @@ import {MatButton} from "@angular/material/button";
 import {MatDivider} from "@angular/material/divider";
 import {MatFormField, MatHint, MatLabel} from "@angular/material/form-field";
 import {MatInput} from "@angular/material/input";
-import {MatOption} from "@angular/material/autocomplete";
+import {MatAutocomplete, MatAutocompleteTrigger, MatOption} from "@angular/material/autocomplete";
 import {MatSelect} from "@angular/material/select";
 import {CommonModule, NgForOf} from "@angular/common";
 import options from "../../models/menus/select.options";
 import dayjs from "dayjs"
-import {Pal} from "../../models/interfaces/pals";
+import {Breed, Pal, Specie} from "../../models/interfaces/pals";
 import {CreateOwner} from "../../models/interfaces/owner";
-import {PetpalsApiService} from "../../services/middleware/petpals-api.service";
+import {PetPalsApiService} from "../../services/middleware/pet-pals-api.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {
     MatStep,
@@ -32,10 +32,10 @@ import {
 } from "@angular/material/stepper";
 import {MatIcon} from "@angular/material/icon";
 import {formatDate, templates} from "../../models/menus/formatters";
-import {updateToken, getToken, selectToken} from "../../stores/app.state";
+import {updateToken, getToken, selectToken, getLanguage} from "../../stores/app.state";
 import {Store} from "@ngrx/store";
 import {invoke} from "@tauri-apps/api/tauri";
-
+import {Country, CreateOwnerOptions} from "../../models/interfaces/common";
 @Component({
     selector: 'app-create-owner',
     standalone: true,
@@ -64,7 +64,9 @@ import {invoke} from "@tauri-apps/api/tauri";
         MatStepperNext,
         MatStepperIcon,
         MatIcon,
-        MatStepContent
+        MatStepContent,
+        MatAutocompleteTrigger,
+        MatAutocomplete
     ],
     templateUrl: './create-owner.component.html',
     styleUrl: './create-owner.component.css'
@@ -77,10 +79,30 @@ export class CreateOwnerComponent {
     passportOptions = options.passport;
     maxBirthDate = dayjs().subtract(2, 'day').format(templates.format.date)
     minDate = dayjs().add(2, 'day').format(templates.format.date)
+    countries: Country[] = [];
+    species: Specie[] = [];
+    dogBreeds : Breed[] = [];
+    catBreeds: Breed[] = [];
+    nacBreeds: Breed[] = [];
+    options: CreateOwnerOptions | undefined;
+    user_country : Country | undefined;
+    icad_placeholder : string | undefined;
+    constructor(private store: Store, private apiService: PetPalsApiService, private _snackBar: MatSnackBar) {
 
-    constructor(private store: Store, private apiService: PetpalsApiService, private _snackBar: MatSnackBar) {
     }
 
+    ngOnInit(){
+        this.apiService.getOwnerOptions().then(res => {
+            this.species = res.species;
+            this.dogBreeds = res.dogBreeds;
+            this.catBreeds = res.catBreeds;
+            this.countries  = res.countries;
+            this.nacBreeds = res.nacBreeds;
+            this.options = res;
+            this.user_country = res.countries[0];
+            this.icad_placeholder = `${this.user_country?.number}...`
+        }).catch(err => console.log(err));
+    }
 
     buildPalIdentityInformationFormGroup() {
         return new FormGroup(
@@ -105,7 +127,7 @@ export class CreateOwnerComponent {
                     validators: [Validators.required],
                     nonNullable: true
                 }), icadIdentifier: new FormControl('', {
-                    validators: [Validators.required, Validators.pattern(templates.regex.icadIdentifier)],
+                    validators: [Validators.pattern(templates.regex.icadIdentifier), Validators.required],
                     nonNullable: true
                 })
             }
@@ -208,11 +230,48 @@ export class CreateOwnerComponent {
 
     /** Location function **/
     GetLocationData(something: string) {
+
         this.form.get("location")?.setValue(something)
         this.form.get("deviceId")?.setValue(window.navigator.userAgent)
+
     }
 
     /** Form actions **/
+
+    filterDogBreeds(event : Event): void {
+        const input = (event.target as HTMLInputElement).value;
+        if(input === ""){
+            // @ts-ignore
+            this.dogBreeds = this.options?.dogBreeds;
+        } else {
+            // @ts-ignore
+            this.dogBreeds = this.options?.dogBreeds.filter(o => o.name.toLowerCase().includes(input.toLowerCase()));
+        }
+    }
+
+    filterCatBreeds(event : Event): void {
+        const input = (event.target as HTMLInputElement).value;
+
+        if(input === ""){
+            // @ts-ignore
+            this.catBreeds = this.options?.catBreeds;
+        } else {
+            // @ts-ignore
+            this.catBreeds = this.options?.catBreeds.filter(o => o.name.toLowerCase().includes(input.toLowerCase()));
+        }
+    }
+
+    filterNacBreeds(event : Event): void {
+        const input = (event.target as HTMLInputElement).value;
+        if(input === ""){
+            // @ts-ignore
+            this.nacBreeds = this.options?.nacBreeds;
+        } else {
+        // @ts-ignore
+            this.nacBreeds = this.options?.nacBreeds.filter(o => o.name.toLowerCase().includes(input.toLowerCase()));
+        }
+    }
+
     AddPalToList() {
         this.form.controls["pals"].controls.push(
             new FormGroup(
@@ -241,7 +300,7 @@ export class CreateOwnerComponent {
                     this.store.dispatch(updateToken(res.data))
                     this.openSnackBar("Registration successful", "Close")
                 }).catch(err => {
-                    this.openSnackBar(`Registration error ${err.message}`, "Close")
+                    this.openSnackBar(`Registration error ${err.response.data}`, "Close")
                 })
             } else {
                 const createOwner = ownerToCreate

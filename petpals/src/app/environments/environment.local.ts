@@ -1,6 +1,6 @@
 export const environment = {
   api: {
-    url:"http://127.0.0.1:80/",
+    url:"http://127.0.0.1:9000/",
     apiKey:"pals"
   },
   geolocApi: {

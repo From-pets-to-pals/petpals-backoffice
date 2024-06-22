@@ -27,3 +27,11 @@ export interface PalMeasurement {
     weight: number;
     height: number;
 }
+
+export interface Breed {
+    name: string;
+}
+
+export interface Specie {
+    name: string;
+}

@@ -7,13 +7,12 @@ import {CreateOwner} from "../../models/interfaces/owner";
 @Injectable({
   providedIn: 'root'
 })
-export class PetpalsApiService {
+export class PetPalsApiService {
 
   private readonly _instance:AxiosInstance
   constructor() {
     this._instance = axios.create({
       baseURL:environment.api.url,
-      withCredentials: false,
       headers: {
         'API-KEY': environment.api.apiKey
       }})
@@ -26,5 +25,12 @@ export class PetpalsApiService {
   }
   async get() {
     return await (await this._instance.get("hello", {withCredentials: false})).data;
+  }
+
+  async getCaregiverOptions() {
+    return await (await this._instance.get("options/create/caregiver", )).data;
+  }
+  async getOwnerOptions() {
+    return await (await this._instance.get("options/create/owner", )).data;
   }
 }
