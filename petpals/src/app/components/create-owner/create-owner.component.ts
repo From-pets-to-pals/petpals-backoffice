@@ -181,6 +181,12 @@ export class CreateOwnerComponent {
                 nonNullable: true
             }
         ),
+        password: new FormControl('',
+            {
+                validators: [Validators.required, Validators.minLength(5)],
+                nonNullable: true
+            }
+        ),
         username: new FormControl('',
             {
                 validators: [Validators.required, Validators.minLength(4)],
@@ -311,6 +317,7 @@ export class CreateOwnerComponent {
         }
         const owner: CreateOwner = {
             email: this.form.get('email')!.value,
+            password: this.form.get('password')!.value,
             username: this.form.get('username')!.value,
             deviceId: this.form.get('deviceId')!.value,
             location: this.form.get('location')!.value,

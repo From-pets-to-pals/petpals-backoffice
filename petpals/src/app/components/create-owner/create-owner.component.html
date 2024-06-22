@@ -14,6 +14,12 @@
 		<mat-hint align="end">{{ form.get("email")!.value.length }}/100</mat-hint>
 	</mat-form-field>
 	<mat-form-field hintLabel="Max 10 characters">
+		<mat-label>Password</mat-label>
+		<input type="password" formControlName="password" matInput maxlength="100" class="input_create_owner"
+			   name="password" autocomplete="off" [required]="true"
+			   placeholder="Your password">
+	</mat-form-field>
+	<mat-form-field hintLabel="Max 10 characters">
 		<mat-label>Téléphone</mat-label>
 		<input formControlName="phoneNumber" type="tel" matInput maxlength="10" class="input_create_owner"
 		       name="phoneNumber" autocomplete="off" [required]="true"

@@ -3,6 +3,7 @@ import {Pal} from "./pals";
 
 export interface CreateOwner {
     username: string;
+    password: string;
     email: string;
     deviceId: string;
     location: string;
@@ -20,6 +21,7 @@ export interface Owner {
 
 export interface CreateOwnerForm {
     username: FormControl<string>;
+    password: FormControl<string>;
     deviceId: FormControl<string>;
     location: FormControl<string>;
     phoneNumber: FormControl<string>;

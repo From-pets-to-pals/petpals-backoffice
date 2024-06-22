@@ -1,6 +1,6 @@
 export const environment = {
   api: {
-    url:"https://petpals-middleware-dev.azurewebsites.net/",
+    url:"http://127.0.0.1:9000",
     apiKey:"petpals-app-middleware-beta"
   },
   geolocApi: {
