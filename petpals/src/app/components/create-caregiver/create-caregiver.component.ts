@@ -122,7 +122,7 @@ export class CreateCaregiverComponent {
                         this.store.dispatch(updateToken(res.data))
                     })
                     .catch(err => {
-                        this.openSnackBar(err.message, "Close");
+                        this.openSnackBar(err.response.data, "Close");
                     })
             } else {
                 const createCaregiver = toCreate;
