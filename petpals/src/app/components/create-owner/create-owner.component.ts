@@ -78,6 +78,8 @@ export class CreateOwnerComponent {
     maxBirthDate = dayjs().subtract(2, 'day').format(templates.format.date)
     minDate = dayjs().add(2, 'day').format(templates.format.date)
 
+    ownerFocused = true
+
     constructor(private store: Store, private apiService: PetpalsApiService, private _snackBar: MatSnackBar) {
     }
 
