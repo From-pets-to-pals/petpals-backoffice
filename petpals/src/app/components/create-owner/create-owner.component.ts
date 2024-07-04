@@ -35,6 +35,7 @@ import {formatDate, templates} from "../../models/menus/formatters";
 import {updateToken, getToken, selectToken} from "../../stores/app.state";
 import {Store} from "@ngrx/store";
 import {invoke} from "@tauri-apps/api/tauri";
+import {RouterLink} from "@angular/router";
 
 @Component({
     selector: 'app-create-owner',
@@ -64,7 +65,8 @@ import {invoke} from "@tauri-apps/api/tauri";
         MatStepperNext,
         MatStepperIcon,
         MatIcon,
-        MatStepContent
+        MatStepContent,
+        RouterLink
     ],
     templateUrl: './create-owner.component.html',
     styleUrl: './create-owner.component.css'

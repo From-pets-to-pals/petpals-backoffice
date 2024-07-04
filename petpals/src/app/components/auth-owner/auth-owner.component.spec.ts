@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CalendarComponent } from './calendar.component';
+import { AuthOwnerComponent } from './auth-owner.component';
 
-describe('CalendarComponent', () => {
-  let component: CalendarComponent;
-  let fixture: ComponentFixture<CalendarComponent>;
+describe('AuthOwnerComponent', () => {
+  let component: AuthOwnerComponent;
+  let fixture: ComponentFixture<AuthOwnerComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CalendarComponent]
+      imports: [AuthOwnerComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(CalendarComponent);
+    fixture = TestBed.createComponent(AuthOwnerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

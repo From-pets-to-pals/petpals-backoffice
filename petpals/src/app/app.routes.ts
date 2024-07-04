@@ -6,14 +6,14 @@ import {NgModule} from "@angular/core";
 import {CreateOwnerComponent} from "./components/create-owner/create-owner.component";
 import {PrivacyComponent} from "./components/privacy/privacy.component";
 import {MapDisplayComponent} from "./components/map-display/map-display.component";
-import {CalendarComponent} from "./components/calendar/calendar.component";
+import {AuthOwnerComponent} from "./components/auth-owner/auth-owner.component";
 
 export const routes: Routes = [
 	{path: 'create-caregiver', component: CreateCaregiverComponent},
 	{path: 'create-owner', component: CreateOwnerComponent},
 	{path: '', component: MapDisplayComponent},
 	{ path: 'privacy', component: PrivacyComponent },
-	{ path: 'calendar', component: CalendarComponent },
+	{ path: 'auth-owner', component: AuthOwnerComponent },
 
 // @ts-ignore
 	{path: 'tauri', component: TauriComponent, canActivate: [isTauriGuard]}
