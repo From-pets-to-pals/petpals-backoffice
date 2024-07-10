@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output, SimpleChanges} from '@angular/core';
 import {FormArray, FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {LocationComponent} from "../location/location.component";
 import {
@@ -36,6 +36,9 @@ import {updateToken, getToken, selectToken} from "../../stores/app.state";
 import {Store} from "@ngrx/store";
 import {invoke} from "@tauri-apps/api/tauri";
 import {RouterLink} from "@angular/router";
+import {PalFormComponent} from "../pal-form/pal-form.component";
+import {control} from "leaflet";
+import {message} from "@tauri-apps/api/dialog";
 
 @Component({
     selector: 'app-create-owner',
@@ -66,23 +69,58 @@ import {RouterLink} from "@angular/router";
         MatStepperIcon,
         MatIcon,
         MatStepContent,
-        RouterLink
+        RouterLink,
+        PalFormComponent
     ],
     templateUrl: './create-owner.component.html',
     styleUrl: './create-owner.component.css'
 })
-export class CreateOwnerComponent {
+export class CreateOwnerComponent implements OnInit {
     panelOpenState = false;
     isRegistered  = getToken === null;
-    sexOptions = options.gender;
-    speciesOptions = options.palsHandled;
-    passportOptions = options.passport;
-    maxBirthDate = dayjs().subtract(2, 'day').format(templates.format.date)
-    minDate = dayjs().add(2, 'day').format(templates.format.date)
 
-    ownerFocused = true
+    currentStep = 0;
+    reload = false;
 
     constructor(private store: Store, private apiService: PetpalsApiService, private _snackBar: MatSnackBar) {
+    }
+
+    ngOnInit(): void {
+    }
+
+
+
+    nextStep() {
+        if (this.currentStep < this.getStepCount() - 1) {
+            this.currentStep++;
+        }
+
+        console.log(this.form.controls);
+    }
+
+    previousStep() {
+        if (this.currentStep > 0) {
+            this.currentStep--;
+        }
+    }
+
+    getStepCount(): number {
+        return this.form.controls.pals.length
+    }
+
+    isStepValid(step: number): boolean {
+        switch (step) {
+            case 0:
+                return this.form.get('firstName')!.valid && this.form.get('lastName')!.valid && this.form.get('email')!.valid;
+            case 1:
+                return this.form.get('phoneNumber')!.valid && this.form.get('address')!.valid && this.form.get('city')!.valid;
+            default:
+                return false;
+        }
+    }
+
+    step(step: number) {
+        this.currentStep = step;
     }
 
 
@@ -252,7 +290,8 @@ export class CreateOwnerComponent {
                     this.store.dispatch(updateToken(res.data))
                     this.openSnackBar("Registration successful", "Close")
                 }).catch(err => {
-                    this.openSnackBar(`Registration error ${err.message}`, "Close")
+                    console.log(err)
+                    this.openSnackBar(` ${err.response.data}`, "Close")
                 })
             } else {
                 const createOwner = ownerToCreate
@@ -330,6 +369,10 @@ export class CreateOwnerComponent {
         return owner;
     }
 
+    getCorrespondingId(list: any[], id: number) {
+        return list.find(item => item.id === id);
+    }
+
     /** Service */
 
     GetPalsApiService() {
@@ -343,4 +386,6 @@ export class CreateOwnerComponent {
             verticalPosition: "top",
         });
     }
+
+
 }

@@ -2,86 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
-body{
-    background: #67B26F;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(0deg, #4ca2cd, #67B26F);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(0deg, #4ca2cd, #67B26F); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-}
-:root {
-    font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
-    font-size: 16px;
-    line-height: 24px;
-    font-weight: 400;
-
-    color: #0f0f0f;
-    background-color: #f6f6f6;
-    font-synthesis: none;
-    text-rendering: optimizeLegibility;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    -webkit-text-size-adjust: 100%;
-}
-
-
-
-.logo {
-    height: 6em;
-    padding: 1.5em;
-    will-change: filter;
-    transition: 0.75s;
-}
-
-.logo.tauri:hover {
-    filter: drop-shadow(0 0 2em #24c8db);
-}
-.logo.petpals:hover {
-    filter: drop-shadow(0 0 2em #24c8db);
-}
-.row {
-    display: flex;
-    justify-content: center;
-}
-
-a {
-    font-weight: 500;
-    color: #646cff;
-    text-decoration: inherit;
-}
-
-a:hover {
-    color: #535bf2;
-}
-
-h1 {
-    text-align: center;
-}
-
-
 button {
-    cursor: pointer;
+    @apply bg-blue-500 text-white font-bold py-2 px-4 rounded transition duration-300 ease-in-out transform;
 }
 
-
-input,
-button {
-    outline: none;
+button:hover {
+    @apply bg-blue-600 shadow-lg scale-105;
 }
 
-
-
-@media (prefers-color-scheme: light) {
-    :root {
-        color: #2f2f2f;
-        background-color: #f6f6f6;
-    }
-
-    a:hover {
-        color: #24c8db;
-    }
-
+button:focus {
+    @apply outline-none ring-2 ring-blue-300;
 }
 
-
-body::-webkit-scrollbar {
-    display: none;
+button:active {
+    @apply bg-blue-700;
 }

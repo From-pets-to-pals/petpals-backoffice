@@ -27,4 +27,8 @@ export class PetpalsApiService {
   async get() {
     return await (await this._instance.get("hello", {withCredentials: false})).data;
   }
+
+  async getCreateOwnerOptions() {
+    return await (await this._instance.get("options/create/owner")).data;
+  }
 }

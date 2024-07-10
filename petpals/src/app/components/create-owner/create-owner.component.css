@@ -32,3 +32,8 @@
 .margin-bottom {
     margin-bottom: 30px;
 }
+
+.owner_form_column {
+    display: flex;
+    flex-direction: column;
+}
