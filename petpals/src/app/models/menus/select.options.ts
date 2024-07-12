@@ -1,4 +1,4 @@
-const options = {
+const localOptions = {
   caregiverType : [
     {
       label:"Groomer",
@@ -89,4 +89,4 @@ const options = {
     ]
 }
 
-export default options;
+export default localOptions;

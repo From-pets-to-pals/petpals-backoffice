@@ -26,11 +26,11 @@ import {NgForOf} from "@angular/common";
 import {updateToken} from "../../stores/app.state";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {MatTooltip} from "@angular/material/tooltip";
-import options from '../../models/menus/select.options';
 import createCaregiverForm from "../../models/menus/control-names-to-displayable-names";
 import {MatOptionModule} from "@angular/material/core";
 import {Store} from "@ngrx/store";
 import {invoke} from "@tauri-apps/api/tauri";
+import localOptions from "../../models/menus/select.options";
 
 @Component({
     selector: 'app-create-caregiver',
@@ -43,10 +43,10 @@ import {invoke} from "@tauri-apps/api/tauri";
 export class CreateCaregiverComponent {
     title = 'petpals - add caregiver';
     public isRegistered = false;
-    caregiverTypes = options.caregiverType;
-    days = options.days;
-    homeService = options.homeService;
-    palsHandled = options.palsHandled;
+    caregiverTypes = localOptions.caregiverType;
+    days = localOptions.days;
+    homeService = localOptions.homeService;
+    palsHandled = localOptions.palsHandled;
     message = "";
     panelOpenState = false;
 
@@ -112,6 +112,8 @@ export class CreateCaregiverComponent {
                         this.store.dispatch(updateToken(res.data))
                     })
                     .catch(err => {
+                        console.log(err);
+
                         this.openSnackBar(err.message, "Close");
                     })
             } else {

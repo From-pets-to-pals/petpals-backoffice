@@ -7,11 +7,12 @@ import {appWindow} from "@tauri-apps/api/window";
 import {NgIf} from "@angular/common";
 import {initFlowbite} from 'flowbite';
 import titles from "./models/titles";
+import {MapDisplayComponent} from "./components/map-display/map-display.component";
 
 @Component({
 	selector: 'app-root',
 	standalone: true,
-	imports: [RouterOutlet, CreateCaregiverComponent, MatButton, NgIf, RouterLink],
+	imports: [RouterOutlet, CreateCaregiverComponent, MatButton, NgIf, RouterLink, MapDisplayComponent],
 	templateUrl: './app.component.html',
 	styleUrl: './app.component.css'
 })

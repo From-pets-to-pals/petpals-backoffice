@@ -1,0 +1,26 @@
+
+<section class="bg-white dark:bg-gray-900">
+    <div class="container flex justify-center min-h-screen px-6 mx-auto mt-20">
+
+        <form class="w-full max-w-md">
+            <div class="flex justify-center mx-auto rounded-full w-10 h-10 object-cover bg-blue-500">
+                <img class="w-auto h-7 sm:h-8" src="assets/app-icon.png" alt="">
+            </div>
+            <div class="flex items-center justify-center mt-6">
+                <a href="#" routerLink="/register-menu/create-owner" class="w-1/3 pb-4 font-medium text-center text-gray-500 capitalize border-b dark:border-gray-400 dark:text-gray-300" [ngClass]="{ 'border-blue-500 text-gray-800 dark:text-white': isActive('/register-menu/create-owner') }">
+                    Owner
+                </a>
+                <a routerLink="/register-menu/create-caregiver" class="w-1/3 pb-4 font-medium text-center text-gray-800 capitalize border-b-2 border-blue-500 dark:border-blue-400 dark:text-white" [ngClass]="{ 'border-blue-500 text-gray-800 dark:text-white': isActive('/register-menu/create-caregiver') }">
+                    Caregiver
+                </a>
+            </div>
+            <router-outlet></router-outlet>
+            <div class="mt-6 text-center ">
+                <a href="#" class="text-sm text-blue-500 hover:underline dark:text-blue-400">
+                    Already have an account?
+                </a>
+            </div>
+        </form>
+    </div>
+</section>
+

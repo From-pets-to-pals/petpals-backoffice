@@ -9,7 +9,31 @@
 
 }
 
-.mat-step-icon .mat-step-icon-state-edit{
+.mat-step-icon .mat-step-icon-state-edit {
     width: 35px;
     height: 35px;
+}
+
+.form_create_owner {
+    display: flex;
+}
+
+.form_owner {
+    display: flex;
+    flex-direction: column;
+}
+
+.form_fields {
+    display: flex;
+    flex-direction: column;
+    margin-top: 50px;
+}
+
+.margin-bottom {
+    margin-bottom: 30px;
+}
+
+.owner_form_column {
+    display: flex;
+    flex-direction: column;
 }

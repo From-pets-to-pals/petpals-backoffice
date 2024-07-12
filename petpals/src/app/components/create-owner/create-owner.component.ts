@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output, SimpleChanges} from '@angular/core';
 import {FormArray, FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {LocationComponent} from "../location/location.component";
 import {
@@ -35,6 +35,10 @@ import {formatDate, templates} from "../../models/menus/formatters";
 import {updateToken, getToken, selectToken} from "../../stores/app.state";
 import {Store} from "@ngrx/store";
 import {invoke} from "@tauri-apps/api/tauri";
+import {RouterLink} from "@angular/router";
+import {PalFormComponent} from "../pal-form/pal-form.component";
+import {control} from "leaflet";
+import {message} from "@tauri-apps/api/dialog";
 
 @Component({
     selector: 'app-create-owner',
@@ -64,21 +68,59 @@ import {invoke} from "@tauri-apps/api/tauri";
         MatStepperNext,
         MatStepperIcon,
         MatIcon,
-        MatStepContent
+        MatStepContent,
+        RouterLink,
+        PalFormComponent
     ],
     templateUrl: './create-owner.component.html',
     styleUrl: './create-owner.component.css'
 })
-export class CreateOwnerComponent {
+export class CreateOwnerComponent implements OnInit {
     panelOpenState = false;
     isRegistered  = getToken === null;
-    sexOptions = options.gender;
-    speciesOptions = options.palsHandled;
-    passportOptions = options.passport;
-    maxBirthDate = dayjs().subtract(2, 'day').format(templates.format.date)
-    minDate = dayjs().add(2, 'day').format(templates.format.date)
+
+    currentStep = 0;
+    reload = false;
 
     constructor(private store: Store, private apiService: PetpalsApiService, private _snackBar: MatSnackBar) {
+    }
+
+    ngOnInit(): void {
+    }
+
+
+
+    nextStep() {
+        if (this.currentStep < this.getStepCount() - 1) {
+            this.currentStep++;
+        }
+
+        console.log(this.form.controls);
+    }
+
+    previousStep() {
+        if (this.currentStep > 0) {
+            this.currentStep--;
+        }
+    }
+
+    getStepCount(): number {
+        return this.form.controls.pals.length
+    }
+
+    isStepValid(step: number): boolean {
+        switch (step) {
+            case 0:
+                return this.form.get('firstName')!.valid && this.form.get('lastName')!.valid && this.form.get('email')!.valid;
+            case 1:
+                return this.form.get('phoneNumber')!.valid && this.form.get('address')!.valid && this.form.get('city')!.valid;
+            default:
+                return false;
+        }
+    }
+
+    step(step: number) {
+        this.currentStep = step;
     }
 
 
@@ -181,6 +223,12 @@ export class CreateOwnerComponent {
                 nonNullable: true
             }
         ),
+        password: new FormControl('',
+            {
+                validators: [Validators.required, Validators.minLength(5)],
+                nonNullable: true
+            }
+        ),
         username: new FormControl('',
             {
                 validators: [Validators.required, Validators.minLength(4)],
@@ -236,12 +284,14 @@ export class CreateOwnerComponent {
     ShowList() {
         if (this.form.valid) {
             const ownerToCreate = this.mapOwner()
+            console.log(this.mapOwner())
             if (!window.__TAURI__) {
                 this.GetPalsApiService().createOwner(ownerToCreate).then(res => {
                     this.store.dispatch(updateToken(res.data))
                     this.openSnackBar("Registration successful", "Close")
                 }).catch(err => {
-                    this.openSnackBar(`Registration error ${err.message}`, "Close")
+                    console.log(err)
+                    this.openSnackBar(` ${err.response.data}`, "Close")
                 })
             } else {
                 const createOwner = ownerToCreate
@@ -264,6 +314,7 @@ export class CreateOwnerComponent {
                     for(let i = 0; i < this.form.controls[control].controls.length; i++){
                         // @ts-ignore
                         if(!this.form.controls[control].controls[i].isValid){
+                            console.log(this.form)
                             invalidPals.push(i + 1);
                         }
                     }
@@ -309,12 +360,17 @@ export class CreateOwnerComponent {
         }
         const owner: CreateOwner = {
             email: this.form.get('email')!.value,
+            password: this.form.get('password')!.value,
             username: this.form.get('username')!.value,
             deviceId: this.form.get('deviceId')!.value,
             location: this.form.get('location')!.value,
             pals: palsList
         }
         return owner;
+    }
+
+    getCorrespondingId(list: any[], id: number) {
+        return list.find(item => item.id === id);
     }
 
     /** Service */
@@ -330,4 +386,6 @@ export class CreateOwnerComponent {
             verticalPosition: "top",
         });
     }
+
+
 }

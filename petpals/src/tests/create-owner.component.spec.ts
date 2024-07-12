@@ -33,18 +33,6 @@ describe('CreateOwnerComponent', () => {
         expect(component).toBeTruthy();
     });
     it('should set good options and update pal in pals list', () => {
-        for (let i = 0; i < options.passport.length; i++) {
-            expect(component.passportOptions[i].label).toEqual(options.passport[i].label)
-            expect(component.passportOptions[i].value).toEqual(options.passport[i].value)
-        }
-        for (let i = 0; i < options.gender.length; i++) {
-            expect(component.sexOptions[i].label).toEqual(options.gender[i].label)
-            expect(component.sexOptions[i].value).toEqual(options.gender[i].value)
-        }
-        for (let i = 0; i < options.palsHandled.length; i++) {
-            expect(component.speciesOptions[i].label).toEqual(options.palsHandled[i].label)
-            expect(component.speciesOptions[i].value).toEqual(options.palsHandled[i].value)
-        }
         expect(component.form.controls.pals.length).toEqual(1)
         component.AddPalToList()
         expect(component.form.controls.pals.length).toEqual(2)
