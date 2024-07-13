@@ -94,8 +94,6 @@ export class CreateOwnerComponent implements OnInit {
         if (this.currentStep < this.getStepCount() - 1) {
             this.currentStep++;
         }
-
-        console.log(this.form.controls);
     }
 
     previousStep() {
@@ -108,15 +106,32 @@ export class CreateOwnerComponent implements OnInit {
         return this.form.controls.pals.length
     }
 
-    isStepValid(step: number): boolean {
-        switch (step) {
-            case 0:
-                return this.form.get('firstName')!.valid && this.form.get('lastName')!.valid && this.form.get('email')!.valid;
-            case 1:
-                return this.form.get('phoneNumber')!.valid && this.form.get('address')!.valid && this.form.get('city')!.valid;
-            default:
-                return false;
+
+    getSurroundingSteps(): number[] {
+        let maxIndex: number = this.form.controls.pals.length;
+        let indexes: number[] = [];
+        let start: number;
+
+        if (maxIndex <= 2) {
+            // Si le maxIndex est <= 2, on affiche tous les index
+            for (let i = 0; i < maxIndex; i++) {
+                indexes.push(i);
+            }
+        } else {
+            if (this.currentStep <= 1) {
+                start = 0;
+            } else if (this.currentStep == maxIndex - 1) {
+                start = maxIndex - 3;
+            } else {
+                start = this.currentStep - 1;
+            }
+            // Ajoute les index au tableau
+            for (let i = start; i < start + 3 && i < maxIndex; i++) {
+                indexes.push(i);
+            }
         }
+
+        return indexes;
     }
 
     step(step: number) {
@@ -271,6 +286,7 @@ export class CreateOwnerComponent implements OnInit {
                 }
             )
         )
+        this.getSurroundingSteps();
     }
 
     RemoveLastPal() {

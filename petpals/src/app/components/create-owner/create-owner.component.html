@@ -81,7 +81,7 @@
                 </mat-divider>
             </div>
 
-            <div class="grid grid-cols-2 grid-rows-2 bg-white rounded-md shadow-md dark:bg-gray-800">
+            <div class="grid grid-cols-2 grid-rows-2 bg-white rounded-md shadow-md dark:bg-gray-800 mt-16">
                 <div class="flex items-center justify-center">
                     <button  (click)="this.AddPalToList()"><i class="fa-solid fa-plus mr-2 ml-3"></i> Add a pal</button>
 
@@ -92,7 +92,7 @@
                             Previous
                         </button>
 
-                        <div *ngFor="let pal of this.form.controls.pals.controls; let i = index">
+                        <div *ngFor="let i of getSurroundingSteps()">
                             <button (click)="step(i)" [ngClass]="this.currentStep == i ? 'bg-blue-500 text-white': 'text-gray-500'"  class="flex items-center px-4 py-2 mx-1  rounded-md">
                                 {{i+1}}
                             </button>
@@ -104,7 +104,7 @@
                     </div>
                 </div>
                 <div class="flex items-center justify-center">
-                        <button class="bg-red-600" (click)="RemovePal(currentStep)"><i class="fa-solid fa-trash mr-2"></i>Remove pal</button>
+                        <button class="bg-red-600" (click)="RemovePal(currentStep)" [disabled]="form.controls.pals.length > 1" ><i class="fa-solid fa-trash mr-2"></i>Remove pal</button>
                 </div>
             </div>
         </div>
