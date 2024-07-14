@@ -15,7 +15,7 @@ import {
 import {MatDivider} from "@angular/material/divider";
 import {MatButton} from "@angular/material/button";
 import {MatInput} from "@angular/material/input";
-import {NgForOf} from "@angular/common";
+import {NgForOf, NgIf} from "@angular/common";
 import {PetpalsApiService} from "../../services/middleware/petpals-api.service";
 import localOptions from "../../models/menus/select.options";
 
@@ -45,6 +45,7 @@ import localOptions from "../../models/menus/select.options";
         MatInput,
         MatLabel,
         NgForOf,
+        NgIf,
     ],
     styleUrls: ['./pal-form.component.css']
 })
@@ -60,6 +61,8 @@ export class PalFormComponent implements OnInit {
     @ViewChild('stepper') private myStepper: MatStepper | undefined;
 
     @Input() reload: boolean = false;
+    @Input() number: number = 1;
+
 
     constructor( private apiService: PetpalsApiService) { }
 
@@ -76,7 +79,8 @@ export class PalFormComponent implements OnInit {
     }
 
     getBreedForSpecie(): any[] {
-        switch (this.pal.controls['palIdentityInformation'].get('specie')!.value) {
+        console.log(this.pal.controls['palIdentityInformation'].get('specie')!.value)
+        switch (this.pal.controls['palIdentityInformation'].get('specie')!.value.id) {
             case 2:
                 this.breedList = this.breedsOptions.catBreeds;
                 return this.breedList;
@@ -109,10 +113,10 @@ export class PalFormComponent implements OnInit {
                 }), isMale: new FormControl(true, {
                     validators: [Validators.required],
                     nonNullable: true
-                }), specie: new FormControl('DOG', {
+                }), specie: new FormControl(null, {
                     validators: [Validators.required],
                     nonNullable: true
-                }), breed: new FormControl('', {
+                }), breed: new FormControl(null, {
                     validators: [Validators.required, Validators.minLength(3)],
                     nonNullable: true
                 }), hasPassport: new FormControl(false, {

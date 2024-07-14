@@ -9,8 +9,8 @@ export interface PalIdentityInformation {
     shortname: string | null,
     birthDate: string | null,
     isMale: boolean,
-    specie: string,
-    breed: string,
+    specie: any,
+    breed: any,
     icadIdentifier: string;
     hasPassport: boolean
 }

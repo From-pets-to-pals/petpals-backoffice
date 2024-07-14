@@ -6,7 +6,17 @@
                                      (closed)="panelOpenState = false">
                     <mat-expansion-panel-header>
                         <mat-panel-title>
-                            Pals
+                            <div *ngIf="pal.controls['palIdentityInformation'].get('name')!.value != ''">
+                                {{pal.controls['palIdentityInformation'].get('name')!.value}}
+                            </div>
+                            <div *ngIf="!(pal.controls['palIdentityInformation'].get('name')!.value != '')">
+                                Pal {{number}}
+                            </div>
+                            <div *ngIf="(pal.controls['palIdentityInformation'].get('specie')!.value != null)">
+                                <img class="ml-5 p-1 bg-blue-500 rounded-full"
+                                        src="assets/{{pal.controls['palIdentityInformation'].get('specie')!.value.id}}-icon.svg"
+                                        alt="icon"/>
+                            </div>
                         </mat-panel-title>
                     </mat-expansion-panel-header>
                                 <mat-stepper orientation="vertical" [linear]="true" #stepper>
@@ -49,7 +59,7 @@
                                                        autocomplete="off">
                                             </mat-form-field>
                                             <mat-form-field hintLabel="Select a specie">
-                                                <mat-label>Espèce</mat-label>
+                                                <mat-label>Specie</mat-label>
                                                 <mat-select id="pal_specie" [required]="true"  (selectionChange)="getBreedForSpecie()"
                                                             formControlName="specie" class="input_create_owner">
                                                     <mat-option *ngFor="let option of speciesOptions;"

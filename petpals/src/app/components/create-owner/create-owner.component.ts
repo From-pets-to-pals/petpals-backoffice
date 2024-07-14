@@ -94,6 +94,7 @@ export class CreateOwnerComponent implements OnInit {
         if (this.currentStep < this.getStepCount() - 1) {
             this.currentStep++;
         }
+        console.log(this.form.controls)
     }
 
     previousStep() {
@@ -152,10 +153,10 @@ export class CreateOwnerComponent implements OnInit {
                 }), isMale: new FormControl(true, {
                     validators: [Validators.required],
                     nonNullable: true
-                }), specie: new FormControl('DOG', {
+                }), specie: new FormControl(null, {
                     validators: [Validators.required],
                     nonNullable: true
-                }), breed: new FormControl('', {
+                }), breed: new FormControl(null, {
                     validators: [Validators.required, Validators.minLength(3)],
                     nonNullable: true
                 }), hasPassport: new FormControl(false, {

@@ -1,0 +1,39 @@
+.input_create_owner {
+    height: 25px;
+    all:unset;
+    color: #2f2f2f;
+}
+.input_create_owner:focus {
+    height: 25px;
+    all:unset;
+
+}
+
+.mat-step-icon .mat-step-icon-state-edit {
+    width: 35px;
+    height: 35px;
+}
+
+.form_create_owner {
+    display: flex;
+}
+
+.form_owner {
+    display: flex;
+    flex-direction: column;
+}
+
+.form_fields {
+    display: flex;
+    flex-direction: column;
+    margin-top: 50px;
+}
+
+.margin-bottom {
+    margin-bottom: 30px;
+}
+
+.owner_form_column {
+    display: flex;
+    flex-direction: column;
+}

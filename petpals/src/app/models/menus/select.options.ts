@@ -5,41 +5,41 @@ const localOptions = {
       value:"GROOMER"
     },
     {
-      label:"Éducateur",
+      label:"Trainer",
       value:"TRAINER"
     },
     {
-      label:"Vétérinaire",
+      label:"Vet",
       value:"VET"
     },
   ]
 , days : [
     {
-      label:"Lundi",
+      label:"Monday",
       value:"MONDAY"
     },
     {
-      label:"Mardi",
+      label:"Tuesday",
       value:"TUESDAY"
     },
     {
-      label:"Mercredi",
+      label:"Wednesday",
       value:"WEDNESDAY"
     },
     {
-      label:"Jeudi",
+      label:"Thursday",
       value:"THURSDAY"
     },
     {
-      label:"Vendredi",
+      label:"Friday",
       value:"FRIDAY"
     },
     {
-      label:"Samedi",
+      label:"Saturday",
       value:"SATURDAY"
     },
     {
-      label:"Dimanche",
+      label:"Sunday",
       value:"SUNDAY"
     }
   ],
@@ -59,11 +59,11 @@ const localOptions = {
     ],
     homeService:[
         {
-            label:"Oui",
+            label:"Yes",
             value:true
         },
         {
-            label:"Non",
+            label:"No",
             value:false
         },
     ],
@@ -73,17 +73,17 @@ const localOptions = {
             value:true
         },
         {
-            label:"Femelle",
+            label:"Female",
             value: false
         }
     ],
     passport:[
         {
-            label:"Oui",
+            label:"Yes",
             value:true
         },
         {
-            label:"Non",
+            label:"No",
             value: false
         }
     ]

@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {PetpalsApiService} from "../../services/middleware/petpals-api.service";
 import {
     AbstractControl,
@@ -31,16 +31,17 @@ import {MatOptionModule} from "@angular/material/core";
 import {Store} from "@ngrx/store";
 import {invoke} from "@tauri-apps/api/tauri";
 import localOptions from "../../models/menus/select.options";
+import {LocationComponent} from "../location/location.component";
 
 @Component({
     selector: 'app-create-caregiver',
     standalone: true,
-    imports: [ReactiveFormsModule, MatFormField, MatSelectModule, MatOptionModule, MatInput, MatLabel, MatHint, MatDivider, MatAccordion, MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle, MatExpansionPanelDescription, MatButton, NgForOf, FormsModule, MatTooltip],
+    imports: [ReactiveFormsModule, MatFormField, MatSelectModule, MatOptionModule, MatInput, MatLabel, MatHint, MatDivider, MatAccordion, MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle, MatExpansionPanelDescription, MatButton, NgForOf, FormsModule, MatTooltip, LocationComponent],
     templateUrl: './create-caregiver.component.html',
     styleUrl: './create-caregiver.component.css',
 
 })
-export class CreateCaregiverComponent {
+export class CreateCaregiverComponent implements OnInit {
     title = 'petpals - add caregiver';
     public isRegistered = false;
     caregiverTypes = localOptions.caregiverType;
@@ -49,12 +50,19 @@ export class CreateCaregiverComponent {
     palsHandled = localOptions.palsHandled;
     message = "";
     panelOpenState = false;
-
+    specieOptions: any[] = [];
     getCareGiverApiService() {
         return this.caregiverApiService;
     }
 
     constructor(private store: Store, private _snackBar: MatSnackBar, private caregiverApiService: PetpalsApiService, private formBuilder: FormBuilder) {
+    }
+
+    ngOnInit(): void {
+        this.getCareGiverApiService().getCreateCaregiverOptions().then((data) => {
+            this.specieOptions = data['species'];
+
+        })
     }
 
     minLengthArray(min: number) {
@@ -71,6 +79,7 @@ export class CreateCaregiverComponent {
                 nonNullable: true
             }),
             lastName: new FormControl('', {validators: [Validators.required, Validators.minLength(3)], nonNullable: true}),
+            password: new FormControl('', {validators: [Validators.required, Validators.minLength(3)], nonNullable: true}),
             address: new FormControl('', {validators: [Validators.required, Validators.minLength(3)], nonNullable: true}),
             city: new FormControl('', {validators: [Validators.required, Validators.minLength(3)], nonNullable: true}),
             zipCode: new FormControl('', {validators: [Validators.required, Validators.minLength(5)], nonNullable: true}),
@@ -148,6 +157,7 @@ export class CreateCaregiverComponent {
             firstName: this.form.get("firstName")!.value,
             lastName: this.form.get("lastName")!.value,
             email: this.form.get("email")!.value,
+            password: this.form.get("password")!.value,
             phoneNumber: this.form.get("phoneNumber")!.value,
             address: this.form.get("address")!.value,
             city: this.form.get("city")!.value,
@@ -158,7 +168,7 @@ export class CreateCaregiverComponent {
             homeService: this.form.get("homeService")!.value,
             appointmentDuration: this.form.get("appointmentDuration")!.value,
             caregiverType: this.form.get("caregiverType")!.value,
-            isSubscribed: false,
+            subscribed: false,
             serviceRating: this.form.get("serviceRating")!.value,
             priceRating: this.form.get("priceRating")!.value,
         } as Caregiver;
@@ -170,4 +180,6 @@ export class CreateCaregiverComponent {
             verticalPosition: "top",
         });
     }
+
+
 }

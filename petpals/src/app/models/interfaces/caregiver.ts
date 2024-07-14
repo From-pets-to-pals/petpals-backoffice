@@ -14,7 +14,7 @@ export interface Caregiver {
   homeService: boolean;
   appointmentDuration: number;
   caregiverType: string;
-  isSubscribed: boolean;
+  subscribed: boolean;
   serviceRating: number;
   priceRating: number
 }
@@ -34,7 +34,7 @@ export interface CreateCaregiverForm {
   homeService: FormControl<boolean>;
   appointmentDuration: FormControl<number>;
   caregiverType: FormControl<string>;
-  isSubscribed: FormControl<boolean>;
+  subscribed: FormControl<boolean>;
   serviceRating: FormControl<number>;
   priceRating: FormControl<number>
 }
