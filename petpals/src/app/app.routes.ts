@@ -6,8 +6,8 @@ import {NgModule} from "@angular/core";
 import {CreateOwnerComponent} from "./components/create-owner/create-owner.component";
 import {PrivacyComponent} from "./components/privacy/privacy.component";
 import {MapDisplayComponent} from "./components/map-display/map-display.component";
-import {AuthOwnerComponent} from "./components/auth-owner/auth-owner.component";
 import {RegisterMenuComponent} from "./components/auth-menu/register-menu.component";
+import {AuthUserComponent} from "./components/auth-user/auth-user.component";
 
 export const routes: Routes = [
 	{path: '', component: MapDisplayComponent},
@@ -18,7 +18,7 @@ export const routes: Routes = [
 			{path: 'create-owner', component: CreateOwnerComponent}
 		]
 	},
-	{ path: 'auth-menu', component: RegisterMenuComponent },
+	{ path: 'auth-user', component: AuthUserComponent },
 
 // @ts-ignore
 	{path: 'tauri', component: TauriComponent, canActivate: [isTauriGuard]}
